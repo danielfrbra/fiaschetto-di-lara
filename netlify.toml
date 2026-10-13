@@ -9,3 +9,28 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# ——————————————————————————————————————————————————————————————
+# Cache: i file con l'hash nel nome (_astro) e i font non cambiano mai → un anno.
+# Video, poster e foto possono essere sostituiti con lo stesso nome → una settimana.
+# Le pagine HTML restano "sempre fresche" (impostazione di Netlify).
+# ——————————————————————————————————————————————————————————————
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

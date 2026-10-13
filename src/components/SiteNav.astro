@@ -40,7 +40,7 @@ const isEvents = current === "events" || current === "event";
     </nav>
 
     <details class="lang-menu">
-      <summary aria-label={t("nav.lang")}>{lang.toUpperCase()}</summary>
+      <summary aria-label={`${lang.toUpperCase()} · ${t("nav.lang")}`}>{lang.toUpperCase()}</summary>
       <ul>
         {LANGS.map((l) => (
           <li><a href={altOf(l)} class={l === lang ? "on" : ""} lang={HREFLANG[l]}>{LANG_LABELS[l]}</a></li>

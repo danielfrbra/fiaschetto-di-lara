@@ -47,7 +47,7 @@ const jsonLd = {
 };
 ---
 
-<Base lang={lang} title={t("meta.home_title")} description={t("meta.home_desc")} path={home(lang)} alternates={alternates} jsonLd={jsonLd}>
+<Base lang={lang} title={t("meta.home_title")} description={t("meta.home_desc")} path={home(lang)} alternates={alternates} jsonLd={jsonLd} preloadWebp={MEDIA.hero.webp && MEDIA.hero.poster && MEDIA.hero.posterSmall ? { small: MEDIA.hero.posterSmall.replace(/\.jpg$/, ".webp"), large: MEDIA.hero.poster.replace(/\.jpg$/, ".webp") } : undefined}>
   <SiteNav lang={lang} current="home" alternates={alternates} />
   <main>
     <!-- 1 · Apertura -->
@@ -65,7 +65,7 @@ const jsonLd = {
       </div>
       <div class="hero-strip">
         <div class="wrap strip-in reveal" data-delay="4">
-          <div><span class="k">{t("hero.address_label")}</span><a href={SITE.maps} target="_blank" rel="noopener" aria-label={ext(SITE.address.street)}>{SITE.address.street}, {SITE.address.town}</a></div>
+          <div><span class="k">{t("hero.address_label")}</span><a href={SITE.maps} target="_blank" rel="noopener" aria-label={ext(`${SITE.address.street}, ${SITE.address.town}`)}>{SITE.address.street}, {SITE.address.town}</a></div>
           <div><span class="k">{t("hero.phone_label")}</span><a href={SITE.phoneHref}>{SITE.phone}</a></div>
           <div><span class="k">{t("hero.hours_label")}</span>{hours ? <span>{hours.join(" · ")}</span> : <a href={SITE.whatsapp} target="_blank" rel="noopener" aria-label={ext(t("hero.hours_tbd"))}>{t("hero.hours_tbd")}</a>}</div>
         </div>
@@ -177,16 +177,19 @@ const jsonLd = {
           {GALLERY.map((s, i) => (
             <figure class="shot reveal" data-delay={String((i % 3) + 1)} style={`aspect-ratio:${s.ratio}`}>
               {s.src ? (
-                <img
-                  src={s.src}
-                  srcset={s.small ? `${s.small} 800w, ${s.src} ${s.w}w` : undefined}
-                  sizes="(max-width: 560px) 100vw, (max-width: 800px) 50vw, 380px"
-                  width={s.w}
-                  height={s.h}
-                  alt={t(`gallery.${s.key}`)}
-                  loading="lazy"
-                  decoding="async"
-                />
+                <picture>
+                  {s.webp && s.small && <source type="image/webp" srcset={`${s.small.replace(/\.jpg$/, ".webp")} 800w, ${s.src.replace(/\.jpg$/, ".webp")} ${s.w}w`} sizes="(max-width: 560px) 100vw, (max-width: 800px) 50vw, 380px" />}
+                  <img
+                    src={s.src}
+                    srcset={s.small ? `${s.small} 800w, ${s.src} ${s.w}w` : undefined}
+                    sizes="(max-width: 560px) 100vw, (max-width: 800px) 50vw, 380px"
+                    width={s.w}
+                    height={s.h}
+                    alt={t(`gallery.${s.key}`)}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               ) : (
                 <div class="shot-ph" aria-hidden="true"><FiascoMark size={28} /></div>
               )}

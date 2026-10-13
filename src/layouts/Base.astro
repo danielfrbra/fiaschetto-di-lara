@@ -14,8 +14,10 @@ interface Props {
   alternates?: Record<Lang, string>;
   ogImage?: string;
   jsonLd?: unknown;
+  /** immagine da precaricare (il poster dell'apertura): WebP con due misure, i browser senza WebP la ignorano */
+  preloadWebp?: { small: string; large: string };
 }
-const { lang, title, description, path, alternates, ogImage = "/og.jpg", jsonLd } = Astro.props;
+const { lang, title, description, path, alternates, ogImage = "/og.jpg", jsonLd, preloadWebp } = Astro.props;
 const site = Astro.site!;
 const canonical = new URL(path ?? home(lang), site);
 const altOf = (l: Lang) => alternates?.[l] ?? home(l);
@@ -45,6 +47,7 @@ const altOf = (l: Lang) => alternates?.[l] ?? home(l);
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <!-- Font ospitati qui: nessuna richiesta verso l'esterno. I due che si vedono per primi sono precaricati. -->
+    {preloadWebp && <link rel="preload" as="image" type="image/webp" imagesrcset={`${preloadWebp.small} 800w, ${preloadWebp.large} 1280w`} imagesizes="100vw" fetchpriority="high" />}
     <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
@@ -69,6 +72,18 @@ const altOf = (l: Lang) => alternates?.[l] ?? home(l);
       if (still) {
         document.querySelectorAll<HTMLVideoElement>("video").forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
       } else {
+        // L'apertura: il poster è già a schermo; il video parte a pagina caricata, così non rallenta il primo disegno.
+        const startEager = () => {
+          document.querySelectorAll<HTMLVideoElement>("video[data-eager]").forEach((v) => {
+            v.src = v.dataset.src!;
+            v.removeAttribute("data-src");
+            v.addEventListener("playing", () => v.classList.add("playing"), { once: true });
+            v.load();
+            v.play().catch(() => {});
+          });
+        };
+        if (document.readyState === "complete") startEager(); else addEventListener("load", startEager, { once: true });
+
         const vio = new IntersectionObserver(
           (entries) => {
             for (const e of entries) {
@@ -83,7 +98,7 @@ const altOf = (l: Lang) => alternates?.[l] ?? home(l);
           },
           { rootMargin: "600px 0px" }
         );
-        document.querySelectorAll<HTMLVideoElement>("video[data-src]").forEach((v) => vio.observe(v));
+        document.querySelectorAll<HTMLVideoElement>("video[data-src]:not([data-eager])").forEach((v) => vio.observe(v));
       }
 
       // Barra di navigazione: trasparente in cima, fondo scuro appena si scorre.

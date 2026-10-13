@@ -1,20 +1,30 @@
 ---
 /**
  * Un video di sfondo, oppure un placeholder curato finché il clip non c'è.
- * - `eager`: il video parte subito (solo l'apertura). Gli altri si caricano quando
- *   si avvicinano allo schermo (script in Base.astro): così la home non scarica
- *   quattro video in una volta sul telefono.
- * - Con "riduci movimento" attivo nel sistema, resta il poster e il video non parte.
+ * - `eager` (solo l'apertura): sotto c'è il poster come IMMAGINE responsive (WebP + JPEG, 800 o 1280 px),
+ *   che è la prima cosa dipinta; il video parte appena la pagina ha finito di caricare (script in Base.astro).
+ *   Poster = primo fotogramma, quindi il passaggio non si vede.
+ * - gli altri si caricano quando si avvicinano allo schermo, così la home non scarica quattro video in una volta.
+ * - Con "riduci movimento" attivo, resta il poster e il video non parte.
  */
 import type { Clip } from "../config/media";
 interface Props { clip: Clip; class?: string; showLabel?: boolean; eager?: boolean }
 const { clip, class: cls = "", showLabel = false, eager = false } = Astro.props;
+const webp = (p: string) => p.replace(/\.jpg$/, ".webp");
 ---
 {clip.src ? (
   eager ? (
-    <video class={`media ${cls}`} src={clip.src} poster={clip.poster ?? undefined} autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+    <div class={`media-wrap ${cls}`}>
+      {clip.poster && (
+        <picture>
+          {clip.webp && <source type="image/webp" srcset={`${webp(clip.posterSmall ?? clip.poster)} 800w, ${webp(clip.poster)} 1280w`} sizes="100vw" />}
+          <img class="media" src={clip.poster} srcset={clip.posterSmall ? `${clip.posterSmall} 800w, ${clip.poster} 1280w` : undefined} sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async" />
+        </picture>
+      )}
+      <video class="media media-over" data-src={clip.src} data-eager muted loop playsinline preload="none" aria-hidden="true"></video>
+    </div>
   ) : (
-    <video class={`media ${cls}`} data-src={clip.src} poster={clip.poster ?? undefined} muted loop playsinline preload="none" aria-hidden="true"></video>
+    <video class={`media ${cls}`} data-src={clip.src} poster={clip.posterSmall ?? clip.poster ?? undefined} muted loop playsinline preload="none" aria-hidden="true"></video>
   )
 ) : (
   <div class={`media media-ph ${cls}`} aria-hidden="true">
@@ -23,7 +33,11 @@ const { clip, class: cls = "", showLabel = false, eager = false } = Astro.props;
 )}
 
 <style>
-  .media { width: 100%; height: 100%; object-fit: cover; background: var(--ink); }
+  .media { width: 100%; height: 100%; object-fit: cover; background: var(--ink); display: block; }
+  .media-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; }
+  .media-wrap picture, .media-wrap .media { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .media-over { opacity: 0; transition: opacity 0.8s ease; }
+  .media-over.playing { opacity: 1; }
   .media-ph {
     position: relative; overflow: hidden;
     background:

@@ -6,5 +6,6 @@ export default defineConfig({
   // Netlify serve le cartelle con la barra finale e reindirizza /eventi → /eventi/.
   // Mettiamo la barra ovunque, così canonical, hreflang e link coincidono con quello che serve davvero: zero redirect.
   trailingSlash: "always",
-  build: { inlineStylesheets: "auto" },
+  // Tutto il CSS dentro l'HTML: una richiesta in meno prima del primo disegno (Lighthouse lo segnalava come bloccante).
+  build: { inlineStylesheets: "always" },
 });
