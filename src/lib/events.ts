@@ -8,6 +8,8 @@ import { parseIcal, parseIcalDate, unescapeIcal, stripHtml } from "./ical";
 import { parseCsv } from "./csv";
 
 export type Source = "fiaschetto" | "associazione" | "paese";
+/** Da dove arriva la riga: dal foglio di Lara o dal calendario del Comune. */
+export type Origin = "foglio" | "comune";
 
 export interface Ev {
   slug: string;
@@ -24,6 +26,7 @@ export interface Ev {
   image: string | null;
   organizer: string | null;
   source: Source;
+  origin: Origin;
 }
 
 export function todayRome(): string {
@@ -120,6 +123,7 @@ function fromComune(text: string): Ev[] {
       image: null,
       organizer: null,
       source: "paese",
+      origin: "comune",
     });
   }
   return out;
@@ -184,6 +188,7 @@ function fromSheet(text: string): Ev[] {
       image: get(cPhoto),
       organizer,
       source: sourceOf(organizer),
+      origin: "foglio",
     });
   }
   return out;

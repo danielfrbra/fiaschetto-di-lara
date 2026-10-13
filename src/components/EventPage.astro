@@ -38,7 +38,7 @@ const jsonLd = {
   url: pageUrl,
   ...(e.location ? { location: { "@type": "Place", name: e.location, address: `${e.location}, ${SITE.address.town}` } } : {}),
   ...(e.image ? { image: e.image } : {}),
-  organizer: { "@type": "Organization", name: e.organizer ?? (e.source === "paese" ? "Comune di Montespertoli" : SITE.name) },
+  organizer: { "@type": "Organization", name: e.organizer ?? (e.origin === "comune" ? "Comune di Montespertoli" : SITE.name) },
 };
 ---
 <Base lang={lang} title={`${title} · ${SITE.name}`} description={metaDesc} path={path} alternates={alternates} jsonLd={jsonLd}>
@@ -60,7 +60,7 @@ const jsonLd = {
           {foreign && <p class="note">{t("events.in_italian")}</p>}
           {paragraphs.map((p) => <p>{p}</p>)}
           {e.url && <p><a class="btn btn-ghost-light ext" href={e.url} target="_blank" rel="noopener">{t("events.more")}</a></p>}
-          {e.source === "paese" && <p class="note">{t("events.source_comune")}</p>}
+          <p class="note">{t(e.origin === "comune" ? "events.source_comune" : "events.source_foglio")}</p>
         </article>
         <aside class="side">
           <h2 class="side-title">{t("events.add_cal")}</h2>
