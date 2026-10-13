@@ -44,13 +44,7 @@ Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla pos
 - Le righe senza titolo o senza data valida vengono ignorate. Gli eventi passati spariscono da soli.
 - Un evento di Lara con lo stesso titolo lo stesso giorno di uno del Comune **sostituisce** quello del Comune.
 
-**Ricostruzione istantanea (facoltativa, non ancora attiva):** nel foglio, Estensioni → Apps Script, incollare
-
-```js
-function onChange() { UrlFetchApp.fetch("<BUILD_HOOK_URL>", { method: "post" }); }
-```
-
-e aggiungere un trigger "Al cambiamento" sulla funzione. Così il sito si rifà due minuti dopo ogni modifica.
+**Aggiornamento automatico dal foglio (attivo dal 2026-10-13):** la build pubblica in `/_fonti/foglio.csv` la copia del foglio con cui ha costruito il sito (integrazione `copia-foglio` in `astro.config.mjs`, dalla cache scritta da `src/lib/events.ts`). La funzione programmata `netlify/functions/controlla-foglio.mjs` ogni 5 minuti legge il foglio da Google e la copia pubblicata: se sono diversi chiama il build hook. Nessuna memoria, nessuna dipendenza, niente da installare nel Google di Lara (uno script Apps Script con trigger sarebbe legato all'account di chi lo crea e si romperebbe al passaggio del foglio a Lara). Se una delle due letture fallisce non fa nulla: ci pensa la ricostruzione del mattino. Costo: ~8.600 invocazioni al mese su 125.000 gratuite; build solo quando cambia qualcosa.
 
 ## Regole operative
 
@@ -82,7 +76,7 @@ e aggiungere un trigger "Al cambiamento" sulla funzione. Così il sito si rifà 
 | Hosting | Netlify, sito `fiaschetto-di-lara` (id `5d329620-27c9-491a-bf80-59596fbaa3cd`), account di Daniel |
 | Indirizzo | https://fiaschetto-di-lara.netlify.app |
 | Modulo | Netlify Forms, modulo `prenota` (rilevamento attivo); notifica email a danielfr@gmail.com (hook `submission_created`, da girare a Lara alla consegna); invio di prova del 2026-10-13 andato a buon fine |
-| Ricostruzione | funzione programmata `rebuild` (04:00 UTC) → build hook (variabile `BUILD_HOOK_URL`) |
+| Ricostruzione | `rebuild` ogni giorno alle 04:00 UTC + `controlla-foglio` ogni 5 minuti se il foglio è cambiato → build hook (variabile `BUILD_HOOK_URL`) |
 
 Collegato al repository via API con l'installazione GitHub dell'app Netlify già presente sull'account (`installation_id` 119842415). Il primo deploy è passato al primo colpo.
 

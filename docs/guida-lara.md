@@ -5,7 +5,7 @@ Quando avrai il tuo dominio, lo faremo puntare qui: l'indirizzo cambia, il sito 
 
 ## Gli eventi li scrivi tu, nel foglio
 
-Il sito legge un foglio Google. Ogni riga è un evento. Tu scrivi, il sito si aggiorna da solo **ogni mattina alle sei**. Se hai fretta, chiedi: lo facciamo ripartire al volo.
+Il sito legge un foglio Google. Ogni riga è un evento. Tu scrivi, salvi, e **entro cinque minuti** l'evento è online: il sito controlla il foglio da solo e si rifà quando trova qualcosa di nuovo. Gli eventi del Comune si aggiornano ogni mattina.
 
 | Colonna | Cosa scrivere | Esempio |
 |---|---|---|
