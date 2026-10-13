@@ -81,7 +81,7 @@ e aggiungere un trigger "Al cambiamento" sulla funzione. Così il sito si rifà 
 | Codice | `danielfrbra/fiaschetto-di-lara` (privato), branch `main` → ogni push pubblica |
 | Hosting | Netlify, sito `fiaschetto-di-lara` (id `5d329620-27c9-491a-bf80-59596fbaa3cd`), account di Daniel |
 | Indirizzo | https://fiaschetto-di-lara.netlify.app |
-| Modulo | Netlify Forms, modulo `prenota` (rilevamento attivo) |
+| Modulo | Netlify Forms, modulo `prenota` (rilevamento attivo); notifica email a danielfr@gmail.com (hook `submission_created`, da girare a Lara alla consegna); invio di prova del 2026-10-13 andato a buon fine |
 | Ricostruzione | funzione programmata `rebuild` (04:00 UTC) → build hook (variabile `BUILD_HOOK_URL`) |
 
 Collegato al repository via API con l'installazione GitHub dell'app Netlify già presente sull'account (`installation_id` 119842415). Il primo deploy è passato al primo colpo.

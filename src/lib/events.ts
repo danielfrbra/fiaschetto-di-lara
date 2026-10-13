@@ -241,6 +241,13 @@ async function load(): Promise<Ev[]> {
 
 /* ——— Esportazioni calendario ——— */
 const compact = (date: string, time: string | null) => date.replace(/-/g, "") + (time ? `T${time.replace(":", "")}00` : "");
+/** Se c'è l'ora di inizio ma non quella di fine, nel calendario l'evento dura due ore: meglio di un evento lungo zero minuti. */
+const endTimeOf = (e: Ev): string | null => {
+  if (!e.time) return null;
+  if (e.endTime) return e.endTime;
+  const h = Math.min(23, +e.time.slice(0, 2) + 2);
+  return `${String(h).padStart(2, "0")}:${e.time.slice(3, 5)}`;
+};
 const nextDay = (date: string) => {
   const d = new Date(Date.UTC(+date.slice(0, 4), +date.slice(5, 7) - 1, +date.slice(8, 10)));
   d.setUTCDate(d.getUTCDate() + 1);
@@ -250,7 +257,7 @@ const nextDay = (date: string) => {
 export function gcalUrl(e: Ev, pageUrl: string, lang: "it" | "en" = "it"): string {
   const title = lang === "en" && e.titleEn ? e.titleEn : e.title;
   const dates = e.time
-    ? `${compact(e.date, e.time)}/${compact(e.endDate, e.endTime ?? e.time)}`
+    ? `${compact(e.date, e.time)}/${compact(e.endDate, endTimeOf(e))}`
     : `${compact(e.date, null)}/${compact(nextDay(e.endDate), null)}`;
   const p = new URLSearchParams({ action: "TEMPLATE", text: title, dates, ctz: "Europe/Rome", details: pageUrl });
   if (e.location) p.set("location", e.location);
@@ -266,7 +273,7 @@ export function toIcs(e: Ev, pageUrl: string): string {
     `UID:${e.slug}@fiaschetto-di-lara`,
     `DTSTAMP:${stamp}`,
     e.time ? `DTSTART;TZID=Europe/Rome:${compact(e.date, e.time)}` : `DTSTART;VALUE=DATE:${compact(e.date, null)}`,
-    e.time ? `DTEND;TZID=Europe/Rome:${compact(e.endDate, e.endTime ?? e.time)}` : `DTEND;VALUE=DATE:${compact(nextDay(e.endDate), null)}`,
+    e.time ? `DTEND;TZID=Europe/Rome:${compact(e.endDate, endTimeOf(e))}` : `DTEND;VALUE=DATE:${compact(nextDay(e.endDate), null)}`,
     `SUMMARY:${esc(e.title)}`,
     `URL:${pageUrl}`,
   ];
