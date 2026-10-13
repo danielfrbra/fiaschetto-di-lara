@@ -6,7 +6,7 @@ import Icons from "./Icons.astro";
 import type { Ev } from "../lib/events";
 import { gcalUrl } from "../lib/events";
 import { fmtLong, fmtRange } from "../lib/dates";
-import { useT, eventPath, PATHS, type Lang } from "../i18n";
+import { useT, eventPath, eventIcs, PATHS, type Lang } from "../i18n";
 import { SITE } from "../config/site";
 
 interface Props { e: Ev; lang: Lang }
@@ -20,7 +20,7 @@ const alternates = { it: eventPath("it", e.slug), en: eventPath("en", e.slug) } 
 const pageUrl = new URL(path, Astro.site).toString();
 const when = e.endDate !== e.date ? fmtRange(e.date, e.endDate, lang) : fmtLong(e.date, lang);
 const timeLabel = e.time ? (e.endTime ? `${t("events.from")} ${e.time} ${t("events.to")} ${e.endTime}` : `${e.time}`) : t("events.all_day");
-const icsHref = `${path}.ics`;
+const icsHref = eventIcs(lang, e.slug);
 const shareText = `${title} · ${when}${e.time ? " " + e.time : ""} — ${pageUrl}`;
 const waShare = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;

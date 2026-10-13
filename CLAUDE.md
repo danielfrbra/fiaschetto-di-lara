@@ -17,7 +17,7 @@ Il sito è un **regalo** di Daniel a Lara, costruito **a sorpresa** (lei non sa 
 ## Decisioni prese (2026-10-12/13, Daniel)
 
 1. Nome in testata **"Il Fiaschetto di Lara"** (come l'Instagram `@il_fiaschetto_di_lara`).
-2. Lingue: **IT alla radice, EN sotto `/en`**. Niente altre lingue.
+2. Lingue: **IT alla radice, EN sotto `/en/`**. Niente altre lingue. `trailingSlash: "always"`: Netlify serve le cartelle con la barra finale, quindi canonical e link la portano già (zero redirect).
 3. **Eventi**: due fonti lette in fase di build. (a) Foglio Google compilato da Lara (id in `src/config/events.ts`, condiviso "chiunque abbia il link", letto come CSV). (b) Feed iCal pubblico del Comune, `visitmontespertoli.it/events/?ical=1`. Gli eventi di Lara vincono sui doppioni. Ricostruzione automatica ogni mattina (`netlify/functions/rebuild.mjs` → build hook).
 4. Hosting: **sottodominio Netlify** `fiaschetto-di-lara.netlify.app`. Il dominio definitivo lo comprerà Lara dopo; allora cambiare `site` in `astro.config.mjs`.
 5. **Video di sfondo**: prodotti da Daniel su kling.ai dai brief in `docs/brief-video-kling.md`; finché mancano, `MediaSlot` mostra un placeholder (vinaccia che respira) presentabile anche in produzione. Registro in `src/config/media.ts`.
@@ -71,3 +71,17 @@ e aggiungere un trigger "Al cambiamento" sulla funzione. Così il sito si rifà 
 ## Stato (aggiornare a ogni sessione)
 
 - 2026-10-13 — **Nascita del progetto.** Scaffold Astro 5, design system, home completa (7 sezioni) in IT ed EN, motore eventi (iCal Comune + foglio Google), pagine evento con JSON-LD, .ics e condivisione, informativa privacy, funzione di ricostruzione programmata, brief video e immagini. Font ospitati in proprio, og.jpg generato. Placeholder animati al posto dei video e delle foto.
+
+## Infrastruttura (verificata il 2026-10-13)
+
+| Cosa | Dove |
+|---|---|
+| Codice | `danielfrbra/fiaschetto-di-lara` (privato), branch `main` → ogni push pubblica |
+| Hosting | Netlify, sito `fiaschetto-di-lara` (id `5d329620-27c9-491a-bf80-59596fbaa3cd`), account di Daniel |
+| Indirizzo | https://fiaschetto-di-lara.netlify.app |
+| Modulo | Netlify Forms, modulo `prenota` (rilevamento attivo) |
+| Ricostruzione | funzione programmata `rebuild` (04:00 UTC) → build hook (variabile `BUILD_HOOK_URL`) |
+
+Collegato al repository via API con l'installazione GitHub dell'app Netlify già presente sull'account (`installation_id` 119842415). Il primo deploy è passato al primo colpo.
+
+**Controllo visivo senza aprire il browser:** `npx astro preview & node tools/screenshot.mjs http://localhost:4321/ out.jpg 1440 900 [mobile 0/1] [clipY clipH]` — pagina intera via DevTools, con i `.reveal` già accesi.

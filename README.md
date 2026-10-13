@@ -2,7 +2,7 @@
 
 Sito vetrina de **Il Fiaschetto di Lara**, bottega del vino a Montespertoli (Via Garibaldi 4-6), con il calendario degli eventi del paese.
 
-Astro puro, CSS a mano, zero dipendenze a runtime, due lingue (IT alla radice, EN sotto `/en`). Progetto **indipendente**: repository, sito Netlify e configurazione tutti propri.
+Astro puro, CSS a mano, zero dipendenze a runtime, due lingue (IT alla radice, EN sotto `/en/`; tutti gli indirizzi con la barra finale). Progetto **indipendente**: repository, sito Netlify e configurazione tutti propri.
 
 ## Comandi
 
@@ -25,7 +25,7 @@ src/components/    SiteNav, SiteFooter, Home, EventCard, EventsList, EventsPage,
 src/pages/         index, eventi/, privacy  +  en/ (stesse pagine in inglese); [slug].ics.ts genera i file calendario
 netlify/functions/ rebuild.mjs — ricostruzione programmata ogni mattina
 scripts/           check-i18n.mjs — parità delle chiavi fra le lingue
-tools/             og.swift — genera public/og.jpg
+tools/             og.swift (genera public/og.jpg), screenshot.mjs (pagina intera con Chrome headless, per controllare il design)
 docs/              brief-video-kling.md, brief-immagini.md
 ```
 

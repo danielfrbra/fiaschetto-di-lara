@@ -10,16 +10,18 @@ export const HREFLANG: Record<Lang, string> = { it: "it", en: "en" };
 
 const DICT: Record<Lang, unknown> = { it, en };
 
-/** Home di ciascuna lingua: l'italiano sta alla radice, l'inglese sotto /en. */
-export const home = (l: Lang) => (l === "it" ? "/" : "/en");
+/** Home di ciascuna lingua: l'italiano sta alla radice, l'inglese sotto /en/. Tutti gli indirizzi finiscono con la barra (vedi astro.config.mjs). */
+export const home = (l: Lang) => (l === "it" ? "/" : "/en/");
 /** Prefisso per costruire gli altri indirizzi ("" per l'italiano, "/en" per l'inglese). */
 export const prefix = (l: Lang) => (l === "it" ? "" : "/en");
 
 export const PATHS = {
-  events: { it: "/eventi", en: "/en/events" } as Record<Lang, string>,
-  privacy: { it: "/privacy", en: "/en/privacy" } as Record<Lang, string>,
+  events: { it: "/eventi/", en: "/en/events/" } as Record<Lang, string>,
+  privacy: { it: "/privacy/", en: "/en/privacy/" } as Record<Lang, string>,
 };
-export const eventPath = (l: Lang, slug: string) => `${PATHS.events[l]}/${slug}`;
+export const eventPath = (l: Lang, slug: string) => `${PATHS.events[l]}${slug}/`;
+/** Il file calendario dell'evento: stesso indirizzo, senza barra e con .ics. */
+export const eventIcs = (l: Lang, slug: string) => `${PATHS.events[l]}${slug}.ics`;
 
 /** Ancora a una sezione della home, da qualunque pagina. */
 export const homeAnchor = (l: Lang, id: string, onHome: boolean) =>

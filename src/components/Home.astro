@@ -20,7 +20,7 @@ import { GALLERY } from "../config/gallery";
 interface Props { lang: Lang; events: Ev[] }
 const { lang, events } = Astro.props;
 const t = useT(lang);
-const alternates = { it: "/", en: "/en" } as Record<Lang, string>;
+const alternates = { it: home("it"), en: home("en") } as Record<Lang, string>;
 const consent = (t("contact.f_consent") as string).replace("{privacy}", PATHS.privacy[lang]);
 const hours: string[] | null = SITE.hours ? SITE.hours[lang] : null;
 const ext = (label: string) => `${label} (${t("nav.external")})`;
