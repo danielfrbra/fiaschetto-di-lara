@@ -1,0 +1,32 @@
+---
+import type { Ev } from "../lib/events";
+import { monthKey, fmtMonth } from "../lib/dates";
+import EventCard from "./EventCard.astro";
+import { useT, type Lang } from "../i18n";
+interface Props { events: Ev[]; lang: Lang }
+const { events, lang } = Astro.props;
+const t = useT(lang);
+const groups = new Map<string, Ev[]>();
+for (const e of events) {
+  const k = monthKey(e.date);
+  if (!groups.has(k)) groups.set(k, []);
+  groups.get(k)!.push(e);
+}
+---
+{events.length === 0 ? (
+  <p class="empty">{t("events.empty")}</p>
+) : (
+  [...groups.entries()].map(([k, list]) => (
+    <section class="month">
+      <h2 class="month-title">{fmtMonth(k, lang)}</h2>
+      <div class="grid">{list.map((e) => <EventCard e={e} lang={lang} />)}</div>
+    </section>
+  ))
+)}
+
+<style>
+  .month + .month { margin-top: 3rem; }
+  .month-title { font-size: 1.6rem; margin-bottom: 1.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--line); color: var(--vino); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+  .empty { color: var(--on-crema-dim); }
+</style>

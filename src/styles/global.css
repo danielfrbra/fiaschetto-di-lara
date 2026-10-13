@@ -1,0 +1,173 @@
+/* ————————————————————————————————————————————————
+   Il Fiaschetto di Lara — sistema di design
+   Apertura scura e cinematografica (vinaccia), poi sezioni chiare
+   ed editoriali (crema). Accento: la paglia del fiasco.
+———————————————————————————————————————————————— */
+
+:root {
+  /* Il vino */
+  --vino: #6b1a2b;
+  --vino-deep: #4a0f1e;
+  --ink: #2a0b14;         /* fondo delle sezioni scure */
+  --ink-2: #35101b;
+  --ink-3: #431523;
+  --on-ink: #f6eee0;
+  --on-ink-dim: #cdb6a8;
+  --line-dark: rgba(246, 238, 224, 0.14);
+
+  /* La paglia del fiasco */
+  --paglia: #e1b96b;
+  --paglia-deep: #c99a45;
+  --paglia-ink: #7d5a1c;  /* paglia scurita: per il TESTO sui fondi chiari */
+  --paglia-glow: rgba(225, 185, 107, 0.35);
+
+  /* La crema */
+  --crema: #f7f1e6;
+  --crema-2: #fffbf4;
+  --on-crema: #221611;
+  --on-crema-dim: #6f5f56;
+  --line: #e7dccb;
+
+  --radius: 16px;
+  --max: 1180px;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --step-hero: clamp(2.6rem, 7vw, 5.6rem);
+  --step-h2: clamp(2rem, 4.4vw, 3.3rem);
+  --step-h3: clamp(1.2rem, 2vw, 1.5rem);
+  --step-body: clamp(1rem, 1.15vw, 1.125rem);
+  --step-small: 0.875rem;
+  --step-eyebrow: 0.76rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.65;
+  color: var(--on-crema);
+  background: var(--crema);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 70, "WONK" 1, "opsz" 144;
+}
+h3 { font-variation-settings: "SOFT" 50, "WONK" 0, "opsz" 36; font-weight: 600; line-height: 1.15; }
+em, .it { font-style: italic; }
+
+a { color: inherit; }
+img, video, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+::selection { background: var(--paglia); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--paglia); outline-offset: 3px; border-radius: 4px; }
+
+/* ——— Layout ——— */
+.wrap { max-width: var(--max); margin-inline: auto; padding-inline: clamp(1.1rem, 4vw, 2.5rem); }
+.section { padding-block: clamp(4rem, 9vw, 7.5rem); }
+.section-tight { padding-block: clamp(3rem, 6vw, 5rem); }
+.dark { background: var(--ink); color: var(--on-ink); }
+
+.eyebrow {
+  font-size: var(--step-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paglia-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.eyebrow::before { content: ""; width: 2.25rem; height: 2px; background: var(--paglia); display: inline-block; }
+.dark .eyebrow, .eyebrow-dark { color: var(--paglia); }
+
+.h2 { font-size: var(--step-h2); margin-top: 1rem; max-width: 18ch; }
+.h2-wide { max-width: 26ch; }
+.lead { color: var(--on-crema-dim); max-width: 56ch; margin-top: 1.25rem; }
+.dark .lead { color: var(--on-ink-dim); }
+
+/* ——— Bottoni ——— */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-weight: 700; font-size: 0.95rem;
+  padding: 0.9rem 1.5rem; border-radius: 999px;
+  text-decoration: none; border: 1px solid transparent;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  cursor: pointer; white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn svg { width: 1.1em; height: 1.1em; flex: none; }
+.btn-solid { background: var(--paglia); color: var(--ink); box-shadow: 0 10px 28px -12px var(--paglia-glow); }
+.btn-solid:hover { background: var(--paglia-deep); box-shadow: 0 16px 34px -12px var(--paglia-glow); }
+.btn-ghost-dark { color: var(--on-ink); border-color: var(--line-dark); background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(6px); }
+.btn-ghost-dark:hover { border-color: var(--on-ink-dim); background: rgba(255, 255, 255, 0.08); }
+.btn-ghost-light { color: var(--on-crema); border-color: var(--line); background: transparent; }
+.btn-ghost-light:hover { border-color: var(--on-crema-dim); }
+.btn-vino { background: var(--vino); color: var(--on-ink); }
+.btn-vino:hover { background: var(--vino-deep); }
+
+/* ——— Grana: una texture leggera sulle sezioni scure ——— */
+.grain { position: relative; isolation: isolate; }
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  opacity: 0.07; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='1'/></svg>");
+  background-size: 200px 200px;
+}
+.grain > * { position: relative; z-index: 2; }
+
+/* ——— Reveal allo scorrimento ——— */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal[data-delay="1"] { transition-delay: 0.08s; }
+.reveal[data-delay="2"] { transition-delay: 0.16s; }
+.reveal[data-delay="3"] { transition-delay: 0.24s; }
+.reveal[data-delay="4"] { transition-delay: 0.32s; }
+
+/* ——— Pezzi comuni ——— */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; }
+.chips li { font-size: var(--step-small); font-weight: 600; padding: 0.45rem 0.85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--crema-2); }
+.dark .chips li { border-color: var(--line-dark); background: rgba(255, 255, 255, 0.05); }
+
+.ext::after { content: " ↗"; opacity: 0.6; font-weight: 400; }
+.ext:hover::after { opacity: 1; }
+
+.tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 999px; }
+.tag-fiaschetto { background: var(--vino); color: var(--on-ink); }
+.tag-associazione { background: var(--paglia); color: var(--ink); }
+.tag-paese { background: transparent; color: var(--paglia-ink); border: 1px solid var(--line); }
+.dark .tag-paese { color: var(--paglia); border-color: var(--line-dark); }
+
+/* ——— Moduli ——— */
+.field { display: grid; gap: 0.35rem; }
+.field span { font-size: var(--step-small); font-weight: 600; color: var(--on-ink-dim); }
+.field input, .field textarea, .field select {
+  font: inherit; color: var(--on-ink); background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-dark); border-radius: 10px; padding: 0.8rem 0.95rem; width: 100%;
+}
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--paglia); background: rgba(255, 255, 255, 0.08); }
+.field textarea { min-height: 7rem; resize: vertical; }
+.consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: var(--step-small); color: var(--on-ink-dim); }
+.consent input { margin-top: 0.3rem; accent-color: var(--paglia); flex: none; }
+.consent a { color: var(--on-ink); }
+.form-note { display: none; margin-top: 1rem; font-weight: 600; }
+.form-note.show { display: block; }
+.form-ok { color: var(--paglia); }
+.form-err { color: #f3a9a9; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+}

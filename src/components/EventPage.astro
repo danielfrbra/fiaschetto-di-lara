@@ -1,0 +1,101 @@
+---
+import Base from "../layouts/Base.astro";
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+import Icons from "./Icons.astro";
+import type { Ev } from "../lib/events";
+import { gcalUrl } from "../lib/events";
+import { fmtLong, fmtRange } from "../lib/dates";
+import { useT, eventPath, PATHS, type Lang } from "../i18n";
+import { SITE } from "../config/site";
+
+interface Props { e: Ev; lang: Lang }
+const { e, lang } = Astro.props;
+const t = useT(lang);
+const title = lang === "en" && e.titleEn ? e.titleEn : e.title;
+const description = lang === "en" ? (e.descriptionEn ?? e.description) : e.description;
+const foreign = lang === "en" && !e.descriptionEn && !!e.description;
+const path = eventPath(lang, e.slug);
+const alternates = { it: eventPath("it", e.slug), en: eventPath("en", e.slug) } as Record<Lang, string>;
+const pageUrl = new URL(path, Astro.site).toString();
+const when = e.endDate !== e.date ? fmtRange(e.date, e.endDate, lang) : fmtLong(e.date, lang);
+const timeLabel = e.time ? (e.endTime ? `${t("events.from")} ${e.time} ${t("events.to")} ${e.endTime}` : `${e.time}`) : t("events.all_day");
+const icsHref = `${path}.ics`;
+const shareText = `${title} · ${when}${e.time ? " " + e.time : ""} — ${pageUrl}`;
+const waShare = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+const metaDesc = (description ?? t("meta.event_desc")).slice(0, 155);
+const paragraphs = (description ?? "").split(/\n{2,}|\n/).map((s) => s.trim()).filter(Boolean);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: title,
+  startDate: e.time ? `${e.date}T${e.time}:00+02:00` : e.date,
+  endDate: e.time && e.endTime ? `${e.endDate}T${e.endTime}:00+02:00` : e.endDate,
+  eventStatus: "https://schema.org/EventScheduled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  description: metaDesc,
+  url: pageUrl,
+  ...(e.location ? { location: { "@type": "Place", name: e.location, address: `${e.location}, ${SITE.address.town}` } } : {}),
+  ...(e.image ? { image: e.image } : {}),
+  organizer: { "@type": "Organization", name: e.organizer ?? (e.source === "paese" ? "Comune di Montespertoli" : SITE.name) },
+};
+---
+<Base lang={lang} title={`${title} · ${SITE.name}`} description={metaDesc} path={path} alternates={alternates} jsonLd={jsonLd}>
+  <SiteNav lang={lang} current="event" alternates={alternates} />
+  <main>
+    <section class="head dark grain">
+      <div class="wrap">
+        <a class="back" href={PATHS.events[lang]}><Icons name="arrow" class="flip" />{t("events.back")}</a>
+        <span class:list={["tag", `tag-${e.source}`]}>{t(`events.tag_${e.source}`)}</span>
+        <h1 class="title">{title}</h1>
+        <p class="when"><Icons name="calendar" />{when} · {timeLabel}</p>
+        {e.location && <p class="where"><Icons name="map" />{e.location}</p>}
+      </div>
+    </section>
+    <section class="section-tight">
+      <div class="wrap grid">
+        <article class="desc">
+          {e.image && <img class="photo" src={e.image} alt="" loading="lazy" />}
+          {foreign && <p class="note">{t("events.in_italian")}</p>}
+          {paragraphs.map((p) => <p>{p}</p>)}
+          {e.url && <p><a class="btn btn-ghost-light ext" href={e.url} target="_blank" rel="noopener">{t("events.more")}</a></p>}
+          {e.source === "paese" && <p class="note">{t("events.source_comune")}</p>}
+        </article>
+        <aside class="side">
+          <h2 class="side-title">{t("events.add_cal")}</h2>
+          <a class="btn btn-vino" href={gcalUrl(e, pageUrl, lang)} target="_blank" rel="noopener"><Icons name="calendar" />{t("events.gcal")}</a>
+          <a class="btn btn-ghost-light" href={icsHref} download>{t("events.ics")}</a>
+          <h2 class="side-title">{t("events.share")}</h2>
+          <a class="btn btn-ghost-light" href={waShare} target="_blank" rel="noopener"><Icons name="whatsapp" />{t("events.share_wa")}</a>
+          <a class="btn btn-ghost-light" href={fbShare} target="_blank" rel="noopener"><Icons name="facebook" />{t("events.share_fb")}</a>
+          {e.organizer && <p class="org"><strong>{t("events.organizer")}:</strong> {e.organizer}</p>}
+        </aside>
+      </div>
+    </section>
+  </main>
+  <SiteFooter lang={lang} current="event" alternates={alternates} />
+</Base>
+
+<style>
+  .head { padding-block: 8rem 3.5rem; }
+  .back { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; color: var(--on-ink-dim); font-size: var(--step-small); font-weight: 600; margin-bottom: 1.5rem; }
+  .back:hover { color: var(--on-ink); }
+  .back :global(svg) { width: 1em; height: 1em; transform: scaleX(-1); }
+  .tag { margin-bottom: 1rem; }
+  .title { font-size: clamp(2rem, 5vw, 3.6rem); max-width: 22ch; }
+  .when, .where { display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem; color: var(--on-ink-dim); font-size: 1.05rem; }
+  .when { margin-top: 1.5rem; color: var(--paglia); font-weight: 600; }
+  .when :global(svg), .where :global(svg) { width: 1.2em; height: 1.2em; flex: none; }
+  .grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 3rem; }
+  .desc p + p { margin-top: 1rem; }
+  .desc .btn { margin-top: 0.5rem; }
+  .photo { border-radius: var(--radius); margin-bottom: 1.5rem; }
+  .note { font-size: var(--step-small); color: var(--on-crema-dim); font-style: italic; }
+  .side { display: grid; gap: 0.6rem; align-content: start; padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--crema-2); }
+  .side .btn { justify-content: center; }
+  .side-title { font-family: var(--font-body); font-size: var(--step-eyebrow); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--paglia-ink); margin-top: 0.5rem; font-variation-settings: normal; }
+  .side-title:first-child { margin-top: 0; }
+  .org { font-size: var(--step-small); color: var(--on-crema-dim); margin-top: 0.5rem; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; gap: 2rem; } }
+</style>

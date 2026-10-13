@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+import EventsList from "./EventsList.astro";
+import type { Ev } from "../lib/events";
+import { useT, PATHS, type Lang } from "../i18n";
+
+interface Props { events: Ev[]; lang: Lang }
+const { events, lang } = Astro.props;
+const t = useT(lang);
+const alternates = { it: PATHS.events.it, en: PATHS.events.en } as Record<Lang, string>;
+---
+<Base lang={lang} title={t("meta.events_title")} description={t("meta.events_desc")} path={PATHS.events[lang]} alternates={alternates}>
+  <SiteNav lang={lang} current="events" alternates={alternates} />
+  <main>
+    <section class="head dark grain">
+      <div class="wrap">
+        <span class="eyebrow">{t("events.eyebrow")}</span>
+        <h1 class="h2 h2-wide">{t("events.page_title")}</h1>
+        <p class="lead">{t("events.page_lead")}</p>
+      </div>
+    </section>
+    <section class="section-tight">
+      <div class="wrap"><EventsList events={events} lang={lang} /></div>
+    </section>
+  </main>
+  <SiteFooter lang={lang} current="events" alternates={alternates} />
+</Base>
+<style>
+  .head { padding-block: 8rem 3.5rem; }
+</style>

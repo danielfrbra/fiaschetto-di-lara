@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+import { useT, PATHS, type Lang } from "../i18n";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const alternates = { it: PATHS.privacy.it, en: PATHS.privacy.en } as Record<Lang, string>;
+const sections = [1, 2, 3, 4, 5, 6, 7];
+---
+<Base lang={lang} title={t("meta.privacy_title")} description={t("privacy.intro")} path={PATHS.privacy[lang]} alternates={alternates}>
+  <SiteNav lang={lang} current="privacy" alternates={alternates} />
+  <main>
+    <section class="head dark grain"><div class="wrap"><h1 class="h2">{t("privacy.title")}</h1><p class="lead">{t("privacy.intro")}</p></div></section>
+    <section class="section-tight"><div class="wrap prose">
+      {sections.map((n) => <><h2>{t(`privacy.s${n}_title`)}</h2><p>{t(`privacy.s${n}_body`)}</p></>)}
+      <p class="updated">{t("privacy.updated")}</p>
+    </div></section>
+  </main>
+  <SiteFooter lang={lang} current="privacy" alternates={alternates} />
+</Base>
+<style>
+  .head { padding-block: 8rem 3rem; }
+  .prose { max-width: 68ch; }
+  .prose h2 { font-size: 1.35rem; margin-top: 2rem; margin-bottom: 0.5rem; }
+  .updated { margin-top: 2.5rem; font-size: var(--step-small); color: var(--on-crema-dim); }
+</style>

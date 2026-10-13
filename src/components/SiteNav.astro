@@ -1,0 +1,108 @@
+---
+/**
+ * Menu di testa, uguale su tutte le pagine.
+ * - `current` accende la voce della pagina in cui siamo.
+ * - Le voci di sezione sono ancore della home: sulla home restano ancore pure, altrove puntano alla home della lingua.
+ * - `alternates` sono gli indirizzi della STESSA pagina nelle altre lingue.
+ * Fissa in alto: trasparente in cima, scura appena si scorre (classe .scrolled, da Base.astro).
+ */
+import FiascoMark from "./FiascoMark.astro";
+import Icons from "./Icons.astro";
+import { useT, home, homeAnchor, LANGS, LANG_LABELS, HREFLANG, PATHS, type Lang, type PageKey } from "../i18n";
+import { SITE } from "../config/site";
+
+interface Props { lang: Lang; current: PageKey; alternates?: Record<Lang, string> }
+const { lang, current, alternates } = Astro.props;
+const t = useT(lang);
+const onHome = current === "home";
+const anchor = (id: string) => homeAnchor(lang, id, onHome);
+const altOf = (l: Lang) => alternates?.[l] ?? home(l);
+const isEvents = current === "events" || current === "event";
+---
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href={home(lang)} aria-label={SITE.name}>
+      <FiascoMark size={30} />
+      <span class="brand-name">Il Fiaschetto <em>di Lara</em></span>
+    </a>
+
+    <nav class="links" id="menu" aria-label={t("nav.menu")}>
+      <a href={anchor("bottega")}>{t("nav.bottega")}</a>
+      <a href={PATHS.events[lang]} class={isEvents ? "on" : ""} aria-current={isEvents ? "page" : undefined}>{t("nav.events")}</a>
+      <a href={anchor("storia")}>{t("nav.story")}</a>
+      <a href={anchor("contatti")}>{t("nav.contact")}</a>
+      <div class="links-extra">
+        {LANGS.filter((l) => l !== lang).map((l) => (
+          <a href={altOf(l)} lang={HREFLANG[l]}>{LANG_LABELS[l]}</a>
+        ))}
+      </div>
+    </nav>
+
+    <details class="lang-menu">
+      <summary aria-label={t("nav.lang")}>{lang.toUpperCase()}</summary>
+      <ul>
+        {LANGS.map((l) => (
+          <li><a href={altOf(l)} class={l === lang ? "on" : ""} lang={HREFLANG[l]}>{LANG_LABELS[l]}</a></li>
+        ))}
+      </ul>
+    </details>
+
+    <a class="btn btn-solid nav-cta" href={SITE.whatsapp} target="_blank" rel="noopener" aria-label={`${t("nav.cta")} (${t("nav.external")})`}>
+      <Icons name="whatsapp" />{t("nav.cta")}
+    </a>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label={t("nav.menu")}>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .nav { position: fixed; inset-inline: 0; top: 0; z-index: 20; color: var(--on-ink); transition: background 0.3s ease, box-shadow 0.3s ease; }
+  .nav.scrolled { background: rgba(42, 11, 20, 0.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line-dark); }
+  .nav-in { display: flex; align-items: center; gap: 1.5rem; padding-block: 1rem; transition: padding 0.3s ease; }
+  .scrolled .nav-in { padding-block: 0.6rem; }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; margin-right: auto; }
+  .brand-name { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; letter-spacing: -0.01em; white-space: nowrap; font-variation-settings: "SOFT" 70, "WONK" 1, "opsz" 24; }
+  .brand-name em { color: var(--paglia); font-weight: 500; }
+
+  .links { display: flex; gap: 1.6rem; }
+  .links a { text-decoration: none; font-weight: 600; font-size: 0.95rem; opacity: 0.85; transition: opacity 0.2s; padding-block: 0.3rem; border-bottom: 2px solid transparent; }
+  .links a:hover, .links a.on { opacity: 1; border-bottom-color: var(--paglia); }
+  .links-extra { display: none; }
+
+  .lang-menu { position: relative; }
+  .lang-menu summary { list-style: none; cursor: pointer; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; padding: 0.45rem 0.7rem; border: 1px solid var(--line-dark); border-radius: 999px; }
+  .lang-menu summary::-webkit-details-marker { display: none; }
+  .lang-menu ul { position: absolute; right: 0; top: calc(100% + 0.5rem); list-style: none; background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 12px; padding: 0.4rem; min-width: 9rem; box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6); }
+  .lang-menu li a { display: block; padding: 0.5rem 0.75rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; }
+  .lang-menu li a:hover, .lang-menu li a.on { background: rgba(255, 255, 255, 0.07); }
+
+  .nav-cta { padding: 0.65rem 1.1rem; font-size: 0.9rem; }
+
+  .burger { display: none; width: 44px; height: 44px; flex-direction: column; justify-content: center; align-items: center; gap: 5px; border-radius: 999px; border: 1px solid var(--line-dark); }
+  .burger span { display: block; width: 18px; height: 2px; background: currentColor; transition: transform 0.25s, opacity 0.25s; }
+  .open .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .open .burger span:nth-child(2) { opacity: 0; }
+  .open .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 900px) {
+    .nav-in { gap: 0.75rem; }
+    .links { position: fixed; inset: 0; top: 0; padding: 6rem 1.5rem 2rem; flex-direction: column; gap: 0.4rem; background: var(--ink); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: -1; }
+    .open .links { transform: none; }
+    .open { background: var(--ink); }
+    .links a { font-family: var(--font-display); font-size: 2rem; font-weight: 600; padding-block: 0.6rem; border-bottom: 1px solid var(--line-dark); opacity: 1; }
+    .links a:hover, .links a.on { border-bottom-color: var(--paglia); }
+    .links-extra { display: block; margin-top: 1.5rem; }
+    .links-extra a { font-family: var(--font-body); font-size: 1rem; border: 0; opacity: 0.8; }
+    .lang-menu { display: none; }
+    .nav-cta { padding: 0.55rem 0.9rem; }
+    .burger { display: flex; }
+  }
+  @media (max-width: 420px) {
+    .brand-name { font-size: 1.05rem; }
+    .nav-cta span { display: none; }
+  }
+</style>

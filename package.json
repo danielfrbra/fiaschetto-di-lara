@@ -1,0 +1,15 @@
+{
+  "name": "fiaschetto-di-lara",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/check-i18n.mjs && astro build",
+    "preview": "astro preview",
+    "check:i18n": "node scripts/check-i18n.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.1.0"
+  }
+}

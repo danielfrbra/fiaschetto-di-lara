@@ -1,0 +1,122 @@
+---
+import "../styles/fonts.css";
+import "../styles/global.css";
+import { LANGS, HREFLANG, home, type Lang } from "../i18n";
+import { SITE } from "../config/site";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** indirizzo canonico della pagina (default: home della lingua) */
+  path?: string;
+  /** la STESSA pagina nelle altre lingue, per hreflang e menu lingua */
+  alternates?: Record<Lang, string>;
+  ogImage?: string;
+  jsonLd?: unknown;
+}
+const { lang, title, description, path, alternates, ogImage = "/og.jpg", jsonLd } = Astro.props;
+const site = Astro.site!;
+const canonical = new URL(path ?? home(lang), site);
+const altOf = (l: Lang) => alternates?.[l] ?? home(l);
+---
+
+<!doctype html>
+<html lang={HREFLANG[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {LANGS.map((l) => <link rel="alternate" hreflang={HREFLANG[l]} href={new URL(altOf(l), site)} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(altOf("it"), site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#2a0b14" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={lang === "it" ? "it_IT" : "en_GB"} />
+    <meta property="og:image" content={new URL(ogImage, site)} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Font ospitati qui: nessuna richiesta verso l'esterno. I due che si vedono per primi sono precaricati. -->
+    <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Reveal allo scorrimento: leggero, senza librerie.
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+          }
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      // Barra di navigazione: trasparente in cima, fondo scuro appena si scorre.
+      const nav = document.querySelector<HTMLElement>(".nav");
+      if (nav) {
+        let on = false;
+        const sync = () => {
+          const want = window.scrollY > 24;
+          if (want !== on) { on = want; nav.classList.toggle("scrolled", on); }
+        };
+        sync();
+        addEventListener("scroll", sync, { passive: true });
+
+        // Menu sul telefono.
+        const burger = nav.querySelector<HTMLButtonElement>(".burger");
+        burger?.addEventListener("click", () => {
+          const open = nav.classList.toggle("open");
+          burger.setAttribute("aria-expanded", String(open));
+          document.body.classList.toggle("no-scroll", open);
+        });
+        nav.querySelectorAll(".links a").forEach((a) =>
+          a.addEventListener("click", () => {
+            nav.classList.remove("open");
+            burger?.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("no-scroll");
+          })
+        );
+      }
+
+      // Moduli: invio con fetch, così la pagina resta dov'è e il messaggio
+      // di conferma appare nella lingua giusta. Senza JavaScript resta l'invio nativo.
+      document.querySelectorAll<HTMLFormElement>("form[data-fetch]").forEach((form) => {
+        form.addEventListener("submit", async (ev) => {
+          ev.preventDefault();
+          const ok = form.querySelector<HTMLElement>(".form-ok");
+          const err = form.querySelector<HTMLElement>(".form-err");
+          const btn = form.querySelector<HTMLButtonElement>("button[type=submit]");
+          ok?.classList.remove("show"); err?.classList.remove("show");
+          if (btn) btn.disabled = true;
+          try {
+            const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString();
+            const res = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body });
+            if (!res.ok) throw new Error(String(res.status));
+            form.reset();
+            ok?.classList.add("show");
+          } catch {
+            err?.classList.add("show");
+          } finally {
+            if (btn) btn.disabled = false;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body.no-scroll { overflow: hidden; }
+</style>

@@ -1,0 +1,327 @@
+---
+/**
+ * La home: una pagina lunga con ancore. Sezioni:
+ * apertura → la bottega (+ territorio) → eventi → storia → Lara → galleria → contatti.
+ * Tutto il testo passa da i18n; i fatti (indirizzo, telefono…) da config/site.ts.
+ */
+import Base from "../layouts/Base.astro";
+import SiteNav from "./SiteNav.astro";
+import SiteFooter from "./SiteFooter.astro";
+import MediaSlot from "./MediaSlot.astro";
+import Icons from "./Icons.astro";
+import FiascoMark from "./FiascoMark.astro";
+import EventCard from "./EventCard.astro";
+import type { Ev } from "../lib/events";
+import { useT, home, PATHS, type Lang } from "../i18n";
+import { SITE } from "../config/site";
+import { MEDIA } from "../config/media";
+import { GALLERY } from "../config/gallery";
+
+interface Props { lang: Lang; events: Ev[] }
+const { lang, events } = Astro.props;
+const t = useT(lang);
+const alternates = { it: "/", en: "/en" } as Record<Lang, string>;
+const consent = (t("contact.f_consent") as string).replace("{privacy}", PATHS.privacy[lang]);
+const hours: string[] | null = SITE.hours ? SITE.hours[lang] : null;
+const ext = (label: string) => `${label} (${t("nav.external")})`;
+const cards = [1, 2, 3, 4];
+const steps = [1, 2, 3, 4, 5];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LiquorStore",
+  name: SITE.name,
+  description: t("meta.home_desc"),
+  url: new URL(home(lang), Astro.site).toString(),
+  telephone: SITE.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: SITE.address.street,
+    postalCode: SITE.address.cap,
+    addressLocality: SITE.address.town,
+    addressRegion: SITE.address.prov,
+    addressCountry: SITE.address.country,
+  },
+  geo: { "@type": "GeoCoordinates", latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+  sameAs: [SITE.instagram, SITE.facebook],
+  priceRange: "€",
+};
+---
+
+<Base lang={lang} title={t("meta.home_title")} description={t("meta.home_desc")} path={home(lang)} alternates={alternates} jsonLd={jsonLd}>
+  <SiteNav lang={lang} current="home" alternates={alternates} />
+  <main>
+    <!-- 1 · Apertura -->
+    <section class="hero dark grain">
+      <div class="hero-media" aria-hidden="true"><MediaSlot clip={MEDIA.hero} class="hero-video" /></div>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="wrap hero-in">
+        <span class="eyebrow reveal">{t("hero.eyebrow")}</span>
+        <h1 class="hero-title reveal" data-delay="1">{t("hero.title")}</h1>
+        <p class="hero-lead reveal" data-delay="2">{t("hero.lead")}</p>
+        <div class="hero-cta reveal" data-delay="3">
+          <a class="btn btn-solid" href="#eventi">{t("hero.cta1")}<Icons name="arrow" /></a>
+          <a class="btn btn-ghost-dark" href={SITE.whatsapp} target="_blank" rel="noopener" aria-label={ext(t("hero.cta2"))}><Icons name="whatsapp" />{t("hero.cta2")}</a>
+        </div>
+      </div>
+      <div class="hero-strip">
+        <div class="wrap strip-in reveal" data-delay="4">
+          <div><span class="k">{t("hero.address_label")}</span><a href={SITE.maps} target="_blank" rel="noopener" aria-label={ext(SITE.address.street)}>{SITE.address.street}, {SITE.address.town}</a></div>
+          <div><span class="k">{t("hero.phone_label")}</span><a href={SITE.phoneHref}>{SITE.phone}</a></div>
+          <div><span class="k">{t("hero.hours_label")}</span>{hours ? <span>{hours.join(" · ")}</span> : <a href={SITE.whatsapp} target="_blank" rel="noopener" aria-label={ext(t("hero.hours_tbd"))}>{t("hero.hours_tbd")}</a>}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · La bottega -->
+    <section class="section bottega" id="bottega">
+      <div class="wrap">
+        <span class="eyebrow reveal">{t("bottega.eyebrow")}</span>
+        <h2 class="h2 reveal" data-delay="1">{t("bottega.title")}</h2>
+        <p class="lead reveal" data-delay="2">{t("bottega.lead")}</p>
+        <div class="cards">
+          {cards.map((n, i) => (
+            <article class="card reveal" data-delay={String((i % 4) + 1)}>
+              <span class="num" aria-hidden="true">0{n}</span>
+              <h3>{t(`bottega.c${n}_title`)}</h3>
+              <p>{t(`bottega.c${n}_body`)}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div class="wrap territory">
+        <div class="terr-media reveal"><MediaSlot clip={MEDIA.bottega} /></div>
+        <div class="terr-text">
+          <span class="eyebrow reveal">{t("territory.eyebrow")}</span>
+          <h3 class="terr-title reveal" data-delay="1">{t("territory.title")}</h3>
+          <p class="reveal" data-delay="2">{t("territory.body")}</p>
+          <p class="note reveal" data-delay="3">{t("territory.note")}</p>
+          <ul class="chips reveal" data-delay="3">{(t("territory.producers") as string[]).map((p) => <li>{p}</li>)}</ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · Eventi -->
+    <section class="section eventi dark grain" id="eventi">
+      <div class="ev-media" aria-hidden="true"><MediaSlot clip={MEDIA.eventi} /></div>
+      <div class="wrap ev-in">
+        <div class="ev-head">
+          <div>
+            <span class="eyebrow reveal">{t("events.eyebrow")}</span>
+            <h2 class="h2 h2-wide reveal" data-delay="1">{t("events.title")}</h2>
+            <p class="lead reveal" data-delay="2">{t("events.lead")}</p>
+          </div>
+          <a class="btn btn-ghost-dark reveal" data-delay="2" href={PATHS.events[lang]}>{t("events.all")}<Icons name="arrow" /></a>
+        </div>
+        {events.length ? (
+          <div class="ev-grid">{events.map((e, i) => <div class="reveal" data-delay={String(i + 1)}><EventCard e={e} lang={lang} dark /></div>)}</div>
+        ) : (
+          <p class="lead">{t("events.empty")}</p>
+        )}
+      </div>
+    </section>
+
+    <!-- 4 · Storia -->
+    <section class="section storia" id="storia">
+      <div class="wrap storia-grid">
+        <div>
+          <span class="eyebrow reveal">{t("story.eyebrow")}</span>
+          <h2 class="h2 reveal" data-delay="1">{t("story.title")}</h2>
+          <p class="lead reveal" data-delay="2">{t("story.lead")}</p>
+          <ol class="timeline">
+            {steps.map((n) => (
+              <li class="reveal">
+                <span class="year">{t(`story.t${n}_year`)}</span>
+                <div><h3>{t(`story.t${n}_title`)}</h3><p>{t(`story.t${n}_body`)}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <aside class="storia-side">
+          <div class="storia-media reveal"><MediaSlot clip={MEDIA.storia} /></div>
+          <div class="why reveal" data-delay="1">
+            <FiascoMark size={40} class="why-mark" />
+            <h3>{t("story.why_title")}</h3>
+            <p>{t("story.why_body")}</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5 · Lara -->
+    <section class="section-tight lara">
+      <div class="wrap lara-grid">
+        <div>
+          <span class="eyebrow reveal">{t("lara.eyebrow")}</span>
+          <h2 class="h2 h2-wide reveal" data-delay="1">{t("lara.title")}</h2>
+          <p class="lead reveal" data-delay="2">{t("lara.body")}</p>
+          <ul class="chips reveal" data-delay="3">{(t("lara.chips") as string[]).map((c) => <li>{c}</li>)}</ul>
+        </div>
+        <blockquote class="quote reveal" data-delay="2">
+          <p>«{t("lara.quote")}»</p>
+          <cite>{t("lara.quote_by")}</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- 6 · Galleria -->
+    <section class="section galleria">
+      <div class="wrap">
+        <div class="gal-head">
+          <div>
+            <span class="eyebrow reveal">{t("gallery.eyebrow")}</span>
+            <h2 class="h2 reveal" data-delay="1">{t("gallery.title")}</h2>
+          </div>
+          <a class="btn btn-ghost-light reveal" data-delay="2" href={SITE.instagram} target="_blank" rel="noopener" aria-label={ext(t("gallery.ig"))}><Icons name="instagram" />{t("gallery.ig")}</a>
+        </div>
+        <div class="gal-grid">
+          {GALLERY.map((s, i) => (
+            <figure class="shot reveal" data-delay={String((i % 3) + 1)} style={`aspect-ratio:${s.ratio}`}>
+              {s.src ? <img src={s.src} alt={t(`gallery.${s.key}`)} loading="lazy" /> : <div class="shot-ph" aria-hidden="true"><FiascoMark size={28} /></div>}
+              <figcaption>{t(`gallery.${s.key}`)}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · Contatti -->
+    <section class="section contatti dark grain" id="contatti">
+      <div class="wrap contact-grid">
+        <div class="contact-info">
+          <span class="eyebrow reveal">{t("contact.eyebrow")}</span>
+          <h2 class="h2 reveal" data-delay="1">{t("contact.title")}</h2>
+          <p class="lead reveal" data-delay="2">{t("contact.lead")}</p>
+          <dl class="facts reveal" data-delay="3">
+            <div><dt><Icons name="map" />{t("contact.address_label")}</dt><dd>{SITE.address.street}<br />{SITE.address.cap} {SITE.address.town} ({SITE.address.prov})<br /><a class="ext" href={SITE.maps} target="_blank" rel="noopener">{t("contact.map")}</a></dd></div>
+            <div><dt><Icons name="phone" />{t("contact.phone_label")}</dt><dd><a href={SITE.phoneHref}>{SITE.phone}</a><br /><a class="ext" href={SITE.whatsapp} target="_blank" rel="noopener">WhatsApp</a></dd></div>
+            <div><dt><Icons name="calendar" />{t("contact.hours_label")}</dt><dd>{hours ? hours.map((h) => <>{h}<br /></>) : <a class="ext" href={SITE.whatsapp} target="_blank" rel="noopener">{t("hero.hours_tbd")}</a>}</dd></div>
+            <div><dt><Icons name="instagram" />{t("contact.social_label")}</dt><dd><a class="ext" href={SITE.instagram} target="_blank" rel="noopener">{SITE.instagramHandle}</a><br /><a class="ext" href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></dd></div>
+          </dl>
+        </div>
+        <form class="contact-form reveal" data-delay="2" name="prenota" method="POST" action={home(lang)} data-netlify="true" netlify-honeypot="bot-field" data-fetch>
+          <input type="hidden" name="form-name" value="prenota" />
+          <input type="hidden" name="lingua" value={lang} />
+          <p class="hp" aria-hidden="true"><label>Non compilare <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <h3 class="form-title">{t("contact.form_title")}</h3>
+          <div class="row">
+            <label class="field"><span>{t("contact.f_name")}</span><input name="nome" type="text" required autocomplete="name" /></label>
+            <label class="field"><span>{t("contact.f_contact")}</span><input name="recapito" type="text" required autocomplete="tel" /></label>
+          </div>
+          <div class="row">
+            <label class="field"><span>{t("contact.f_date")}</span><input name="quando" type="text" placeholder="…" /></label>
+            <label class="field"><span>{t("contact.f_people")}</span><input name="persone" type="number" min="1" max="60" inputmode="numeric" /></label>
+          </div>
+          <label class="field"><span>{t("contact.f_msg")}</span><textarea name="messaggio" required></textarea></label>
+          <label class="consent"><input type="checkbox" name="consenso" value="si" required /><span set:html={consent} /></label>
+          <button class="btn btn-solid" type="submit">{t("contact.f_send")}<Icons name="arrow" /></button>
+          <p class="form-note form-ok" role="status">{t("contact.f_ok")}</p>
+          <p class="form-note form-err" role="alert">{t("contact.f_err")}</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <SiteFooter lang={lang} current="home" alternates={alternates} />
+</Base>
+
+<style>
+  /* ——— 1 · Apertura ——— */
+  .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+  .hero-media { position: absolute; inset: 0; z-index: 0; }
+  .hero-media :global(.media) { width: 100%; height: 100%; }
+  .hero-veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(42, 11, 20, 0.55) 0%, rgba(42, 11, 20, 0.15) 40%, rgba(42, 11, 20, 0.85) 100%); }
+  .hero-in { position: relative; z-index: 2; padding-top: 9rem; padding-bottom: 3rem; }
+  .hero-title { font-size: var(--step-hero); max-width: 14ch; margin-top: 1.25rem; }
+  .hero-lead { color: var(--on-ink-dim); max-width: 54ch; margin-top: 1.5rem; font-size: clamp(1.05rem, 1.4vw, 1.25rem); }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .hero-strip { position: relative; z-index: 2; border-top: 1px solid var(--line-dark); background: rgba(42, 11, 20, 0.55); backdrop-filter: blur(8px); }
+  .strip-in { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding-block: 1.1rem; font-size: var(--step-small); }
+  .strip-in .k { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--paglia); margin-bottom: 0.2rem; }
+  .strip-in a { color: var(--on-ink); text-decoration: none; }
+  .strip-in a:hover { text-decoration: underline; }
+
+  /* ——— 2 · La bottega ——— */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 3rem; }
+  .card { padding: 1.6rem 1.5rem 1.8rem; border-radius: var(--radius); background: var(--crema-2); border: 1px solid var(--line); position: relative; overflow: hidden; }
+  .card .num { font-family: var(--font-display); font-style: italic; font-size: 3rem; color: var(--paglia); line-height: 1; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 72; }
+  .card h3 { margin-top: 0.9rem; font-size: var(--step-h3); }
+  .card p { margin-top: 0.6rem; color: var(--on-crema-dim); font-size: 0.98rem; }
+  .territory { margin-top: clamp(3.5rem, 7vw, 6rem); display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: center; }
+  .terr-media { aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -40px rgba(42, 11, 20, 0.6); }
+  .terr-title { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-top: 0.9rem; font-variation-settings: "SOFT" 70, "WONK" 1, "opsz" 96; }
+  .terr-text p { margin-top: 1rem; }
+  .terr-text .note { font-size: var(--step-small); color: var(--on-crema-dim); margin-top: 1.5rem; }
+  .terr-text .chips { margin-top: 0.6rem; }
+
+  /* ——— 3 · Eventi ——— */
+  .eventi { position: relative; overflow: hidden; }
+  .ev-media { position: absolute; inset: 0; z-index: 0; opacity: 0.35; }
+  .ev-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ink) 0%, rgba(42, 11, 20, 0.7) 50%, rgba(42, 11, 20, 0.35) 100%); }
+  .ev-in { position: relative; z-index: 2; }
+  .ev-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+  .ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
+
+  /* ——— 4 · Storia ——— */
+  .storia-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .timeline { list-style: none; margin-top: 2.5rem; position: relative; padding-left: 0; }
+  .timeline::before { content: ""; position: absolute; left: 3.3rem; top: 0.5rem; bottom: 0.5rem; width: 1px; background: var(--line); }
+  .timeline li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 1rem; padding-block: 1.1rem; position: relative; }
+  .timeline li::before { content: ""; position: absolute; left: 3.05rem; top: 1.55rem; width: 9px; height: 9px; border-radius: 50%; background: var(--paglia); box-shadow: 0 0 0 4px var(--crema); }
+  .year { font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--vino); font-size: 1.05rem; padding-top: 0.15rem; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 24; }
+  .timeline h3 { font-size: 1.25rem; }
+  .timeline p { margin-top: 0.4rem; color: var(--on-crema-dim); font-size: 0.98rem; }
+  .storia-side { position: sticky; top: 6rem; display: grid; gap: 1rem; }
+  .storia-media { aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; }
+  .why { padding: 1.75rem; border-radius: var(--radius); background: var(--ink); color: var(--on-ink); }
+  .why :global(.why-mark) { color: var(--paglia); }
+  .why h3 { margin-top: 1rem; }
+  .why p { margin-top: 0.6rem; color: var(--on-ink-dim); font-size: 0.98rem; }
+
+  /* ——— 5 · Lara ——— */
+  .lara { background: var(--crema-2); border-block: 1px solid var(--line); }
+  .lara-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .lara .chips { margin-top: 1.5rem; }
+  .quote { padding: 2rem 2.25rem; border-left: 3px solid var(--paglia); background: var(--crema); border-radius: 0 var(--radius) var(--radius) 0; }
+  .quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.25; color: var(--vino); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 72; }
+  .quote cite { display: block; margin-top: 1rem; font-style: normal; font-weight: 700; font-size: var(--step-small); letter-spacing: 0.12em; text-transform: uppercase; color: var(--paglia-ink); }
+
+  /* ——— 6 · Galleria ——— */
+  .gal-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+  .gal-grid { margin-top: 2.5rem; columns: 3; column-gap: 1rem; }
+  .shot { break-inside: avoid; margin-bottom: 1rem; position: relative; border-radius: var(--radius); overflow: hidden; background: var(--ink-2); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .shot-ph { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(225, 185, 107, 0.35); background: linear-gradient(160deg, #3a0f1c, #2a0b14 60%, #1d070e); }
+  .shot-ph::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(225, 185, 107, 0.06) 14px 15px); }
+  .shot figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.2rem 1rem 0.9rem; font-size: var(--step-small); color: var(--on-ink); background: linear-gradient(180deg, transparent, rgba(42, 11, 20, 0.85)); }
+
+  /* ——— 7 · Contatti ——— */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  .facts dt { display: flex; align-items: center; gap: 0.5rem; font-size: var(--step-eyebrow); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--paglia); }
+  .facts dt :global(svg) { width: 1.1rem; height: 1.1rem; }
+  .facts dd { margin-top: 0.5rem; color: var(--on-ink-dim); line-height: 1.7; }
+  .facts dd a { color: var(--on-ink); text-decoration: none; }
+  .facts dd a:hover { text-decoration: underline; }
+  .contact-form { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radius); border: 1px solid var(--line-dark); background: rgba(255, 255, 255, 0.03); }
+  .form-title { font-size: var(--step-h3); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .hp { position: absolute; left: -9999px; }
+  .contact-form .btn { justify-self: start; }
+
+  @media (max-width: 1000px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .ev-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 800px) {
+    .strip-in { grid-template-columns: 1fr; gap: 0.75rem; }
+    .territory, .storia-grid, .lara-grid, .contact-grid { grid-template-columns: 1fr; }
+    .terr-media { aspect-ratio: 16 / 10; }
+    .storia-side { position: static; }
+    .gal-grid { columns: 2; }
+    .facts { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .cards { grid-template-columns: 1fr; }
+    .row { grid-template-columns: 1fr; }
+    .gal-grid { columns: 1; }
+  }
+</style>

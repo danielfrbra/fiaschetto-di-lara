@@ -1,0 +1,11 @@
+# Config Netlify — replica le impostazioni della UI, così la build è riproducibile.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# rebuild.mjs è una funzione programmata: ogni mattina chiede a Netlify di
+# ricostruire il sito, così gli eventi (foglio di Lara + calendario del Comune)
+# restano aggiornati senza che nessuno tocchi niente.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

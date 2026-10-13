@@ -1,0 +1,76 @@
+---
+import FiascoMark from "./FiascoMark.astro";
+import Icons from "./Icons.astro";
+import { useT, home, homeAnchor, LANGS, LANG_LABELS, HREFLANG, PATHS, type Lang, type PageKey } from "../i18n";
+import { SITE } from "../config/site";
+
+interface Props { lang: Lang; current: PageKey; alternates?: Record<Lang, string> }
+const { lang, current, alternates } = Astro.props;
+const t = useT(lang);
+const onHome = current === "home";
+const anchor = (id: string) => homeAnchor(lang, id, onHome);
+const altOf = (l: Lang) => alternates?.[l] ?? home(l);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer dark grain">
+  <div class="wrap">
+    <div class="cols">
+      <div class="col brand-col">
+        <a class="brand" href={home(lang)} aria-label={SITE.name}><FiascoMark size={34} /><span>Il Fiaschetto <em>di Lara</em></span></a>
+        <p class="tagline">{t("footer.tagline")}</p>
+        <address>
+          {SITE.address.street}<br />{SITE.address.cap} {SITE.address.town} ({SITE.address.prov})<br />
+          <a href={SITE.phoneHref}>{SITE.phone}</a>
+        </address>
+      </div>
+      <div class="col">
+        <h3 class="col-title">{t("footer.links_title")}</h3>
+        <ul class="list">
+          <li><a href={anchor("bottega")}>{t("nav.bottega")}</a></li>
+          <li><a href={PATHS.events[lang]}>{t("nav.events")}</a></li>
+          <li><a href={anchor("storia")}>{t("nav.story")}</a></li>
+          <li><a href={anchor("contatti")}>{t("nav.contact")}</a></li>
+          <li><a href={PATHS.privacy[lang]} class={current === "privacy" ? "on" : ""}>{t("footer.privacy")}</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3 class="col-title">{t("footer.follow")}</h3>
+        <ul class="list social">
+          <li><a href={SITE.instagram} target="_blank" rel="noopener" aria-label={`Instagram (${t("nav.external")})`}><Icons name="instagram" />Instagram</a></li>
+          <li><a href={SITE.facebook} target="_blank" rel="noopener" aria-label={`Facebook (${t("nav.external")})`}><Icons name="facebook" />Facebook</a></li>
+          <li><a href={SITE.whatsapp} target="_blank" rel="noopener" aria-label={`WhatsApp (${t("nav.external")})`}><Icons name="whatsapp" />WhatsApp</a></li>
+          <li><a href={SITE.maps} target="_blank" rel="noopener" aria-label={`Google Maps (${t("nav.external")})`}><Icons name="map" />Google Maps</a></li>
+        </ul>
+        <h3 class="col-title lang-title">{t("nav.lang")}</h3>
+        <ul class="list langs">
+          {LANGS.map((l) => <li><a href={altOf(l)} class={l === lang ? "on" : ""} lang={HREFLANG[l]}>{LANG_LABELS[l]}</a></li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <p class="nocookie"><span aria-hidden="true">✓</span> {t("footer.nocookie")}</p>
+      <p class="colophon">© {year} {SITE.name} · {t("footer.made")}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: clamp(3.5rem, 7vw, 5.5rem) 2rem; }
+  .cols { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; }
+  .brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; font-variation-settings: "SOFT" 70, "WONK" 1, "opsz" 24; }
+  .brand em { color: var(--paglia); font-weight: 500; }
+  .tagline { margin-top: 1rem; color: var(--on-ink-dim); max-width: 34ch; }
+  address { font-style: normal; margin-top: 1.25rem; color: var(--on-ink-dim); line-height: 1.7; }
+  address a { color: var(--on-ink); text-decoration: none; }
+  .col-title { font-family: var(--font-body); font-size: var(--step-eyebrow); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--paglia); margin-bottom: 1rem; font-variation-settings: normal; }
+  .lang-title { margin-top: 2rem; }
+  .list { list-style: none; display: grid; gap: 0.55rem; }
+  .list a { text-decoration: none; color: var(--on-ink-dim); transition: color 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .list a:hover, .list a.on { color: var(--on-ink); }
+  .list a :global(svg) { width: 1.1em; height: 1.1em; }
+  .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line-dark); display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; font-size: var(--step-small); color: var(--on-ink-dim); }
+  .nocookie { display: inline-flex; gap: 0.5rem; align-items: center; border: 1px solid var(--line-dark); border-radius: 999px; padding: 0.4rem 0.85rem; }
+  .nocookie span { color: var(--paglia); font-weight: 700; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr 1fr; } .brand-col { grid-column: 1 / -1; } }
+</style>

@@ -1,0 +1,40 @@
+---
+import type { Ev } from "../lib/events";
+import { dateParts, fmtRange } from "../lib/dates";
+import { useT, eventPath, type Lang } from "../i18n";
+interface Props { e: Ev; lang: Lang; dark?: boolean }
+const { e, lang, dark = false } = Astro.props;
+const t = useT(lang);
+const p = dateParts(e.date, lang);
+const title = lang === "en" && e.titleEn ? e.titleEn : e.title;
+const multi = e.endDate !== e.date;
+---
+<a class:list={["card", { dark }]} href={eventPath(lang, e.slug)}>
+  <div class="date" aria-hidden="true">
+    <span class="day">{p.day}</span>
+    <span class="mon">{p.monthShort}</span>
+  </div>
+  <div class="body">
+    <span class:list={["tag", `tag-${e.source}`]}>{t(`events.tag_${e.source}`)}</span>
+    <h3 class="title">{title}</h3>
+    <p class="meta">
+      {multi ? fmtRange(e.date, e.endDate, lang) : p.weekday}
+      {e.time && <> · {e.time}</>}
+      {e.location && <> · {e.location}</>}
+    </p>
+  </div>
+</a>
+
+<style>
+  .card { display: grid; grid-template-columns: 4.2rem 1fr; gap: 1rem; align-items: start; text-decoration: none; padding: 1.1rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--crema-2); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(42, 11, 20, 0.5); border-color: var(--paglia); }
+  .card.dark { background: rgba(255, 255, 255, 0.04); border-color: var(--line-dark); color: var(--on-ink); }
+  .card.dark:hover { border-color: var(--paglia); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8); }
+  .date { display: grid; place-items: center; gap: 0; padding: 0.55rem 0.3rem; border-radius: 12px; background: var(--vino); color: var(--on-ink); font-family: var(--font-display); line-height: 1; }
+  .day { font-size: 1.9rem; font-weight: 600; font-variation-settings: "SOFT" 60, "WONK" 0, "opsz" 48; }
+  .mon { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--font-body); color: var(--paglia); margin-top: 0.25rem; }
+  .body { min-width: 0; }
+  .title { font-size: 1.15rem; margin-top: 0.5rem; }
+  .meta { font-size: var(--step-small); color: var(--on-crema-dim); margin-top: 0.35rem; }
+  .dark .meta { color: var(--on-ink-dim); }
+</style>

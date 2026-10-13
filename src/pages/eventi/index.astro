@@ -1,0 +1,6 @@
+---
+import EventsPage from "../../components/EventsPage.astro";
+import { loadEvents } from "../../lib/events";
+const events = await loadEvents();
+---
+<EventsPage lang="it" events={events} />

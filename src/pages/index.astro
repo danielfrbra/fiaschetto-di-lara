@@ -1,0 +1,6 @@
+---
+import Home from "../components/Home.astro";
+import { loadEvents } from "../lib/events";
+const events = (await loadEvents()).slice(0, 3);
+---
+<Home lang="it" events={events} />

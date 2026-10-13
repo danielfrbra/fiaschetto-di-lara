@@ -1,0 +1,42 @@
+---
+/**
+ * Un video di sfondo, oppure un placeholder curato finché il clip non c'è.
+ * Il placeholder è una vinaccia che respira: va bene anche in produzione.
+ */
+import type { Clip } from "../config/media";
+interface Props { clip: Clip; class?: string; showLabel?: boolean }
+const { clip, class: cls = "", showLabel = false } = Astro.props;
+---
+{clip.src ? (
+  <video class={`media ${cls}`} src={clip.src} poster={clip.poster ?? undefined} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+) : (
+  <div class={`media media-ph ${cls}`} aria-hidden="true">
+    {showLabel && <span class="ph-label">{clip.label}</span>}
+  </div>
+)}
+
+<style>
+  .media { width: 100%; height: 100%; object-fit: cover; }
+  .media-ph {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(60% 70% at 80% 20%, rgba(225, 185, 107, 0.22), transparent 60%),
+      radial-gradient(50% 60% at 15% 85%, rgba(107, 26, 43, 0.9), transparent 65%),
+      linear-gradient(160deg, #3a0f1c, #2a0b14 55%, #1d070e);
+  }
+  .media-ph::before, .media-ph::after {
+    content: ""; position: absolute; inset: -30%;
+    background: radial-gradient(closest-side, rgba(225, 185, 107, 0.18), transparent 70%);
+    animation: breathe 16s ease-in-out infinite alternate;
+  }
+  .media-ph::after { background: radial-gradient(closest-side, rgba(120, 30, 50, 0.6), transparent 70%); animation-duration: 22s; animation-direction: alternate-reverse; }
+  @keyframes breathe {
+    from { transform: translate(-8%, 6%) scale(1); }
+    to { transform: translate(10%, -8%) scale(1.15); }
+  }
+  .ph-label {
+    position: absolute; left: 1rem; bottom: 1rem; z-index: 1;
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+    color: rgba(246, 238, 224, 0.5); border: 1px solid rgba(246, 238, 224, 0.25); border-radius: 999px; padding: 0.3rem 0.7rem;
+  }
+</style>

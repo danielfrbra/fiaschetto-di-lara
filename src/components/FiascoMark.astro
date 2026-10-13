@@ -1,0 +1,9 @@
+---
+/** Il marchio: un fiasco impagliato, a tratto. Prende il colore del testo (currentColor). */
+interface Props { class?: string; size?: number }
+const { class: cls = "", size = 36 } = Astro.props;
+---
+<svg class={cls} width={size} height={size * 1.2} viewBox="0 0 48 58" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M20 2h8v10c0 3 1.5 5 4 7 4.6 3.9 7.5 9 7.5 15 0 9-7 15.5-15.5 15.5S8.5 43 8.5 34c0-6 2.9-11.1 7.5-15 2.5-2 4-4 4-7V2z" />
+  <path d="M11.5 30c6 2.6 19 2.6 25 0M10.5 38c6 2.6 21 2.6 27 0M12.5 46c5 2.2 18 2.2 23 0" />
+</svg>
