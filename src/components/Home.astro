@@ -270,8 +270,8 @@ const jsonLd = {
 
   /* ——— 3 · Eventi ——— */
   .eventi { position: relative; overflow: hidden; }
-  .ev-media { position: absolute; inset: 0; z-index: 0; opacity: 0.35; }
-  .ev-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ink) 0%, rgba(42, 11, 20, 0.7) 50%, rgba(42, 11, 20, 0.35) 100%); }
+  .ev-media { position: absolute; inset: 0; z-index: 0; opacity: 0.6; }
+  .ev-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(42, 11, 20, 0.9) 0%, rgba(42, 11, 20, 0.55) 45%, rgba(42, 11, 20, 0.2) 100%), linear-gradient(180deg, rgba(42, 11, 20, 0.1) 0%, rgba(42, 11, 20, 0.55) 100%); }
   .ev-in { position: relative; z-index: 2; }
   .ev-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
   .ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }

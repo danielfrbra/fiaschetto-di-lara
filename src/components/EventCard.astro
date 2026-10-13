@@ -28,7 +28,7 @@ const multi = e.endDate !== e.date;
 <style>
   .card { display: grid; grid-template-columns: 4.2rem 1fr; gap: 1rem; align-items: start; text-decoration: none; padding: 1.1rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--crema-2); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s; }
   .card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(42, 11, 20, 0.5); border-color: var(--paglia); }
-  .card.dark { background: rgba(255, 255, 255, 0.04); border-color: var(--line-dark); color: var(--on-ink); }
+  .card.dark { background: rgba(42, 11, 20, 0.62); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-color: var(--line-dark); color: var(--on-ink); }
   .card.dark:hover { border-color: var(--paglia); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8); }
   .date { display: grid; place-items: center; gap: 0; padding: 0.55rem 0.3rem; border-radius: 12px; background: var(--vino); color: var(--on-ink); font-family: var(--font-display); line-height: 1; }
   .day { font-size: 1.9rem; font-weight: 600; font-variation-settings: "SOFT" 60, "WONK" 0, "opsz" 48; }
