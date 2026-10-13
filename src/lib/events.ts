@@ -71,6 +71,22 @@ async function fetchText(url: string, label: string, cacheName: string): Promise
 
 const clean = (s: string | undefined | null) => (s ?? "").trim() || null;
 
+/**
+ * Il feed del Comune scrive i luoghi come "Piazza del Popolo, Piazza del Popolo, Montespertoli, Seleziona uno Stato:, 50025, Italia".
+ * Teniamo solo le parti utili, senza doppioni: "Piazza del Popolo, Montespertoli".
+ */
+function cleanLocation(s: string | null): string | null {
+  if (!s) return null;
+  const out: string[] = [];
+  for (const raw of s.split(/\s*,\s*/)) {
+    const p = raw.trim();
+    if (!p || /^seleziona/i.test(p) || /^(italy|italia)$/i.test(p) || /^\d{5}$/.test(p)) continue;
+    if (out.some((o) => o.toLowerCase() === p.toLowerCase())) continue;
+    out.push(p);
+  }
+  return out.join(", ") || null;
+}
+
 /* ——— Fonte 1: calendario del Comune (iCal) ——— */
 function fromComune(text: string): Ev[] {
   const out: Ev[] = [];
@@ -97,7 +113,7 @@ function fromComune(text: string): Ev[] {
       endDate,
       time: start.time,
       endTime: end?.time ?? null,
-      location: clean(unescapeIcal(ev.LOCATION?.value ?? "")),
+      location: cleanLocation(clean(unescapeIcal(ev.LOCATION?.value ?? ""))),
       description: clean(desc.length > 700 ? desc.slice(0, 700).replace(/\s+\S*$/, "") + "…" : desc),
       descriptionEn: null,
       url: clean(ev.URL?.value),
@@ -174,6 +190,22 @@ function fromSheet(text: string): Ev[] {
 }
 
 /* ——— Unione ——— */
+const STOP = new Set(["di", "del", "della", "dell", "dello", "dei", "degli", "delle", "sul", "sull", "sulla", "e", "ed", "in", "a", "al", "alla", "il", "la", "le", "lo", "i", "gli", "un", "una", "per", "con", "da", "the", "of", "and"]);
+function tokens(title: string): Set<string> {
+  return new Set(
+    title.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+      .split(/[^a-z0-9]+/).filter((w) => w.length >= 3 && !STOP.has(w))
+  );
+}
+/** Stesso giorno e titoli che si sovrappongono per almeno tre quarti delle parole significative. */
+function sameEvent(a: Ev, b: Ev): boolean {
+  if (a.date !== b.date) return false;
+  const ta = tokens(a.title), tb = tokens(b.title);
+  if (!ta.size || !tb.size) return false;
+  let common = 0;
+  for (const w of ta) if (tb.has(w)) common++;
+  return common / Math.min(ta.size, tb.size) >= 0.75;
+}
 let cache: Promise<Ev[]> | null = null;
 
 export function loadEvents(): Promise<Ev[]> {
@@ -190,9 +222,9 @@ async function load(): Promise<Ev[]> {
   const town = icalText ? fromComune(icalText) : [];
   const today = todayRome();
 
-  // Gli eventi di Lara vincono: se il Comune ha lo stesso titolo lo stesso giorno, teniamo la versione di Lara.
-  const seen = new Set(own.map((e) => e.slug));
-  const merged = [...own, ...town.filter((e) => !seen.has(e.slug))]
+  // Gli eventi di Lara vincono: se il Comune ha lo stesso evento lo stesso giorno
+  // (titolo uguale o quasi: "Halloween" / "Halloween in piazza"), teniamo la versione di Lara.
+  const merged = [...own, ...town.filter((e) => !own.some((o) => sameEvent(o, e)))]
     .filter((e) => e.endDate >= today)
     .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? "").localeCompare(b.time ?? "") || a.title.localeCompare(b.title));
 

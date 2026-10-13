@@ -22,8 +22,8 @@ export const SITE = {
   instagramHandle: "@il_fiaschetto_di_lara",
   facebook: "https://www.facebook.com/ilfiaschetto/",
   maps: "https://www.google.com/maps/search/?api=1&query=Il+Fiaschetto+Via+Garibaldi+4+Montespertoli",
-  /** Coordinate approssimative del centro di Montespertoli: da affinare quando Lara conferma. */
-  geo: { lat: 43.6432, lng: 11.0744 },
+  /** Via Giuseppe Garibaldi 4, Montespertoli — geocodifica OpenStreetMap (Nominatim), 2026-10-13. */
+  geo: { lat: 43.64409, lng: 11.07507 },
   /** null finché non li confermiamo con Lara: il sito mostra "chiedili su WhatsApp". */
   hours: null as null | { it: string[]; en: string[] },
   email: null as null | string,

@@ -52,7 +52,7 @@ const jsonLd = {
   <main>
     <!-- 1 · Apertura -->
     <section class="hero dark grain">
-      <div class="hero-media" aria-hidden="true"><MediaSlot clip={MEDIA.hero} class="hero-video" /></div>
+      <div class="hero-media" aria-hidden="true"><MediaSlot clip={MEDIA.hero} class="hero-video" eager /></div>
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="wrap hero-in">
         <span class="eyebrow reveal">{t("hero.eyebrow")}</span>
@@ -176,7 +176,20 @@ const jsonLd = {
         <div class="gal-grid">
           {GALLERY.map((s, i) => (
             <figure class="shot reveal" data-delay={String((i % 3) + 1)} style={`aspect-ratio:${s.ratio}`}>
-              {s.src ? <img src={s.src} alt={t(`gallery.${s.key}`)} loading="lazy" /> : <div class="shot-ph" aria-hidden="true"><FiascoMark size={28} /></div>}
+              {s.src ? (
+                <img
+                  src={s.src}
+                  srcset={s.small ? `${s.small} 800w, ${s.src} ${s.w}w` : undefined}
+                  sizes="(max-width: 560px) 100vw, (max-width: 800px) 50vw, 380px"
+                  width={s.w}
+                  height={s.h}
+                  alt={t(`gallery.${s.key}`)}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="shot-ph" aria-hidden="true"><FiascoMark size={28} /></div>
+              )}
               <figcaption>{t(`gallery.${s.key}`)}</figcaption>
             </figure>
           ))}
@@ -313,6 +326,7 @@ const jsonLd = {
   }
   @media (max-width: 800px) {
     .strip-in { grid-template-columns: 1fr; gap: 0.75rem; }
+    .hero-veil { background: linear-gradient(180deg, rgba(42, 11, 20, 0.6) 0%, rgba(42, 11, 20, 0.5) 45%, rgba(42, 11, 20, 0.92) 100%); }
     .territory, .storia-grid, .lara-grid, .contact-grid { grid-template-columns: 1fr; }
     .terr-media { aspect-ratio: 16 / 10; }
     .storia-side { position: static; }

@@ -4,7 +4,7 @@
 import { spawn } from "node:child_process";
 import { writeFileSync } from "node:fs";
 
-const [url, out, w = "1440", h = "900", mobile = "0", clipY = "", clipH = ""] = process.argv.slice(2);
+const [url, out, w = "1440", h = "900", mobile = "0", clipY = "", clipH = "", scrollY = ""] = process.argv.slice(2);
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const port = 9000 + Math.floor(Math.random() * 900);
 const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars", "--no-first-run", `--remote-debugging-port=${port}`, `--user-data-dir=/tmp/claude-chrome-${port}`, "about:blank"], { stdio: "ignore" });
@@ -28,6 +28,7 @@ await send("Page.navigate", { url });
 for (let i = 0; i < 80 && !events.includes("Page.loadEventFired"); i++) await sleep(100);
 await sleep(400);
 await send("Runtime.evaluate", { expression: `document.querySelectorAll('.reveal').forEach(e => e.classList.add('in')); document.querySelector('.nav')?.classList.remove('scrolled');` });
+if (scrollY !== "") { await send("Runtime.evaluate", { expression: `window.scrollTo(0, ${+scrollY})` }); await sleep(1500); }
 await sleep(900);
 const shot = { format: "jpeg", quality: 72, captureBeyondViewport: true };
 if (clipY !== "") shot.clip = { x: 0, y: +clipY, width: +w, height: +clipH, scale: 1 };

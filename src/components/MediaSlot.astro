@@ -1,14 +1,21 @@
 ---
 /**
  * Un video di sfondo, oppure un placeholder curato finché il clip non c'è.
- * Il placeholder è una vinaccia che respira: va bene anche in produzione.
+ * - `eager`: il video parte subito (solo l'apertura). Gli altri si caricano quando
+ *   si avvicinano allo schermo (script in Base.astro): così la home non scarica
+ *   quattro video in una volta sul telefono.
+ * - Con "riduci movimento" attivo nel sistema, resta il poster e il video non parte.
  */
 import type { Clip } from "../config/media";
-interface Props { clip: Clip; class?: string; showLabel?: boolean }
-const { clip, class: cls = "", showLabel = false } = Astro.props;
+interface Props { clip: Clip; class?: string; showLabel?: boolean; eager?: boolean }
+const { clip, class: cls = "", showLabel = false, eager = false } = Astro.props;
 ---
 {clip.src ? (
-  <video class={`media ${cls}`} src={clip.src} poster={clip.poster ?? undefined} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  eager ? (
+    <video class={`media ${cls}`} src={clip.src} poster={clip.poster ?? undefined} autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  ) : (
+    <video class={`media ${cls}`} data-src={clip.src} poster={clip.poster ?? undefined} muted loop playsinline preload="none" aria-hidden="true"></video>
+  )
 ) : (
   <div class={`media media-ph ${cls}`} aria-hidden="true">
     {showLabel && <span class="ph-label">{clip.label}</span>}
@@ -16,7 +23,7 @@ const { clip, class: cls = "", showLabel = false } = Astro.props;
 )}
 
 <style>
-  .media { width: 100%; height: 100%; object-fit: cover; }
+  .media { width: 100%; height: 100%; object-fit: cover; background: var(--ink); }
   .media-ph {
     position: relative; overflow: hidden;
     background:

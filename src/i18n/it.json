@@ -18,7 +18,7 @@
     "external": "si apre in una nuova scheda"
   },
   "hero": {
-    "eyebrow": "Montespertoli · Via Garibaldi 4",
+    "eyebrow": "Montespertoli · Via Garibaldi 4‑6",
     "title": "Il vino di Montespertoli, un fiasco alla volta.",
     "lead": "Una bottega nel centro storico dove il vino si assaggia prima di portarlo a casa. Sfuso dei produttori del paese, bottiglie scelte, un bicchiere in compagnia. E tutto quello che succede in paese, in un posto solo.",
     "cta1": "Cosa succede in paese",
@@ -37,7 +37,7 @@
     "c2_title": "Bottiglie di casa",
     "c2_body": "Chianti Montespertoli, riserve, qualche etichetta toscana e italiana scelta una per una. Per la cena di stasera o per un regalo che dice da dove viene.",
     "c3_title": "Un bicchiere qui",
-    "c3_body": "Due tavoli, un tagliere, il vino giusto. D'estate i tavoli escono in via Garibaldi e la bottega diventa la sera del paese.",
+    "c3_body": "Qualche tavolo, un tagliere, il vino giusto. D'estate i tavoli escono in via Garibaldi, e la bottega diventa la sera del paese.",
     "c4_title": "Olio e dispensa",
     "c4_body": "L'olio nuovo del territorio, qualcosa da mettere in tavola e le idee regalo di chi passa da Montespertoli."
   },
@@ -46,7 +46,19 @@
     "title": "La terra del Chianti Montespertoli",
     "body": "Montespertoli è uno dei comuni più vitati della Toscana e dal 1997 ha la sua sottozona, Chianti Montespertoli: Sangiovese maturo, colline tra Firenze e la Val d'Elsa. In bottega passano i vini di casa, dalla Tenuta Ripalta, da cui il Fiaschetto è nato, alle cantine del paese.",
     "note": "Alcuni dei produttori del territorio",
-    "producers": ["Tenuta Ripalta", "Castello Sonnino", "Castello di Poppiano", "Montalbino", "La Leccia", "Valle Prima", "Tenuta Barbadoro", "Podere Guiducci", "Casa di Monte", "Podere Ghisone", "Fattorie Parri"]
+    "producers": [
+      "Tenuta Ripalta",
+      "Castello Sonnino",
+      "Castello di Poppiano",
+      "Montalbino",
+      "La Leccia",
+      "Valle Prima",
+      "Tenuta Barbadoro",
+      "Podere Guiducci",
+      "Casa di Monte",
+      "Podere Ghisone",
+      "Fattorie Parri"
+    ]
   },
   "events": {
     "eyebrow": "In paese",
@@ -85,26 +97,32 @@
     "t1_body": "Gino Conti porta il vino di Montespertoli a Firenze con un carretto a cavallo, osteria per osteria. È la maniera più umile di vendere vino: assaggi, ti fidi, compri.",
     "t2_year": "1952",
     "t2_title": "La casa vinicola",
-    "t2_body": "Nasce la Casa Vinicola Conti. Il vino di queste colline comincia a viaggiare in bottiglia, ma il modo di venderlo resta lo stesso: guardando in faccia chi beve.",
+    "t2_body": "Nasce la Casa Vinicola Conti: il commercio del vino si fa più strutturato, ma il modo di venderlo resta lo stesso, guardando in faccia chi beve.",
     "t3_year": "2008",
     "t3_title": "Nasce il Fiaschetto",
-    "t3_body": "Roberto Conti apre in via Garibaldi un punto vendita diretto. Vino sfuso, assaggio, riempi il tuo fiasco. Il paese lo adotta subito.",
+    "t3_body": "Roberto Conti apre in via Garibaldi il punto vendita diretto della famiglia. Vino sfuso, assaggio, riempi il tuo fiasco: il nome viene da lì.",
     "t4_year": "2019",
-    "t4_title": "Arriva Lara",
-    "t4_body": "Lara Bartalucci prende la bottega e la fa diventare qualcosa di più: un posto dove si beve, si chiacchiera e si sa sempre cosa succede in paese.",
+    "t4_title": "Cambia mano",
+    "t4_body": "La famiglia Conti passa il testimone. La bottega resta, e con Lara Bartalucci diventa qualcosa di più: un posto dove si beve, si chiacchiera e si sa sempre cosa succede in paese.",
     "t5_year": "Oggi",
     "t5_title": "La bottega e la bacheca",
-    "t5_body": "Vino dei produttori del paese, due tavoli, e il calendario di tutto quello che succede a Montespertoli. Il Fiaschetto di Lara è tutte e due le cose.",
+    "t5_body": "Vino dei produttori del paese, qualche tavolo, e il calendario di tutto quello che succede a Montespertoli. Il Fiaschetto di Lara è tutte e due le cose.",
     "why_title": "Perché «Fiaschetto»",
-    "why_body": "Il fiasco è la bottiglia toscana impagliata a mano, quella che stava su ogni tavola. Il nome lo dice: qui il vino si porta a casa come si è sempre fatto, nel proprio contenitore, senza etichette da pagare."
+    "why_body": "Il fiasco è la bottiglia toscana impagliata a mano, quella che stava su ogni tavola. Il nome lo dice: qui il vino si porta a casa come si è sempre fatto, nel proprio contenitore."
   },
   "lara": {
     "eyebrow": "Non solo vino",
     "title": "Il posto dove si sa cosa succede",
-    "body": "Lara è la presidente dell'Associazione Commercianti e Artigiani di Montespertoli. Le Cene d'Estate ogni mercoledì, la Festa di Primavera, Halloween in piazza, il Natale con l'albero e i mercatini, la Festa del Vino: dietro c'è lei, con i commercianti del paese. Passare dal Fiaschetto vuol dire sapere prima degli altri cosa c'è da fare.",
+    "body": "Lara è la presidente dell'Associazione Commercianti e Artigiani di Montespertoli. Le Cene d'Estate ogni mercoledì, la Festa di Primavera, Halloween in piazza, il Natale con l'albero e i mercatini: dietro c'è lei, con i commercianti del paese. E nel comitato che organizza la Festa del Vino siede anche l'associazione. Passare dal Fiaschetto vuol dire sapere prima degli altri cosa c'è da fare.",
     "quote": "L'estate è appena iniziata e noi ci saremo sempre!",
     "quote_by": "Lara Bartalucci",
-    "chips": ["Cene d'Estate", "Festa di Primavera", "Festa della Birra Artigianale", "Halloween in piazza", "Natale a Montespertoli", "Festa del Vino"]
+    "chips": [
+      "Cene d'Estate",
+      "Festa di Primavera",
+      "Festa della Birra Artigianale",
+      "Halloween in piazza",
+      "Natale a Montespertoli"
+    ]
   },
   "gallery": {
     "eyebrow": "La bottega in foto",
@@ -138,7 +156,7 @@
     "f_err": "Non siamo riusciti a inviare. Scrivici su WhatsApp."
   },
   "footer": {
-    "tagline": "La bottega del vino di Montespertoli, e la bacheca del paese.",
+    "tagline": "Bottega del vino nel centro di Montespertoli, e bacheca del paese.",
     "links_title": "Il sito",
     "follow": "Seguici",
     "nocookie": "Questo sito non usa cookie e non traccia nessuno. Niente da accettare.",

@@ -171,3 +171,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .reveal { opacity: 1; transform: none; transition: none; }
   * { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
 }
+
+/* Telefoni stretti: l'occhiello perde un po' di spaziatura, così "Montespertoli · Via Garibaldi 4-6" sta su una riga. */
+@media (max-width: 420px) {
+  .eyebrow { font-size: 0.7rem; letter-spacing: 0.14em; gap: 0.6rem; }
+  .eyebrow::before { width: 1.5rem; }
+}

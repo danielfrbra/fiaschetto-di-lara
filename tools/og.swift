@@ -53,11 +53,11 @@ let diFont = NSFont(name: "Baskerville-Italic", size: 72) ?? NSFont.systemFont(o
 let di = NSAttributedString(string: "di Lara", attributes: [.font: diFont, .foregroundColor: paglia])
 di.draw(at: NSPoint(x: 92, y: 250))
 let subFont = NSFont.systemFont(ofSize: 30, weight: .medium)
-let sub = NSAttributedString(string: "Vino sfuso e bottiglie  ·  Montespertoli, via Garibaldi 4", attributes: [.font: subFont, .foregroundColor: crema.withAlphaComponent(0.78)])
+let sub = NSAttributedString(string: "Bottega del vino  ·  Montespertoli, via Garibaldi 4-6", attributes: [.font: subFont, .foregroundColor: crema.withAlphaComponent(0.78)])
 sub.draw(at: NSPoint(x: 92, y: 160))
 let line = NSBezierPath(); line.lineWidth = 3
 line.move(to: NSPoint(x: 92, y: 140)); line.line(to: NSPoint(x: 160, y: 140)); paglia.setStroke(); line.stroke()
-let eye = NSAttributedString(string: "LA BOTTEGA DEL VINO, E LA BACHECA DEL PAESE", attributes: [.font: NSFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: paglia, .kern: 4])
+let eye = NSAttributedString(string: "VINO SFUSO, BOTTIGLIE E LA BACHECA DEL PAESE", attributes: [.font: NSFont.systemFont(ofSize: 20, weight: .bold), .foregroundColor: paglia, .kern: 4])
 eye.draw(at: NSPoint(x: 92, y: 100))
 
 NSGraphicsContext.restoreGraphicsState()
