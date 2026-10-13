@@ -1,6 +1,7 @@
 /**
  * Galleria curata (niente feed Instagram: nessuna richiesta a terzi).
- * Immagini generate dai prompt in docs/brief-immagini.md e preparate con
+ * Immagini generate dai prompt in docs/brief-immagini.md (g3 è una foto vera
+ * della bottega, presa dalla scheda TripAdvisor e trattata con tools/grade.mjs) e preparate con
  * tools/images.mjs in due misure (1600 e 800 px) e due formati (WebP + JPEG):
  * il browser sceglie la più adatta. Quando arriveranno le foto vere, basta
  * sostituire le sorgenti in ../materiali/immagini, rilanciare lo script e
@@ -13,7 +14,7 @@ export interface Shot {
   w: number;
   h: number;
   key: string;             // chiave i18n della didascalia/alt
-  ratio: "3/2" | "4/5" | "1/1";
+  ratio: "3/2" | "4/5" | "1/1" | "4/3";
 }
 
 const shot = (k: string, w: number, h: number, ratio: Shot["ratio"]): Shot => ({
@@ -23,7 +24,7 @@ const shot = (k: string, w: number, h: number, ratio: Shot["ratio"]): Shot => ({
 export const GALLERY: Shot[] = [
   shot("g1", 1508, 1006, "3/2"),
   shot("g2", 1600, 1067, "3/2"),
-  shot("g3", 1600, 1600, "1/1"),
+  shot("g3", 1600, 1208, "4/3"),   // foto vera (TripAdvisor), trattata con tools/grade.mjs
   shot("g4", 1600, 1067, "3/2"),
   shot("g5", 1536, 2048, "4/5"),
   shot("g6", 1600, 1600, "1/1"),

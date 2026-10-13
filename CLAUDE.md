@@ -24,6 +24,10 @@ Il sito è un **regalo** di Daniel a Lara, costruito **a sorpresa** (lei non sa 
 6. **Instagram**: galleria curata a mano (`src/config/gallery.ts`), nessun feed incorporato → nessuna richiesta a terzi, nessun cookie.
 7. Stile: stessa famiglia di aipim.ai (apertura scura cinematografica, poi sezioni chiare editoriali, reveal allo scorrimento) ma palette del vino: vinaccia `#2a0b14`/`#6b1a2b`, paglia del fiasco `#e1b96b`, crema `#f7f1e6`. Font **Fraunces** (titoli, variabile, "SOFT"+"WONK") e **Instrument Sans** (testo), ospitati in `public/fonts/`.
 
+## Foto vere (dal 2026-10-13)
+
+In galleria la tessera `g3` è una **foto vera** dell'interno (scaffali), presa dalla scheda TripAdvisor della bottega (originale 1987x1500 in `../materiali/foto-vere/`), trattata con `tools/grade.mjs` (toni caldi, saturazione -20%, neri alzati, vignetta, velatura vinaccia) per stare con le immagini generate. ⚠️ Due cose da chiudere con Lara: (1) **diritti**: le foto su TripAdvisor sono di chi le ha caricate (probabilmente i Conti, titolari all'epoca della scheda); va bene per la sorpresa, ma prima di pubblicare col dominio suo Lara deve dire che sono della bottega o sostituirle con foto proprie; (2) **attualità**: la foto è della scheda 2013-2014 e l'interno può essere cambiato. La seconda foto TripAdvisor (damigiane dello sfuso con le lavagnette dei prezzi) **non è stata usata**: i prezzi sono del 2014 e sarebbero una bugia. L'immagine del profilo Facebook è una grafica con la frase "La vita è amara. Il vino no.", non una foto: non usata.
+
 ## Cose che non sappiamo ancora (sorpresa: non si chiede a Lara)
 
 - **Orari di apertura**: `SITE.hours = null` → il sito dice "chiedili su WhatsApp". Quando si sapranno, riempire `hours` in `src/config/site.ts` (IT ed EN) e il JSON-LD li prenderà da lì.
