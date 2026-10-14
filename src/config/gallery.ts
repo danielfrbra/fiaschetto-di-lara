@@ -1,16 +1,15 @@
 /**
  * Galleria curata (niente feed Instagram: nessuna richiesta a terzi).
- * Immagini: g2, g4, g5, g6 generate dai prompt in docs/brief-immagini.md; g3 foto vera
- * da TripAdvisor; g1 e g7-g12 foto vere dall'Instagram della bottega (../materiali/immagini/Instagram),
- * tutte le vere trattate con tools/grade.mjs per stare nei toni del sito; preparate con
- * tools/images.mjs in due misure (1600 e 800 px) e due formati (WebP + JPEG):
- * il browser sceglie la più adatta. Quando arriveranno le foto vere, basta
- * sostituire le sorgenti in ../materiali/immagini, rilanciare lo script e
- * aggiornare le misure qui. `src: null` = placeholder.
+ * Tredici tessere, scelte con Daniel il 2026-10-14: foto vere dall'Instagram della
+ * bottega e dalla scheda TripAdvisor (queste ultime sono piccole, 550 px, e dell'era
+ * Conti: niente prezzi, niente volti), più due immagini generate d'atmosfera (tagliere, olio).
+ * Tutte le foto vere passano da tools/grade.mjs (toni del sito); le varianti -800 e .webp
+ * le fa lo stesso script. Le didascalie sono in i18n (gallery.*): corte, giocose, vere.
+ * `src: null` = placeholder.
  */
 export interface Shot {
-  src: string | null;      // JPEG 1600
-  small: string | null;    // JPEG 800
+  src: string | null;      // JPEG grande
+  small: string | null;    // JPEG 800 (null se la foto è già piccola)
   webp: boolean;           // esistono anche .webp con lo stesso nome
   w: number;
   h: number;
@@ -18,21 +17,18 @@ export interface Shot {
   ratio: "3/2" | "4/5" | "1/1" | "4/3" | "3/4";
 }
 
-const shot = (k: string, w: number, h: number, ratio: Shot["ratio"]): Shot => ({
-  src: `/img/${k}.jpg`, small: `/img/${k}-800.jpg`, webp: true, w, h, key: k, ratio,
-});
-
 export const GALLERY: Shot[] = [
-  shot("g1", 1440, 1080, "4/3"),   // foto vera (Instagram): la vetrina
-  shot("g2", 1600, 1067, "3/2"),
-  shot("g3", 1600, 1208, "4/3"),   // foto vera (TripAdvisor), trattata con tools/grade.mjs
-  shot("g4", 1600, 1067, "3/2"),
-  shot("g5", 1536, 2048, "4/5"),
-  shot("g6", 1600, 1600, "1/1"),
-  shot("g7", 1440, 1090, "4/3"),   // foto vera (Instagram)
-  shot("g8", 1440, 1920, "3/4"),   // foto vera (Instagram)
-  shot("g9", 1440, 1920, "3/4"),   // foto vera (Instagram)
-  shot("g10", 1440, 1920, "3/4"),   // foto vera (Instagram)
-  shot("g11", 1440, 1920, "3/4"),   // foto vera (Instagram)
-  shot("g12", 1440, 1080, "4/3"),   // foto vera (Instagram)
+  { src: "/img/g15.jpg", small: null, webp: true, w: 550, h: 353, key: "g15", ratio: "3/2" },   // foto vera (TripAdvisor): il negozio dall'esterno
+  { src: "/img/g7.jpg", small: "/img/g7-800.jpg", webp: true, w: 1440, h: 1090, key: "g7", ratio: "4/3" },   // foto vera (Instagram): bancone e sgabelli
+  { src: "/img/g13.jpg", small: null, webp: true, w: 550, h: 449, key: "g13", ratio: "4/3" },   // foto vera (TripAdvisor): i fiaschi
+  { src: "/img/g3.jpg", small: "/img/g3-800.jpg", webp: true, w: 1600, h: 1208, key: "g3", ratio: "4/3" },   // foto vera (TripAdvisor): gli scaffali
+  { src: "/img/g17.jpg", small: null, webp: true, w: 550, h: 412, key: "g17", ratio: "4/3" },   // foto vera (TripAdvisor): le vasche dello sfuso
+  { src: "/img/g4.jpg", small: "/img/g4-800.jpg", webp: true, w: 1600, h: 1067, key: "g4", ratio: "3/2" },   // generata: il tagliere
+  { src: "/img/g18.jpg", small: null, webp: true, w: 550, h: 412, key: "g18", ratio: "4/3" },   // foto vera (TripAdvisor): le vigne a due km, senza cielo
+  { src: "/img/g16.jpg", small: null, webp: true, w: 337, h: 450, key: "g16", ratio: "4/5" },   // foto vera (TripAdvisor): la dispensa
+  { src: "/img/g11.jpg", small: "/img/g11-800.jpg", webp: true, w: 1440, h: 1920, key: "g11", ratio: "4/5" },   // foto vera (Instagram): un bianco al tramonto
+  { src: "/img/g14.jpg", small: null, webp: true, w: 550, h: 412, key: "g14", ratio: "4/3" },   // foto vera (TripAdvisor): d'inverno, con le luci
+  { src: "/img/g6.jpg", small: "/img/g6-800.jpg", webp: true, w: 1600, h: 1600, key: "g6", ratio: "1/1" },   // generata: l'olio
+  { src: "/img/g19.jpg", small: null, webp: true, w: 550, h: 412, key: "g19", ratio: "4/3" },   // foto vera (TripAdvisor): i filari
+  { src: "/img/g20.jpg", small: null, webp: true, w: 550, h: 389, key: "g20", ratio: "4/3" },   // foto vera (TripAdvisor): le grappe
 ];

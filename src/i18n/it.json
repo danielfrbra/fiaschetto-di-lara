@@ -129,18 +129,19 @@
     "eyebrow": "La bottega in foto",
     "title": "Dentro il Fiaschetto",
     "ig": "Seguici su Instagram",
-    "g1": "La vetrina su via Garibaldi",
-    "g2": "I fiaschi, impagliati a mano",
-    "g3": "Dentro la bottega, gli scaffali",
-    "g4": "Il bancone, con il tagliere",
-    "g5": "La sera, i tavoli fuori",
-    "g6": "L'olio nuovo",
-    "g7": "Il bancone e gli sgabelli",
-    "g8": "Un rosato e un rosso, in bottega",
-    "g9": "Chianti, Riserva e rosato",
-    "g10": "Vino, uva e ceramica",
-    "g11": "Un bianco, al tramonto",
-    "g12": "Bottiglie sulla cassetta di legno"
+    "g15": "Ombrelloni aperti, porta aperta",
+    "g7": "Due sgabelli, zero fretta",
+    "g13": "I fiaschi, in divisa tricolore",
+    "g3": "Scegli pure, c'è posto per tutti",
+    "g17": "Da qui esce lo sfuso",
+    "g4": "Al tagliere non si dice di no",
+    "g18": "Le vigne, a due chilometri da qui",
+    "g16": "La dispensa delle tentazioni",
+    "g11": "Bianco e tramonto, bella coppia",
+    "g14": "D'inverno ci vestiamo a festa",
+    "g6": "Verde, nuovo, sul pane",
+    "g19": "Filari sotto il sole di Montespertoli",
+    "g20": "Un goccio per il dopocena"
   },
   "contact": {
     "eyebrow": "Contatti",
@@ -188,5 +189,10 @@
     "s7_title": "Link esterni",
     "s7_body": "I link a Instagram, Facebook, Google Maps e Google Calendar portano fuori da questo sito: lì valgono le loro regole.",
     "updated": "Ultimo aggiornamento: 13 ottobre 2026"
+  },
+  "reviews": {
+    "eyebrow": "Dicono di noi",
+    "title": "Chi è passato di qui",
+    "on": "su"
   }
 }

@@ -1,0 +1,36 @@
+---
+/** "Dicono di noi": tre o quattro recensioni vere, con nome, data e fonte. Si vede solo se REVIEWS non è vuoto. */
+import { REVIEWS } from "../config/reviews";
+import { useT, type Lang } from "../i18n";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useT(lang);
+const list = REVIEWS.slice(0, 4);
+---
+{list.length > 0 && (
+  <section class="section-tight reviews" id="recensioni">
+    <div class="wrap">
+      <span class="eyebrow reveal">{t("reviews.eyebrow")}</span>
+      <h2 class="h2 reveal" data-delay="1">{t("reviews.title")}</h2>
+      <div class="grid">
+        {list.map((r, i) => (
+          <figure class="card reveal" data-delay={String((i % 4) + 1)}>
+            {r.stars && <div class="stars" aria-label={`${r.stars}/5`}>{"★".repeat(Math.round(r.stars))}<span class="dim">{"★".repeat(5 - Math.round(r.stars))}</span></div>}
+            <blockquote lang={r.lang}><p>«{r.text}»</p></blockquote>
+            <figcaption><strong>{r.name}</strong> · {r.when} · {t("reviews.on")} {r.source}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .reviews { background: var(--crema-2); border-top: 1px solid var(--line); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 2rem; }
+  .card { padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--crema); display: grid; gap: 0.8rem; align-content: start; }
+  .stars { color: var(--paglia-deep); letter-spacing: 0.1em; font-size: 0.95rem; }
+  .stars .dim { color: var(--line); }
+  blockquote p { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height: 1.35; color: var(--on-crema); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 36; }
+  figcaption { font-size: var(--step-small); color: var(--on-crema-dim); }
+</style>

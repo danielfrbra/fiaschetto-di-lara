@@ -37,9 +37,8 @@ Tre cose da sapere:
 
 ## Cosa serve da te, quando vuoi
 
-1. **Gli orari di apertura.** Oggi il sito dice "chiedili su WhatsApp".
-2. **Le foto vere** della bottega: vetrina, fiaschi, scaffali, bancone, tavoli fuori la sera, l'olio. Sei scatti col telefono bastano. Prenderanno il posto delle immagini di oggi.
-3. **Il nome esatto dell'attività** per l'informativa privacy (ditta, indirizzo), e un'email se vuoi riceverci le prenotazioni.
-4. **Il dominio**, quando vorrai: te lo facciamo puntare noi.
+1. **Le foto vere** della bottega: vetrina, fiaschi, scaffali, bancone, tavoli fuori la sera, l'olio. Sei scatti col telefono bastano. Prenderanno il posto delle immagini di oggi.
+2. **Il nome esatto dell'attività** per l'informativa privacy (ditta, indirizzo), e un'email se vuoi riceverci le prenotazioni.
+3. **Il dominio**, quando vorrai: te lo facciamo puntare noi.
 
-Per cambiare un testo, una foto, un orario: scrivi a Daniel. Nessuna password, nessun pannello.
+Gli orari sul sito sono: lunedì 16:30-20:00, martedì-sabato 9:30-12:30 e 16:30-20:00, domenica 9:30-12:30. Per cambiare un testo, una foto, un orario: scrivi a Daniel. Nessuna password, nessun pannello.

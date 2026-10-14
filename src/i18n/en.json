@@ -129,18 +129,19 @@
     "eyebrow": "The shop in pictures",
     "title": "Inside Il Fiaschetto",
     "ig": "Follow us on Instagram",
-    "g1": "The window on Via Garibaldi",
-    "g2": "The flasks, wrapped by hand",
-    "g3": "Inside the shop, the shelves",
-    "g4": "The counter, with a board of cold cuts",
-    "g5": "Evening, tables outside",
-    "g6": "The new olive oil",
-    "g7": "The counter and the stools",
-    "g8": "A rosé and a red, in the shop",
-    "g9": "Chianti, Riserva and rosé",
-    "g10": "Wine, grapes and ceramics",
-    "g11": "A white, at sunset",
-    "g12": "Bottles on the wooden crate"
+    "g15": "Umbrellas up, door open",
+    "g7": "Two stools, zero hurry",
+    "g13": "Flasks in tricolour dress",
+    "g3": "Take your pick, there's room for all",
+    "g17": "This is where the wine on tap comes from",
+    "g4": "Nobody says no to the board",
+    "g18": "The vines, two kilometres from here",
+    "g16": "The pantry of temptations",
+    "g11": "White wine and sunset, a fine pair",
+    "g14": "In winter we dress up",
+    "g6": "Green, new, on bread",
+    "g19": "Vine rows under the Montespertoli sun",
+    "g20": "A drop for after dinner"
   },
   "contact": {
     "eyebrow": "Contact",
@@ -188,5 +189,10 @@
     "s7_title": "External links",
     "s7_body": "Links to Instagram, Facebook, Google Maps and Google Calendar lead outside this site: their rules apply there.",
     "updated": "Last updated: 13 October 2026"
+  },
+  "reviews": {
+    "eyebrow": "What people say",
+    "title": "Those who stopped by",
+    "on": "on"
   }
 }

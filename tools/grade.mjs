@@ -1,12 +1,17 @@
 // "Grading" di una foto vera per avvicinarla allo stile del sito: toni caldi, colori un po' sgonfiati,
 // neri alzati, una leggera vignetta e una velatura vinaccia. Poi le solite quattro varianti (JPEG/WebP, 1600/800).
-//   node tools/grade.mjs <foto> <chiave>     → public/img/<chiave>.jpg, -800.jpg, .webp, -800.webp
+//   node tools/grade.mjs <foto> <chiave> [--crop x,y,w,h]   → public/img/<chiave>.jpg, .webp (+ -800 se la foto è grande)
 import sharp from "sharp";
 
-const [src, key] = process.argv.slice(2);
-if (!src || !key) { console.error("uso: node tools/grade.mjs <foto> <chiave>"); process.exit(1); }
+const args = process.argv.slice(2);
+const cropIdx = args.indexOf("--crop");
+const crop = cropIdx >= 0 ? args.splice(cropIdx, 2)[1].split(",").map(Number) : null;
+const [src, key] = args;
+if (!src || !key) { console.error("uso: node tools/grade.mjs <foto> <chiave> [--crop x,y,w,h]"); process.exit(1); }
 
-const base = sharp(src).rotate().resize({ width: 1600, withoutEnlargement: true });
+let base = sharp(src).rotate();
+if (crop) base = base.extract({ left: crop[0], top: crop[1], width: crop[2], height: crop[3] });
+base = base.resize({ width: 1600, withoutEnlargement: true });
 const { width, height } = await base.clone().toBuffer({ resolveWithObject: true }).then((r) => r.info);
 
 // vignetta: chiaro al centro, un po' più scuro ai bordi (moltiplica)
@@ -32,7 +37,7 @@ const out = async (dest, w, fmt, q) => {
   return r;
 };
 const big = await out(`public/img/${key}.jpg`, 1600, "jpeg", 80);
-await out(`public/img/${key}-800.jpg`, 800, "jpeg", 78);
 await out(`public/img/${key}.webp`, 1600, "webp", 78);
-await out(`public/img/${key}-800.webp`, 800, "webp", 78);
-console.log(`misure: ${big.width}x${big.height}`);
+const small = big.width > 800;
+if (small) { await out(`public/img/${key}-800.jpg`, 800, "jpeg", 78); await out(`public/img/${key}-800.webp`, 800, "webp", 78); }
+console.log(`misure: ${big.width}x${big.height} small=${small}`);
