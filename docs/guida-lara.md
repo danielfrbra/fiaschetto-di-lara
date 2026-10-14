@@ -8,7 +8,7 @@
 
 L'abbiamo costruito guardando la bottega, i tuoi post, gli eventi che metti in piedi in paese. È tuo: niente da imparare, niente password, niente da pagare.
 
-Cosa c'è dentro: l'apertura con un video della bottega · La bottega (sfuso, bottiglie, un bicchiere qui, olio e dispensa) · Il territorio e i produttori · Cosa succede in paese (il calendario) · La storia, dal carretto del 1930 a oggi · Non solo vino (tu e l'Associazione) · Dicono di noi (le recensioni di Google) · La bottega in foto · Contatti, orari e il modulo «Parla con noi».
+Cosa c'è dentro: l'apertura con un video della bottega · La bottega (sfuso, bottiglie, un bicchiere qui, olio e dispensa) · Il territorio e i produttori · Cosa succede in paese (il calendario) · La storia, dal 2019 a oggi, e il motto della bottega · Non solo vino (tu e l'Associazione) · Dicono di noi (le recensioni di Google) · La bottega in foto · Contatti, orari e il modulo «Parla con noi».
 
 In italiano e in inglese, perfetto sul telefono, zero cookie e niente banner, pulsante WhatsApp sempre a portata di mano, bella anteprima quando lo condividi.
 
