@@ -6,6 +6,7 @@
 import { EVENT_SOURCES } from "../config/events";
 import { parseIcal, parseIcalDate, unescapeIcal, stripHtml } from "./ical";
 import { parseCsv } from "./csv";
+import { translateEvents } from "./translate";
 
 export type Source = "fiaschetto" | "associazione" | "paese";
 /** Da dove arriva la riga: dal foglio di Lara o dal calendario del Comune. */
@@ -241,6 +242,8 @@ async function load(): Promise<Ev[]> {
     if (n > 1) e.slug = `${e.slug}-${n}`;
   }
   console.log(`[eventi] ${own.length} dal foglio di Lara, ${town.length} dal Comune → ${merged.length} in programma da oggi (${today}).`);
+  // Versione inglese di titoli e descrizioni (automatica, con memoria): vedi translate.ts.
+  await translateEvents(merged);
   return merged;
 }
 

@@ -57,9 +57,13 @@ Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla pos
 
 **Aggiornamento automatico dal foglio (attivo dal 2026-10-13):** la build pubblica in `/_fonti/foglio.csv` la copia del foglio con cui ha costruito il sito (integrazione `copia-foglio` in `astro.config.mjs`, dalla cache scritta da `src/lib/events.ts`). La funzione programmata `netlify/functions/controlla-foglio.mjs` ogni 5 minuti legge il foglio da Google e la copia pubblicata: se sono diversi chiama il build hook. Nessuna memoria, nessuna dipendenza, niente da installare nel Google di Lara (uno script Apps Script con trigger sarebbe legato all'account di chi lo crea e si romperebbe al passaggio del foglio a Lara). Se una delle due letture fallisce non fa nulla: ci pensa la ricostruzione del mattino. Costo: ~8.600 invocazioni al mese su 125.000 gratuite; build solo quando cambia qualcosa.
 
+## Traduzione automatica degli eventi (dal 2026-10-14)
+
+`src/lib/translate.ts`, chiamato da `loadEvents()`: per ogni evento senza titolo inglese (le colonne inglesi del foglio di Lara vincono) chiede a Claude (`claude-opus-5-5`, effort `low`, `fallbacks: "default"`) titolo e descrizione in inglese, **una sola chiamata per build** con tutti i testi nuovi in JSON. Memoria in `node_modules/.cache/fiaschetto/traduzioni.json` (chiave = hash titolo+descrizione; Netlify conserva la cartella fra le build): un testo si traduce una volta sola. Serve **`ANTHROPIC_API_KEY`** fra le variabili d'ambiente del sito Netlify (chiave dedicata a questo progetto, non quelle di Aipim/QuoLab). Senza chiave, o se l'API fallisce, la build passa lo stesso e gli eventi restano in italiano sul sito inglese (nota "Details in Italian"). Costo: circa 25 eventi ≈ 6-8k token per la prima traduzione, poi solo i nuovi. La dipendenza `@anthropic-ai/sdk` è solo di build: il sito resta senza JavaScript di terzi.
+
 ## Regole operative
 
-- Niente segreti nel repo. L'unica variabile d'ambiente è `BUILD_HOOK_URL` sul sito Netlify.
+- Niente segreti nel repo. Variabili d'ambiente sul sito Netlify: `BUILD_HOOK_URL` e `ANTHROPIC_API_KEY`.
 - **Deploy di prova**: `npm run build && netlify deploy --dir=dist --message "…"` (senza `--prod`) dà un indirizzo temporaneo. Il push su `main` pubblica sul sottodominio.
 - Menu e footer si cambiano in `SiteNav.astro` e `SiteFooter.astro`, mai nelle pagine.
 - Ogni stringa visibile passa da `src/i18n/{it,en}.json`; `npm run check:i18n` (gira anche prima della build) ferma tutto se le chiavi non combaciano.

@@ -18,8 +18,10 @@ export interface Review {
   source: "Google" | "Facebook" | "TripAdvisor";
   /** stelle, 1-5 (facoltativo) */
   stars?: number;
-  /** lingua del testo: se è inglese lo mostriamo senza tradurre */
+  /** lingua del testo originale */
   lang?: "it" | "en";
+  /** versione inglese per il sito EN (tradotta da noi, segnalata come tale) */
+  textEn?: string;
 }
 
 /*
@@ -32,6 +34,7 @@ export interface Review {
 export const REVIEWS: Review[] = [
   {
     name: "Iuliana O.",
+    textEn: "If you're looking for the authentic Tuscany, the one of small shops where the human touch counts as much as good wine, you have to go to Lara's. Here in Montespertoli the quality of the wine on tap goes hand in hand with a welcome you don't find anymore. Lara knows every label and advises you with passion and sincerity. You walk in for a bottle and walk out truly refreshed.",
     text: "Se cerchi la Toscana autentica, quella delle botteghe dove il rapporto umano conta quanto il vino buono, devi andare da Lara. Qui a Montespertoli la qualità dello sfuso va di pari passo con un'accoglienza che non si trova più. Lara conosce ogni etichetta e ti consiglia con passione e sincerità. Entri per una bottiglia e ne esci proprio rigenerato.",
     when: "Aprile 2026",
     source: "Google",
@@ -39,6 +42,7 @@ export const REVIEWS: Review[] = [
   },
   {
     name: "Guido B.",
+    textEn: "Excellent selection of wines and local products. Friendly, knowledgeable owner. Highly recommended",
     text: "Ottima selezione di vini e prodotti del territorio. Proprietaria cordiale e competente. Consigliatissimo",
     when: "Novembre 2025",
     source: "Google",
@@ -46,6 +50,7 @@ export const REVIEWS: Review[] = [
   },
   {
     name: "Silvia F.",
+    textEn: "Friendly owners, very well prepared on the characteristics of the wines on sale, attentive to the customer's needs…",
     text: "Proprietari simpatici e molto preparati sulle caratteristiche dei vini in vendita, attenti alle esigenze del cliente…",
     when: "2025",
     source: "Google",
@@ -53,6 +58,7 @@ export const REVIEWS: Review[] = [
   },
   {
     name: "Kurt S.",
+    textEn: "Very kind owner with a wide variety of wines and aperitifs. We enjoyed the prosecco outdoors and were spoiled with small homemade local snacks.",
     text: "Proprietario gentilissimo con un'ampia varietà di vini e aperitivi. Abbiamo gustato il prosecco all'aperto e siamo stati viziati con piccoli snack locali fatti in casa.",
     when: "2025",
     source: "Google",

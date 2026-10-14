@@ -7,6 +7,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useT(lang);
 const list = REVIEWS.slice(0, 4);
+const textOf = (r: (typeof list)[number]) => (lang === "en" && r.textEn ? r.textEn : r.text);
+const translated = (r: (typeof list)[number]) => lang === "en" && !!r.textEn;
 ---
 {list.length > 0 && (
   <section class="section-tight reviews" id="recensioni">
@@ -17,8 +19,8 @@ const list = REVIEWS.slice(0, 4);
         {list.map((r, i) => (
           <figure class="card reveal" data-delay={String((i % 4) + 1)}>
             {r.stars && <div class="stars" aria-label={`${r.stars}/5`}>{"★".repeat(Math.round(r.stars))}<span class="dim">{"★".repeat(5 - Math.round(r.stars))}</span></div>}
-            <blockquote lang={r.lang}><p>«{r.text}»</p></blockquote>
-            <figcaption><strong>{r.name}</strong> · {r.when} · {`${t("reviews.on")} ${r.source}`}</figcaption>
+            <blockquote lang={translated(r) ? "en" : r.lang}><p>«{textOf(r)}»</p></blockquote>
+            <figcaption><strong>{r.name}</strong> · {r.when} · {`${t("reviews.on")} ${r.source}`}{translated(r) && <span class="tr"> · {t("reviews.translated")}</span>}</figcaption>
           </figure>
         ))}
       </div>
@@ -35,6 +37,7 @@ const list = REVIEWS.slice(0, 4);
   .stars .dim { color: var(--line); }
   blockquote p { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; line-height: 1.35; color: var(--on-crema); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 36; }
   figcaption { font-size: var(--step-small); color: var(--on-crema-dim); }
+  .tr { font-style: italic; }
   .all { margin-top: 1.5rem; font-size: var(--step-small); }
   .all a { color: var(--paglia-ink); font-weight: 600; text-decoration: none; }
   .all a:hover { text-decoration: underline; }

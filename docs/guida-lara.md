@@ -19,12 +19,13 @@ Il sito legge un foglio Google. Ogni riga è un evento. Tu scrivi, salvi, e **en
 | Link | un indirizzo web, se c'è (facoltativo) | https://… |
 | Foto | il link a una foto online (facoltativo) | https://… |
 | Chi organizza | **Il Fiaschetto**, **Associazione Commercianti** o il nome di chi organizza | Il Fiaschetto |
-| Titolo in inglese / Descrizione in inglese | solo se vuoi (facoltativo) | |
+| Titolo in inglese / Descrizione in inglese | facoltativo: se li lasci vuoti, il sito traduce da solo | |
 
 Tre cose da sapere:
 
 - Se nella colonna "Chi organizza" c'è **Fiaschetto**, l'evento ha l'etichetta rossa della bottega. Se c'è **Associazione** o **Commercianti**, ha l'etichetta color paglia. Altrimenti "In paese".
 - Gli eventi passati **spariscono da soli**. Non serve cancellarli.
+- La versione inglese del sito traduce da sola titoli e descrizioni. Se vuoi scriverli tu, usa le due colonne in inglese: le tue parole vincono.
 - Gli eventi del calendario del Comune (visitmontespertoli.it) arrivano da soli. Se scrivi lo stesso evento nel foglio, vince la tua versione.
 
 ## Il sito di cosa è fatto
