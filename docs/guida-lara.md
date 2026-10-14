@@ -43,7 +43,7 @@ Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Even
 
 ## I messaggi, gli orari, le modifiche
 
-- **«Parla con noi»**: il modulo in fondo al sito (regali, feste, eventi, consigli) manda un'email a lara7102@icloud.com, con copia a Daniel.
+- **«Parla con noi»**: il modulo in fondo al sito (regali, feste, eventi, consigli) manda un'email a lara7102@icloud.com.
 - **WhatsApp**: il pulsante apre una chat con il 339 352 0372.
 - **Orari sul sito**: lunedì 16:30-20:00; martedì-sabato 9:30-12:30 e 16:30-20:00; domenica 9:30-12:30. Se cambiano, diccelo.
 - **Per cambiare qualcosa** (testo, foto, orario, prezzo): scrivi a Daniel. Niente pannelli, niente password.
