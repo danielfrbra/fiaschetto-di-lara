@@ -22,4 +22,40 @@ export interface Review {
   lang?: "it" | "en";
 }
 
-export const REVIEWS: Review[] = [];
+/*
+ * Quattro recensioni Google copiate da Daniel il 2026-10-14. Le date Google le dà
+ * relative ("6 mesi fa", "un anno fa"): qui sono tradotte in mese/anno approssimati.
+ * I cognomi sono ridotti all'iniziale per discrezione. Niente stelle: Google non le
+ * mostrava nel testo copiato (da aggiungere se Daniel le conferma).
+ * La quarta è la traduzione automatica di Google di un originale inglese.
+ */
+export const REVIEWS: Review[] = [
+  {
+    name: "Iuliana O.",
+    text: "Se cerchi la Toscana autentica, quella delle botteghe dove il rapporto umano conta quanto il vino buono, devi andare da Lara. Qui a Montespertoli la qualità dello sfuso va di pari passo con un'accoglienza che non si trova più. Lara conosce ogni etichetta e ti consiglia con passione e sincerità. Entri per una bottiglia e ne esci proprio rigenerato.",
+    when: "Aprile 2026",
+    source: "Google",
+    lang: "it",
+  },
+  {
+    name: "Guido B.",
+    text: "Ottima selezione di vini e prodotti del territorio. Proprietaria cordiale e competente. Consigliatissimo",
+    when: "Novembre 2025",
+    source: "Google",
+    lang: "it",
+  },
+  {
+    name: "Silvia F.",
+    text: "Proprietari simpatici e molto preparati sulle caratteristiche dei vini in vendita, attenti alle esigenze del cliente…",
+    when: "2025",
+    source: "Google",
+    lang: "it",
+  },
+  {
+    name: "Kurt S.",
+    text: "Proprietario gentilissimo con un'ampia varietà di vini e aperitivi. Abbiamo gustato il prosecco all'aperto e siamo stati viziati con piccoli snack locali fatti in casa.",
+    when: "2025",
+    source: "Google",
+    lang: "it",
+  },
+];

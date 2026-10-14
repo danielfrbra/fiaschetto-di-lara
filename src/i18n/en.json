@@ -193,6 +193,7 @@
   "reviews": {
     "eyebrow": "What people say",
     "title": "Those who stopped by",
-    "on": "on"
+    "on": "on",
+    "all": "All the reviews on Google"
   }
 }

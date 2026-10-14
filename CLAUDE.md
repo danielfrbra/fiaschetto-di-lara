@@ -24,9 +24,9 @@ Il sito è un **regalo** di Daniel a Lara, costruito **a sorpresa** (lei non sa 
 6. **Instagram**: galleria curata a mano (`src/config/gallery.ts`), nessun feed incorporato → nessuna richiesta a terzi, nessun cookie.
 7. Stile: stessa famiglia di aipim.ai (apertura scura cinematografica, poi sezioni chiare editoriali, reveal allo scorrimento) ma palette del vino: vinaccia `#2a0b14`/`#6b1a2b`, paglia del fiasco `#e1b96b`, crema `#f7f1e6`. Font **Fraunces** (titoli, variabile, "SOFT"+"WONK") e **Instrument Sans** (testo), ospitati in `public/fonts/`.
 
-## Recensioni (sezione pronta, vuota)
+## Recensioni (attive dal 2026-10-14)
 
-`src/components/Reviews.astro` + `src/config/reviews.ts`: la sezione "Dicono di noi" compare in home (fra "Non solo vino" e la galleria) solo se `REVIEWS` ha almeno una voce. **Le nove recensioni TripAdvisor sono del 2012-2017, cioè dell'era Conti**: parlano di un'altra gestione e non vanno usate. Da riempire con recensioni recenti copiate a mano (Google, Facebook) con nome, data e fonte: niente di inventato, niente di accorciato oltre i puntini.
+`src/components/Reviews.astro` + `src/config/reviews.ts`: la sezione "Dicono di noi" compare in home (fra "Non solo vino" e la galleria) solo se `REVIEWS` ha almeno una voce. Oggi ne ha **quattro, da Google**, copiate da Daniel: cognomi ridotti all'iniziale, date approssimate da "6 mesi fa" ecc., niente stelle finché non confermate, una è la traduzione Google di un originale inglese. Link "Tutte le recensioni su Google" sotto le schede. **Le nove recensioni TripAdvisor sono del 2012-2017, cioè dell'era Conti**: parlano di un'altra gestione e non vanno usate. Da riempire con recensioni recenti copiate a mano (Google, Facebook) con nome, data e fonte: niente di inventato, niente di accorciato oltre i puntini.
 
 ## Foto vere (dal 2026-10-13)
 
