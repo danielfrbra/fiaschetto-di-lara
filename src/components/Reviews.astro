@@ -8,7 +8,8 @@ const { lang } = Astro.props;
 const t = useT(lang);
 const list = REVIEWS.slice(0, 4);
 const textOf = (r: (typeof list)[number]) => (lang === "en" && r.textEn ? r.textEn : r.text);
-const translated = (r: (typeof list)[number]) => lang === "en" && !!r.textEn;
+// la nota "tradotta" compare quando la lingua mostrata non è quella dell'originale
+const translated = (r: (typeof list)[number]) => (lang === "en" ? !!r.textEn && r.lang !== "en" : r.lang === "en");
 ---
 {list.length > 0 && (
   <section class="section-tight reviews" id="recensioni">
@@ -19,7 +20,7 @@ const translated = (r: (typeof list)[number]) => lang === "en" && !!r.textEn;
         {list.map((r, i) => (
           <figure class="card reveal" data-delay={String((i % 4) + 1)}>
             {r.stars && <div class="stars" aria-label={`${r.stars}/5`}>{"★".repeat(Math.round(r.stars))}<span class="dim">{"★".repeat(5 - Math.round(r.stars))}</span></div>}
-            <blockquote lang={translated(r) ? "en" : r.lang}><p>«{textOf(r)}»</p></blockquote>
+            <blockquote lang={lang === "en" && r.textEn ? "en" : "it"}><p>«{textOf(r)}»</p></blockquote>
             <figcaption><strong>{r.name}</strong> · {r.when} · {`${t("reviews.on")} ${r.source}`}{translated(r) && <span class="tr"> · {t("reviews.translated")}</span>}</figcaption>
           </figure>
         ))}

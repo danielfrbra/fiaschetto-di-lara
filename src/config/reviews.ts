@@ -18,9 +18,9 @@ export interface Review {
   source: "Google" | "Facebook" | "TripAdvisor";
   /** stelle, 1-5 (facoltativo) */
   stars?: number;
-  /** lingua del testo originale */
+  /** lingua dell'ORIGINALE: la versione nell'altra lingua è una traduzione e il sito lo dice */
   lang?: "it" | "en";
-  /** versione inglese per il sito EN (tradotta da noi, segnalata come tale) */
+  /** versione inglese per il sito EN */
   textEn?: string;
 }
 
@@ -29,7 +29,7 @@ export interface Review {
  * relative ("6 mesi fa", "un anno fa"): qui sono tradotte in mese/anno approssimati.
  * I cognomi sono ridotti all'iniziale per discrezione. Niente stelle: Google non le
  * mostrava nel testo copiato (da aggiungere se Daniel le conferma).
- * La quarta è la traduzione automatica di Google di un originale inglese.
+ * La quarta è originale in inglese (textEn, copiato da Daniel): l'italiano è la traduzione di Google.
  */
 export const REVIEWS: Review[] = [
   {
@@ -58,10 +58,11 @@ export const REVIEWS: Review[] = [
   },
   {
     name: "Kurt S.",
-    textEn: "Very kind owner with a wide variety of wines and aperitifs. We enjoyed the prosecco outdoors and were spoiled with small homemade local snacks.",
+    // originale in inglese (copiato da Daniel); l'italiano è la traduzione di Google
+    textEn: "Super friendly owner with a large variety of wines and aperitivi. We enjoyed prosecco outside and were spoiled with local small home made snacks",
     text: "Proprietario gentilissimo con un'ampia varietà di vini e aperitivi. Abbiamo gustato il prosecco all'aperto e siamo stati viziati con piccoli snack locali fatti in casa.",
     when: "2025",
     source: "Google",
-    lang: "it",
+    lang: "en",
   },
 ];
