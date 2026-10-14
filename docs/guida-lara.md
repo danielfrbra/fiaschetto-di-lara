@@ -1,45 +1,58 @@
-# Il tuo sito, in una pagina
+# Il tuo sito, in poche pagine
 
-**Indirizzo:** https://fiaschetto-di-lara.netlify.app (in inglese: aggiungi `/en/`).
-Quando avrai il tuo dominio, lo faremo puntare qui: l'indirizzo cambia, il sito resta lo stesso.
+> Versione testo del manuale consegnato a Lara. Il PDF impaginato è `docs/Il-Fiaschetto-di-Lara_il-tuo-sito.pdf`, la sorgente è `docs/manuale/manuale.html` (si rigenera con Chrome, vedi CLAUDE.md).
 
-## Gli eventi li scrivi tu, nel foglio
+**Indirizzo:** https://fiaschetto-di-lara.netlify.app (in inglese: `/en/`). Quando avrai il tuo dominio, lo faremo puntare qui: l'indirizzo cambia, il sito resta.
 
-Il sito legge un foglio Google. Ogni riga è un evento. Tu scrivi, salvi, e **entro cinque minuti** l'evento è online: il sito controlla il foglio da solo e si rifà quando trova qualcosa di nuovo. Gli eventi del Comune si aggiornano ogni mattina.
+## Questo è il tuo sito
+
+L'abbiamo costruito guardando la bottega, i tuoi post, gli eventi che metti in piedi in paese. È tuo: niente da imparare, niente password, niente da pagare.
+
+Cosa c'è dentro: l'apertura con un video della bottega · La bottega (sfuso, bottiglie, un bicchiere qui, olio e dispensa) · Il territorio e i produttori · Cosa succede in paese (il calendario) · La storia, dal carretto del 1930 a oggi · Non solo vino (tu e l'Associazione) · Dicono di noi (le recensioni di Google) · La bottega in foto · Contatti, orari e il modulo «Parla con noi».
+
+In italiano e in inglese, perfetto sul telefono, zero cookie e niente banner, pulsante WhatsApp sempre a portata di mano, bella anteprima quando lo condividi.
+
+## Gli eventi li scrivi tu
+
+Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Eventi Il Fiaschetto». 2) Una riga, un evento: titolo e data bastano. 3) Non serve salvare. 4) Entro cinque minuti è online, in italiano e in inglese.
 
 | Colonna | Cosa scrivere | Esempio |
 |---|---|---|
-| Titolo | il nome dell'evento | Cena d'Estate in via Garibaldi |
-| Data | giorno/mese/anno | 24/06/2027 |
-| Ora | ora di inizio (facoltativa) | 20:00 |
+| Titolo * | il nome dell'evento | Cena d'Estate in via Garibaldi |
+| Data * | giorno/mese/anno | 24/06/2027 |
+| Ora | a che ora comincia | 20:00 |
 | Data fine | solo se dura più giorni | 26/06/2027 |
-| Ora fine | facoltativa | 23:30 |
+| Ora fine | a che ora finisce | 23:30 |
 | Luogo | dove | Via Garibaldi, Montespertoli |
-| Descrizione | due righe, come le scriveresti su Facebook | Tavoli in strada, musica dal vivo, tagliere e pizza. Prenota al 339 352 0372. |
-| Link | un indirizzo web, se c'è (facoltativo) | https://… |
-| Foto | il link a una foto: o un link diretto a un'immagine, o il link "condividi" di una foto su Google Drive resa pubblica (facoltativo) | https://drive.google.com/file/d/… |
-| Chi organizza | **Il Fiaschetto**, **Associazione Commercianti** o il nome di chi organizza | Il Fiaschetto |
-| Titolo in inglese / Descrizione in inglese | facoltativo: se li lasci vuoti, il sito traduce da solo | |
+| Descrizione | due righe, come su Facebook | Tavoli in strada, musica dal vivo. Prenota al 339 352 0372. |
+| Link | un indirizzo web, se c'è | https://… |
+| Foto | link diretto a un'immagine, o il link «condividi» di una foto su Google Drive resa pubblica | https://drive.google.com/file/d/… |
+| Chi organizza | la bottega, l'Associazione o chi altro | Il Fiaschetto |
+| Titolo in inglese / Descrizione in inglese | solo se vuoi dirla tu: se vuoti, il sito traduce da solo | |
 
-Tre cose da sapere:
+`*` obbligatorie. Le righe senza titolo o senza data valida vengono ignorate.
 
-- Se nella colonna "Chi organizza" c'è **Fiaschetto**, l'evento ha l'etichetta rossa della bottega. Se c'è **Commercianti** o **Artigiani**, ha l'etichetta color paglia dell'associazione. Per chiunque altro (Pro Loco, Comune, un'altra associazione…) l'etichetta è "In paese" e il nome che hai scritto compare accanto alla data.
-- Gli eventi passati **spariscono da soli**. Non serve cancellarli.
-- La versione inglese del sito traduce da sola titoli e descrizioni. Se vuoi scriverli tu, usa le due colonne in inglese: le tue parole vincono.
-- Gli eventi del calendario del Comune (visitmontespertoli.it) arrivano da soli. Se scrivi lo stesso evento nel foglio, vince la tua versione.
+## Le regole del gioco
 
-## Il sito di cosa è fatto
+- **L'etichetta la decide «Chi organizza».** "Fiaschetto" → etichetta rossa della bottega. "Commercianti" o "Artigiani" → etichetta color paglia dell'Associazione. Chiunque altro → «In paese», e il nome scritto compare accanto alla data.
+- **Il passato sparisce da solo.** Non devi cancellare niente.
+- **Il Comune arriva da solo.** Gli eventi di visitmontespertoli.it entrano ogni mattina. Se scrivi lo stesso evento, vince la tua versione.
+- **L'inglese si fa da solo.** Le due colonne in inglese, se compilate, vincono.
+- **Ogni evento ha la sua pagina**, con link da condividere su WhatsApp e Facebook e «Aggiungi al calendario».
+- **I tempi:** al massimo sei minuti dal foglio al sito; il Comune una volta al giorno.
 
-- **Apertura** con il video della bottega, poi "La bottega", "Il territorio", "Cosa succede in paese", "La storia", "Non solo vino", le foto, i contatti.
-- Ogni evento ha la sua pagina: il link si condivide su WhatsApp e Facebook con l'anteprima giusta, e chi lo apre può metterlo nel calendario del telefono con un tocco.
-- Il pulsante **WhatsApp** è sempre in alto: porta al 339 352 0372.
-- Il modulo "Parla con noi" (regali, feste, eventi, consigli sul vino) manda un'email: per ora arriva a Daniel, poi lo giriamo a te.
-- **Zero cookie, zero tracciamento**: niente banner da far chiudere ai clienti.
+## I messaggi, gli orari, le modifiche
 
-## Cosa serve da te, quando vuoi
+- **«Parla con noi»**: il modulo in fondo al sito (regali, feste, eventi, consigli) manda un'email. Per ora arriva a Daniel; quando vuoi, a te.
+- **WhatsApp**: il pulsante apre una chat con il 339 352 0372.
+- **Orari sul sito**: lunedì 16:30-20:00; martedì-sabato 9:30-12:30 e 16:30-20:00; domenica 9:30-12:30. Se cambiano, diccelo.
+- **Per cambiare qualcosa** (testo, foto, orario, prezzo): scrivi a Daniel. Niente pannelli, niente password.
 
-1. **Le foto vere** della bottega: vetrina, fiaschi, scaffali, bancone, tavoli fuori la sera, l'olio. Sei scatti col telefono bastano. Prenderanno il posto delle immagini di oggi.
-2. **Il nome esatto dell'attività** per l'informativa privacy (ditta, indirizzo), e un'email se vuoi riceverci le prenotazioni.
-3. **Il dominio**, quando vorrai: te lo facciamo puntare noi.
+## Quando vuoi, in più
 
-Gli orari sul sito sono: lunedì 16:30-20:00, martedì-sabato 9:30-12:30 e 16:30-20:00, domenica 9:30-12:30. Per cambiare un testo, una foto, un orario: scrivi a Daniel. Nessuna password, nessun pannello.
+1. **Le tue foto**: sei scatti col telefono e sostituiamo le immagini d'atmosfera.
+2. **Il tuo dominio** (per esempio ilfiaschettodilara.it): lo compri tu, lo facciamo puntare noi.
+3. **Un'email tua** per i messaggi del modulo.
+4. **Il nome esatto dell'attività** per l'informativa privacy.
+
+Fatto con ❤️ da aipim.ai · info@aipim.ai

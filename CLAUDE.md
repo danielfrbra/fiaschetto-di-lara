@@ -97,4 +97,7 @@ Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla pos
 
 Collegato al repository via API con l'installazione GitHub dell'app Netlify già presente sull'account (`installation_id` 119842415). Il primo deploy è passato al primo colpo.
 
+**Manuale per Lara (PDF):** sorgente `docs/manuale/manuale.html` (stessi font e colori del sito, foto e schermate in `docs/manuale/`), stampato con Chrome headless:
+`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf="$PWD/docs/Il-Fiaschetto-di-Lara_il-tuo-sito.pdf" "file://$PWD/docs/manuale/manuale.html"`. Per controllarlo: `swift tools/pdfpages.swift <pdf> <cartella> 900` rende le pagine in PNG. In stampa Chrome trasforma le ombre CSS in rettangoli grigi: niente `box-shadow` nel manuale. I QR (`qr-sito*.svg`) vengono dal pacchetto npm `qrcode`, usato una tantum fuori dal progetto. `docs/guida-lara.md` è la versione testo dello stesso manuale.
+
 **Controllo visivo senza aprire il browser:** `npx astro preview & node tools/screenshot.mjs http://localhost:4321/ out.jpg 1440 900 [mobile 0/1] [clipY clipH]` — pagina intera via DevTools, con i `.reveal` già accesi.

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Il Fiaschetto di Lara · Il tuo sito</title>
+<style>
+  @font-face { font-family: "Fraunces"; font-weight: 300 900; font-style: normal; src: url("../../public/fonts/fraunces.woff2") format("woff2"); }
+  @font-face { font-family: "Fraunces"; font-weight: 300 900; font-style: italic; src: url("../../public/fonts/fraunces-italic.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 400 700; font-style: normal; src: url("../../public/fonts/instrument-sans.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-weight: 400 700; font-style: italic; src: url("../../public/fonts/instrument-sans-italic.woff2") format("woff2"); }
+
+  :root {
+    --ink: #2a0b14; --ink-2: #35101b; --vino: #6b1a2b; --paglia: #e1b96b; --paglia-ink: #7d5a1c;
+    --crema: #f7f1e6; --crema-2: #fffbf4; --on-crema: #221611; --dim: #6f5f56; --line: #e7dccb;
+    --on-ink: #f6eee0; --on-ink-dim: #cdb6a8;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Instrument Sans", sans-serif; color: var(--on-crema); font-size: 10.5pt; line-height: 1.55; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 18mm 14mm; position: relative; overflow: hidden; background: var(--crema); page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .page.dark { background: var(--ink); color: var(--on-ink); }
+
+  h1, h2, h3, .display { font-family: "Fraunces", serif; font-weight: 600; line-height: 1.05; letter-spacing: -0.015em; font-variation-settings: "SOFT" 70, "WONK" 1, "opsz" 96; margin: 0; }
+  h1 { font-size: 34pt; }
+  h2 { font-size: 22pt; margin: 2mm 0 4mm; }
+  h3 { font-size: 13pt; font-variation-settings: "SOFT" 50, "WONK" 0, "opsz" 36; margin: 0 0 1.5mm; }
+  p { margin: 0 0 3mm; }
+  .eyebrow { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--paglia-ink); display: inline-flex; align-items: center; gap: 2.5mm; }
+  .eyebrow::before { content: ""; width: 8mm; height: 2px; background: var(--paglia); display: inline-block; }
+  .dark .eyebrow { color: var(--paglia); }
+  .lead { font-size: 12pt; color: var(--dim); max-width: 150mm; }
+  .dark .lead { color: var(--on-ink-dim); }
+  .small { font-size: 8.5pt; color: var(--dim); }
+  .dark .small { color: var(--on-ink-dim); }
+  a { color: var(--paglia-ink); text-decoration: none; font-weight: 600; }
+  .dark a { color: var(--paglia); }
+  em { font-style: italic; }
+  strong { font-weight: 700; }
+
+  .foot { position: absolute; left: 18mm; right: 18mm; bottom: 9mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+  .foot .mark { color: var(--vino); }
+
+  /* copertina */
+  .cover { display: flex; flex-direction: column; justify-content: space-between; padding: 22mm 18mm 0; }
+  .cover .mark svg { width: 18mm; height: auto; color: var(--paglia); }
+  .cover h1 { font-size: 52pt; margin-top: 8mm; }
+  .cover h1 em { color: var(--paglia); font-weight: 500; }
+  .cover .sub { font-family: "Fraunces", serif; font-size: 20pt; font-style: italic; color: var(--on-ink-dim); margin-top: 4mm; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 48; }
+  .cover .url { margin-top: 10mm; font-size: 11pt; color: var(--on-ink); }
+  .cover .strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm; margin: 0 -18mm; }
+  .cover .strip img { width: 100%; height: 62mm; object-fit: cover; display: block; }
+  .cover .credit { position: absolute; left: 18mm; bottom: 70mm; font-size: 8.5pt; color: var(--on-ink-dim); }
+
+  /* blocchi */
+  .box { border: 1px solid var(--line); background: var(--crema-2); border-radius: 4mm; padding: 5mm 6mm; }
+  .box.ink { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+  .qr { display: grid; grid-template-columns: 30mm 1fr; gap: 5mm; align-items: center; }
+  .qr img, .qr svg { width: 30mm; height: 30mm; }
+  .qr strong { font-size: 9.5pt; letter-spacing: -0.01em; white-space: nowrap; }
+  ul.clean { list-style: none; padding: 0; margin: 0; }
+  ul.clean li { padding: 1.6mm 0 1.6mm 6mm; position: relative; border-bottom: 1px solid var(--line); }
+  ul.clean li:last-child { border-bottom: 0; }
+  ul.clean li::before { content: ""; position: absolute; left: 0; top: 4.2mm; width: 2.2mm; height: 2.2mm; border-radius: 50%; background: var(--paglia); }
+  .chips { display: flex; flex-wrap: wrap; gap: 2mm; }
+  .chip { font-size: 8.5pt; font-weight: 600; padding: 1.4mm 3.2mm; border-radius: 99px; border: 1px solid var(--line); background: var(--crema-2); }
+  .tag { display: inline-block; font-size: 7pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.8mm 2.4mm; border-radius: 99px; }
+  .tag-f { background: var(--vino); color: var(--on-ink); }
+  .tag-a { background: var(--paglia); color: var(--ink); }
+  .tag-p { background: transparent; color: var(--paglia-ink); border: 1px solid var(--line); }
+  .shot { border-radius: 3mm; overflow: hidden; border: 1px solid var(--line); }
+  .shot.phone { width: 46mm; height: 66mm; margin-top: 5mm; }
+  .shot img { display: block; width: 100%; }
+
+  /* passi */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin: 4mm 0 6mm; }
+  .step { border-top: 2px solid var(--paglia); padding-top: 2.5mm; }
+  .step .n { font-family: "Fraunces", serif; font-style: italic; font-size: 20pt; color: var(--paglia); line-height: 1; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 72; }
+  .step h3 { margin-top: 1.5mm; font-size: 11.5pt; }
+  .step p { font-size: 9.5pt; color: var(--dim); margin: 0; }
+
+  /* tabella colonne */
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th, td { text-align: left; vertical-align: top; padding: 2mm 2.5mm; border-bottom: 1px solid var(--line); }
+  th { font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paglia-ink); border-bottom: 2px solid var(--paglia); }
+  td.c { font-weight: 700; white-space: nowrap; }
+  td.e { color: var(--dim); font-style: italic; }
+  .req { color: var(--vino); font-weight: 700; }
+
+  /* regole */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .rule { border: 1px solid var(--line); background: var(--crema-2); border-radius: 3mm; padding: 4mm 5mm; }
+  .rule h3 { font-size: 12pt; }
+  .rule p { font-size: 9.5pt; margin: 0; color: var(--on-crema); }
+
+  /* orari */
+  .hours { display: grid; grid-template-columns: auto 1fr; gap: 1mm 5mm; font-size: 10pt; }
+  .hours b { font-weight: 700; }
+
+  /* retro */
+  .back { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .back .mark svg { width: 16mm; color: var(--paglia); }
+  .back h2 { font-size: 26pt; margin-top: 6mm; }
+  .back .heart { color: #e0322e; }
+  .back .qrbig { width: 48mm; height: 48mm; margin: 8mm auto 4mm; }
+  .back .url { font-size: 12pt; color: var(--on-ink); }
+  .back .contacts { margin-top: 14mm; font-size: 10pt; color: var(--on-ink-dim); line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<!-- 1 · COPERTINA -->
+<section class="page dark cover">
+  <div>
+    <div class="mark"><svg viewBox="0 0 48 58" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 2h8v10c0 3 1.5 5 4 7 4.6 3.9 7.5 9 7.5 15 0 9-7 15.5-15.5 15.5S8.5 43 8.5 34c0-6 2.9-11.1 7.5-15 2.5-2 4-4 4-7V2z"/><path d="M11.5 30c6 2.6 19 2.6 25 0M10.5 38c6 2.6 21 2.6 27 0M12.5 46c5 2.2 18 2.2 23 0"/></svg></div>
+    <span class="eyebrow" style="margin-top:8mm">Montespertoli · Via Garibaldi 4-6</span>
+    <h1>Il Fiaschetto<br><em>di Lara</em></h1>
+    <div class="sub">Il tuo sito, in poche pagine.</div>
+    <div class="url">fiaschetto-di-lara.netlify.app</div>
+  </div>
+  <div class="credit">Un regalo di Aipim · ottobre 2026</div>
+  <div class="strip">
+    <img src="../../public/img/g15.jpg" alt="">
+    <img src="../../public/img/g13.jpg" alt="">
+    <img src="../../public/img/g17.jpg" alt="">
+  </div>
+</section>
+
+<!-- 2 · BENVENUTA -->
+<section class="page">
+  <span class="eyebrow">Benvenuta</span>
+  <h2>Questo è il tuo sito</h2>
+  <p class="lead">L'abbiamo costruito guardando la bottega, i tuoi post, gli eventi che metti in piedi in paese. È tuo: niente da imparare, niente password, niente da pagare. Qui c'è cosa c'è dentro e come tenerlo vivo.</p>
+
+  <div class="grid2" style="margin-top:6mm; align-items:start">
+    <div>
+      <div class="box qr">
+        <img src="qr-sito.svg" alt="">
+        <div>
+          <strong>fiaschetto-di-lara.netlify.app</strong>
+          <p class="small" style="margin:1.5mm 0 0">Inquadra con il telefono per aprirlo. Lo stesso codice lo puoi stampare e mettere in vetrina o sui tavoli.</p>
+        </div>
+      </div>
+      <h3 style="margin-top:6mm">Cosa c'è dentro</h3>
+      <ul class="clean">
+        <li>L'apertura, con un video della bottega</li>
+        <li><strong>La bottega</strong>: sfuso, bottiglie, un bicchiere qui, olio e dispensa</li>
+        <li><strong>Il territorio</strong> e i produttori di Montespertoli</li>
+        <li><strong>Cosa succede in paese</strong>: il calendario degli eventi</li>
+        <li><strong>La storia</strong>, dal carretto del 1930 a oggi</li>
+        <li><strong>Non solo vino</strong>: tu e l'Associazione</li>
+        <li><strong>Dicono di noi</strong>: le recensioni di Google</li>
+        <li><strong>La bottega in foto</strong></li>
+        <li><strong>Contatti</strong>, orari e il modulo «Parla con noi»</li>
+      </ul>
+    </div>
+    <div>
+      <div class="shot"><img src="sito-apertura.jpg" alt=""></div>
+      <div class="chips" style="margin-top:5mm">
+        <span class="chip">In italiano e in inglese</span>
+        <span class="chip">Perfetto sul telefono</span>
+        <span class="chip">Zero cookie, niente banner</span>
+        <span class="chip">WhatsApp sempre a portata di mano</span>
+        <span class="chip">Bella anteprima quando lo condividi</span>
+      </div>
+      <p class="small" style="margin-top:5mm">La versione inglese è a <strong>fiaschetto-di-lara.netlify.app/en/</strong>: stessi contenuti, pensati per chi arriva da fuori.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Il Fiaschetto di Lara · il tuo sito</span><span class="mark">2</span></div>
+</section>
+
+<!-- 3 · GLI EVENTI -->
+<section class="page">
+  <span class="eyebrow">La parte tua</span>
+  <h2>Gli eventi li scrivi tu</h2>
+  <p class="lead">Il sito legge un foglio Google. Ogni riga è un evento. Tu scrivi, e in pochi minuti è online, in italiano e in inglese.</p>
+
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Apri il foglio</h3><p>«Eventi Il Fiaschetto», nel tuo Google. Dal telefono o dal computer, fa lo stesso.</p></div>
+    <div class="step"><div class="n">2</div><h3>Una riga, un evento</h3><p>Titolo e data bastano. Il resto lo aggiungi se vuoi.</p></div>
+    <div class="step"><div class="n">3</div><h3>Non serve salvare</h3><p>Il foglio si salva da solo mentre scrivi.</p></div>
+    <div class="step"><div class="n">4</div><h3>Cinque minuti</h3><p>Il sito controlla il foglio, si accorge della novità e si aggiorna.</p></div>
+  </div>
+
+  <h3>Le colonne del foglio</h3>
+  <table>
+    <tr><th>Colonna</th><th>Cosa scrivere</th><th>Esempio</th></tr>
+    <tr><td class="c">Titolo <span class="req">*</span></td><td>il nome dell'evento</td><td class="e">Cena d'Estate in via Garibaldi</td></tr>
+    <tr><td class="c">Data <span class="req">*</span></td><td>giorno/mese/anno</td><td class="e">24/06/2027</td></tr>
+    <tr><td class="c">Ora</td><td>a che ora comincia</td><td class="e">20:00</td></tr>
+    <tr><td class="c">Data fine</td><td>solo se dura più giorni</td><td class="e">26/06/2027</td></tr>
+    <tr><td class="c">Ora fine</td><td>a che ora finisce</td><td class="e">23:30</td></tr>
+    <tr><td class="c">Luogo</td><td>dove</td><td class="e">Via Garibaldi, Montespertoli</td></tr>
+    <tr><td class="c">Descrizione</td><td>due righe, come le scriveresti su Facebook</td><td class="e">Tavoli in strada, musica dal vivo. Prenota al 339 352 0372.</td></tr>
+    <tr><td class="c">Link</td><td>un indirizzo web, se c'è</td><td class="e">https://…</td></tr>
+    <tr><td class="c">Foto</td><td>link diretto a un'immagine, o il link «condividi» di una foto su Google Drive resa pubblica</td><td class="e">https://drive.google.com/file/d/…</td></tr>
+    <tr><td class="c">Chi organizza</td><td>la bottega, l'Associazione o chi altro</td><td class="e">Il Fiaschetto</td></tr>
+    <tr><td class="c">Titolo in inglese<br>Descrizione in inglese</td><td>solo se vuoi dirla tu: se li lasci vuoti, il sito traduce da solo</td><td class="e"></td></tr>
+  </table>
+  <p class="small" style="margin-top:3mm"><span class="req">*</span> Obbligatorie. Le righe senza titolo o senza data valida vengono ignorate, senza fare danni.</p>
+  <div class="foot"><span>Il Fiaschetto di Lara · il tuo sito</span><span class="mark">3</span></div>
+</section>
+
+<!-- 4 · LE REGOLE -->
+<section class="page">
+  <span class="eyebrow">Buono a sapersi</span>
+  <h2>Le regole del gioco</h2>
+  <p class="lead">Poche, e lavorano tutte per te.</p>
+
+  <div class="rules" style="margin-top:5mm">
+    <div class="rule">
+      <h3>L'etichetta la decide «Chi organizza»</h3>
+      <p style="margin-bottom:2.5mm">Scrivi <strong>Fiaschetto</strong> e l'evento ha l'etichetta rossa della bottega. Scrivi <strong>Commercianti</strong> o <strong>Artigiani</strong> e ha quella color paglia dell'Associazione. Chiunque altro (Pro Loco, Comune, un'altra associazione) ha «In paese», e il nome che hai scritto compare accanto alla data.</p>
+      <div class="chips"><span class="tag tag-f">Il Fiaschetto</span> <span class="tag tag-a">Associazione Commercianti</span> <span class="tag tag-p">In paese</span></div>
+    </div>
+    <div class="rule">
+      <h3>Il passato sparisce da solo</h3>
+      <p>Il giorno dopo un evento, l'evento non c'è più. Non devi cancellare niente: il foglio può restare lungo quanto vuoi.</p>
+    </div>
+    <div class="rule">
+      <h3>Il Comune arriva da solo</h3>
+      <p>Gli eventi del calendario di <strong>visitmontespertoli.it</strong> entrano nel sito ogni mattina. Se scrivi nel foglio lo stesso evento, vince la tua versione.</p>
+    </div>
+    <div class="rule">
+      <h3>L'inglese si fa da solo</h3>
+      <p>Titolo e descrizione vengono tradotti per i visitatori stranieri. Se vuoi dirla tu, usa le due colonne in inglese: le tue parole vincono.</p>
+    </div>
+    <div class="rule">
+      <h3>Ogni evento ha la sua pagina</h3>
+      <p>Con un link da condividere su WhatsApp e Facebook, l'anteprima giusta, e il pulsante per metterlo nel calendario del telefono.</p>
+    </div>
+    <div class="rule">
+      <h3>I tempi</h3>
+      <p>Dal momento in cui scrivi nel foglio al sito aggiornato passano al massimo sei minuti. Il calendario del Comune si aggiorna una volta al giorno, la mattina presto.</p>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:6mm; align-items:start">
+    <div class="shot"><img src="sito-eventi.jpg" alt=""></div>
+    <div class="shot"><img src="sito-evento.jpg" alt=""></div>
+  </div>
+  <p class="small" style="margin-top:2.5mm">A sinistra il calendario del paese; a destra la pagina di un evento, con «Aggiungi al calendario» e «Condividi».</p>
+  <div class="foot"><span>Il Fiaschetto di Lara · il tuo sito</span><span class="mark">4</span></div>
+</section>
+
+<!-- 5 · MESSAGGI E MODIFICHE -->
+<section class="page">
+  <span class="eyebrow">Chi ti cerca</span>
+  <h2>I messaggi, gli orari, le modifiche</h2>
+
+  <div class="grid2" style="margin-top:5mm; align-items:start">
+    <div>
+      <h3>«Parla con noi»</h3>
+      <p>In fondo al sito c'è un modulo: chi vuole un regalo, organizza una festa, ha un evento da far conoscere o cerca un consiglio sul vino, lascia nome, recapito e due righe. Il messaggio arriva per email. Per ora arriva a Daniel; quando vuoi, lo giriamo a te.</p>
+      <h3 style="margin-top:5mm">WhatsApp</h3>
+      <p>Il pulsante in alto, su ogni pagina, apre una chat con il <strong>339 352 0372</strong>. È il modo più veloce per chi ti scrive dal telefono.</p>
+      <h3 style="margin-top:5mm">Gli orari sul sito</h3>
+      <div class="hours">
+        <b>Lunedì</b><span>16:30 – 20:00</span>
+        <b>Martedì – Sabato</b><span>9:30 – 12:30 e 16:30 – 20:00</span>
+        <b>Domenica</b><span>9:30 – 12:30</span>
+      </div>
+      <p class="small" style="margin-top:2mm">Se cambiano, anche solo per le feste, diccelo: li aggiorniamo in giornata, e Google li legge dal sito.</p>
+      <div class="shot phone"><img src="sito-telefono.jpg" alt=""></div>
+      <p class="small" style="margin-top:2mm">Il sito sul telefono: è lì che lo aprirà quasi tutta Montespertoli.</p>
+    </div>
+    <div>
+      <div class="box ink">
+        <h3 style="color:var(--paglia)">Per cambiare qualcosa</h3>
+        <p style="margin:0">Un testo, una foto, un orario, un prezzo: <strong>scrivi a Daniel</strong>. Niente pannelli, niente password, niente da aggiornare: ci pensiamo noi, di solito in giornata.</p>
+      </div>
+      <h3 style="margin-top:6mm">Quando vuoi, in più</h3>
+      <ul class="clean">
+        <li><strong>Le tue foto.</strong> Sei scatti col telefono (vetrina, scaffali, bancone, sfuso, tavoli fuori, olio) e sostituiamo le immagini d'atmosfera con quelle vere.</li>
+        <li><strong>Il tuo dominio.</strong> Per esempio <em>ilfiaschettodilara.it</em>: lo compri tu, lo facciamo puntare noi. L'indirizzo cambia, il sito resta.</li>
+        <li><strong>Un'email tua</strong> dove ricevere i messaggi del modulo.</li>
+        <li><strong>Il nome esatto dell'attività</strong> per l'informativa privacy.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Il Fiaschetto di Lara · il tuo sito</span><span class="mark">5</span></div>
+</section>
+
+<!-- 6 · RETRO -->
+<section class="page dark back">
+  <div class="mark"><svg viewBox="0 0 48 58" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 2h8v10c0 3 1.5 5 4 7 4.6 3.9 7.5 9 7.5 15 0 9-7 15.5-15.5 15.5S8.5 43 8.5 34c0-6 2.9-11.1 7.5-15 2.5-2 4-4 4-7V2z"/><path d="M11.5 30c6 2.6 19 2.6 25 0M10.5 38c6 2.6 21 2.6 27 0M12.5 46c5 2.2 18 2.2 23 0"/></svg></div>
+  <h2>Fatto con <span class="heart">❤</span> da aipim.ai</h2>
+  <p class="lead" style="max-width:120mm; margin-top:3mm">Ti piace? Ne facciamo uno anche per chi te lo chiede in bottega: basta un messaggio.</p>
+  <img class="qrbig" src="qr-sito-chiaro.svg" alt="">
+  <div class="url">fiaschetto-di-lara.netlify.app</div>
+  <div class="contacts">aipim.ai · info@aipim.ai<br>Daniel Felix Reis</div>
+</section>
+
+</body>
+</html>
