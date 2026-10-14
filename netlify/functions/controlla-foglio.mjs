@@ -23,11 +23,18 @@ const read = async (url) => {
 };
 
 export default async () => {
-  const [sheet, live] = await Promise.all([
+  const [sheet, live, prod, prodLive] = await Promise.all([
     read(EVENT_SOURCES.sheetCsv(EVENT_SOURCES.sheetId)),
     read(`${SITE}/_fonti/foglio.csv`),
+    read(EVENT_SOURCES.producersCsv(EVENT_SOURCES.sheetId)),
+    read(`${SITE}/_fonti/produttori.csv`),
   ]);
-  const esito = decide(sheet, live);
+  let esito = decide(sheet, live);
+  // la linguetta Produttori: se c'è (e non è una pagina di errore), conta anche lei
+  if (esito !== "diverso" && prod && !/<html/i.test(prod)) {
+    const e2 = decide(prod, prodLive);
+    if (e2 === "diverso") esito = "diverso";
+  }
   if (esito !== "diverso") { console.log(`controllo foglio: ${esito}`); return new Response(esito); }
   const hook = process.env.BUILD_HOOK_URL;
   if (!hook) { console.error("BUILD_HOOK_URL non impostata"); return new Response("missing BUILD_HOOK_URL", { status: 500 }); }

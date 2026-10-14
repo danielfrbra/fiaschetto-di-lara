@@ -14,12 +14,14 @@ const copiaFoglio = () => ({
   name: "copia-foglio",
   hooks: {
     "astro:build:done": ({ dir, logger }) => {
-      const src = join(process.cwd(), "node_modules", ".cache", "fiaschetto", "foglio.csv");
-      if (!existsSync(src)) { logger.warn("nessuna copia del foglio da pubblicare"); return; }
       const out = join(fileURLToPath(dir), "_fonti");
       mkdirSync(out, { recursive: true });
-      copyFileSync(src, join(out, "foglio.csv"));
-      logger.info("copia del foglio pubblicata in /_fonti/foglio.csv");
+      for (const name of ["foglio.csv", "produttori.csv"]) {
+        const src = join(process.cwd(), "node_modules", ".cache", "fiaschetto", name);
+        if (!existsSync(src)) { logger.warn(`nessuna copia di ${name} da pubblicare`); continue; }
+        copyFileSync(src, join(out, name));
+        logger.info(`copia pubblicata in /_fonti/${name}`);
+      }
     },
   },
 });

@@ -17,6 +17,7 @@ import { useT, home, PATHS, type Lang } from "../i18n";
 import { SITE } from "../config/site";
 import { MEDIA } from "../config/media";
 import { GALLERY } from "../config/gallery";
+import { loadProducers } from "../lib/producers";
 
 interface Props { lang: Lang; events: Ev[] }
 const { lang, events } = Astro.props;
@@ -26,7 +27,7 @@ const consent = (t("contact.f_consent") as string).replace("{privacy}", PATHS.pr
 const hours: string[] | null = SITE.hours ? SITE.hours[lang] : null;
 const ext = (label: string) => `${label} (${t("nav.external")})`;
 const cards = [1, 2, 3, 4];
-const steps = [1, 2, 3, 4, 5];
+const producers = await loadProducers();
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LiquorStore",
@@ -102,7 +103,7 @@ const jsonLd = {
           <h3 class="terr-title reveal" data-delay="1">{t("territory.title")}</h3>
           <p class="reveal" data-delay="2">{t("territory.body")}</p>
           <p class="note reveal" data-delay="3">{t("territory.note")}</p>
-          <ul class="chips reveal" data-delay="3">{(t("territory.producers") as string[]).map((p) => <li>{p}</li>)}</ul>
+          <ul class="chips reveal" data-delay="3">{producers.map((p) => <li>{p}</li>)}</ul>
         </div>
       </div>
     </section>
@@ -134,14 +135,12 @@ const jsonLd = {
           <span class="eyebrow reveal">{t("story.eyebrow")}</span>
           <h2 class="h2 reveal" data-delay="1">{t("story.title")}</h2>
           <p class="lead reveal" data-delay="2">{t("story.lead")}</p>
-          <ol class="timeline">
-            {steps.map((n) => (
-              <li class="reveal">
-                <span class="year">{t(`story.t${n}_year`)}</span>
-                <div><h3>{t(`story.t${n}_title`)}</h3><p>{t(`story.t${n}_body`)}</p></div>
-              </li>
-            ))}
-          </ol>
+          <div class="prose">
+            <p class="reveal">{t("story.p1")}</p>
+            <p class="reveal">{t("story.p2")}</p>
+            <p class="reveal">{t("story.p3")}</p>
+            <blockquote class="motto reveal"><p>«{t("story.motto")}»</p><cite>{t("story.motto_by")}</cite></blockquote>
+          </div>
         </div>
         <aside class="storia-side">
           <div class="storia-media reveal"><MediaSlot clip={MEDIA.storia} /></div>
@@ -294,13 +293,13 @@ const jsonLd = {
 
   /* ——— 4 · Storia ——— */
   .storia-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-  .timeline { list-style: none; margin-top: 2.5rem; position: relative; padding-left: 0; }
-  .timeline::before { content: ""; position: absolute; left: 3.3rem; top: 0.5rem; bottom: 0.5rem; width: 1px; background: var(--line); }
-  .timeline li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 1rem; padding-block: 1.1rem; position: relative; }
-  .timeline li::before { content: ""; position: absolute; left: 3.05rem; top: 1.55rem; width: 9px; height: 9px; border-radius: 50%; background: var(--paglia); box-shadow: 0 0 0 4px var(--crema); }
-  .year { font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--vino); font-size: 1.05rem; padding-top: 0.15rem; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 24; }
-  .timeline h3 { font-size: 1.25rem; }
-  .timeline p { margin-top: 0.4rem; color: var(--on-crema-dim); font-size: 0.98rem; }
+  .prose { margin-top: 2rem; max-width: 58ch; }
+  .prose p { font-size: clamp(1.02rem, 1.25vw, 1.15rem); line-height: 1.7; }
+  .prose p + p { margin-top: 1.1rem; }
+  .prose p:first-child::first-letter { font-family: var(--font-display); font-size: 3.2em; line-height: 0.8; float: left; margin: 0.12em 0.14em 0 0; color: var(--vino); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144; }
+  .motto { margin-top: 1.75rem; padding: 1.25rem 1.5rem; border-left: 3px solid var(--paglia); background: var(--crema-2); border-radius: 0 var(--radius) var(--radius) 0; }
+  .motto p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.25; color: var(--vino); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 72; }
+  .motto cite { display: block; margin-top: 0.6rem; font-style: normal; font-weight: 700; font-size: var(--step-small); letter-spacing: 0.12em; text-transform: uppercase; color: var(--paglia-ink); }
   .storia-side { position: sticky; top: 6rem; display: grid; gap: 1rem; }
   .storia-media { aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; }
   .why { padding: 1.75rem; border-radius: var(--radius); background: var(--ink); color: var(--on-ink); }

@@ -53,7 +53,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 const CACHE_DIR = join(process.cwd(), "node_modules", ".cache", "fiaschetto");
 
-async function fetchText(url: string, label: string, cacheName: string): Promise<string | null> {
+export async function fetchText(url: string, label: string, cacheName: string): Promise<string | null> {
   const cacheFile = join(CACHE_DIR, cacheName);
   try {
     const r = await fetch(url, { headers: { "User-Agent": "fiaschetto-di-lara (build)" } });

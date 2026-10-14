@@ -33,7 +33,7 @@
     "title": "Taste first. Then decide.",
     "lead": "Nobody buys wine blind here. We pour it, we talk about it, and only then do you take it home.",
     "c1_title": "On tap, in your flask",
-    "c1_body": "Wine from Montespertoli's producers, straight from the tap. Taste it, pick one, and we fill whatever you bring from home: flask, bottle, demijohn. You pay for the wine, not the glass.",
+    "c1_body": "Wine from Montespertoli's producers, on tap. Taste it, pick one, and we fill whatever you bring from home: flask or bottle. You pay for the wine, not the glass.",
     "c2_title": "Bottles from home",
     "c2_body": "Chianti Montespertoli, riservas, a few Tuscan and Italian labels chosen one by one. For tonight's dinner or a gift that says where it comes from.",
     "c3_title": "A glass right here",
@@ -44,21 +44,8 @@
   "territory": {
     "eyebrow": "The land",
     "title": "The land of Chianti Montespertoli",
-    "body": "Montespertoli is one of the most vine-covered towns in Tuscany and since 1997 it has had its own sub-zone, Chianti Montespertoli: ripe Sangiovese from the hills between Florence and Val d'Elsa. The shop pours the wines of home, from Tenuta Ripalta, where Il Fiaschetto was born, to the town's wineries.",
-    "note": "Some of the territory's producers",
-    "producers": [
-      "Tenuta Ripalta",
-      "Castello Sonnino",
-      "Castello di Poppiano",
-      "Montalbino",
-      "La Leccia",
-      "Valle Prima",
-      "Tenuta Barbadoro",
-      "Podere Guiducci",
-      "Casa di Monte",
-      "Podere Ghisone",
-      "Fattorie Parri"
-    ]
+    "body": "Montespertoli is one of the most vine-covered towns in Tuscany and since 1997 it has had its own sub-zone, Chianti Montespertoli: ripe Sangiovese from the hills between Florence and Val d'Elsa. The shop pours the wines of home, starting with Tenuta Ripalta.",
+    "note": "The producers you'll find in the shop"
   },
   "events": {
     "eyebrow": "In town",
@@ -91,25 +78,15 @@
   },
   "story": {
     "eyebrow": "Our story",
-    "title": "From the cart to the flask",
-    "lead": "Il Fiaschetto's name is as old as the wine around here.",
-    "t1_year": "1930",
-    "t1_title": "The cart",
-    "t1_body": "Gino Conti carries Montespertoli wine to Florence on a horse-drawn cart, tavern by tavern. The humblest way to sell wine: you taste, you trust, you buy.",
-    "t2_year": "1952",
-    "t2_title": "The winery",
-    "t2_body": "The Conti winery is founded: the wine trade grows more structured, but the way of selling stays the same, looking the drinker in the eye.",
-    "t3_year": "2008",
-    "t3_title": "Il Fiaschetto is born",
-    "t3_body": "Roberto Conti opens the family's direct-sales shop on Via Garibaldi. Wine on tap, a taste, fill your own flask: that's where the name comes from.",
-    "t4_year": "2019",
-    "t4_title": "A change of hands",
-    "t4_body": "The Conti family passes the baton. The shop stays, and with Lara Bartalucci it becomes something more: a place where you drink, you chat, and you always know what's going on in town.",
-    "t5_year": "Today",
-    "t5_title": "The shop and the noticeboard",
-    "t5_body": "Wine from the town's producers, a few tables, and the calendar of everything happening in Montespertoli. Il Fiaschetto di Lara is both.",
+    "title": "Lara's shop, since 2019",
+    "p1": "In 2019 Lara Bartalucci picks up the keys to a small wine shop on Via Garibaldi, a few steps from Piazza del Popolo. Inside: the tanks of wine on tap, a few shelves of bottles and a simple idea: in Montespertoli, good wine is sold looking people in the eye.",
+    "p2": "Since then Il Fiaschetto has become Il Fiaschetto di Lara, and not only in name. It's the place you walk into for a flask of red and stay for a chat, where a word of advice counts more than a label, where on Sunday morning you stop by for the wine for lunch. You taste, you talk, you choose: hurry stays outside the door.",
+    "p3": "Lara didn't stop at the counter. With the Merchants and Artisans Association, which she chairs, she has filled the town's calendar: the summer street dinners every Wednesday, the Spring Festival, Halloween in the square, Christmas with the tree and the markets. That's why the shop is also Montespertoli's noticeboard: if something is happening, they know it here first.",
+    "motto": "Life is bitter. Wine isn't.",
+    "motto_by": "The shop's motto",
     "why_title": "Why “Fiaschetto”",
-    "why_body": "The fiasco is Tuscany's hand-wrapped straw bottle, the one that sat on every table. The name says it all: here you take wine home the way it was always done, in your own container."
+    "why_body": "The fiasco is Tuscany's hand-wrapped straw bottle, the one that sat on every table. The name says it all: here you take wine home the way it was always done, in your own flask.",
+    "lead": "A shop with a person inside."
   },
   "lara": {
     "eyebrow": "Not just wine",

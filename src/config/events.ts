@@ -5,4 +5,6 @@ export const EVENT_SOURCES = {
   /** Foglio Google compilato da Lara: condiviso "chiunque abbia il link". Si legge come CSV. */
   sheetId: "1HNamOMAtPWoc-KCwCQ_xVRd4LX-uIAcoLrycWSfQZgs",
   sheetCsv: (id: string) => `https://docs.google.com/spreadsheets/d/${id}/export?format=csv`,
+  /** Linguetta "Produttori" dello stesso foglio, letta per nome. */
+  producersCsv: (id: string) => `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=Produttori`,
 };

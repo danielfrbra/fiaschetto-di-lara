@@ -44,6 +44,14 @@ La tessera `g3` è una **foto vera** dell'interno (scaffali), presa dalla scheda
 - **La bottega non fa cene né ristorazione** (Daniel, 2026-10-14): si beve un bicchiere, si stuzzica qualcosa, ma niente tavoli da prenotare. Il modulo è "Parla con noi" (regali, feste, eventi, consigli), non una prenotazione. Le "Cene d'Estate" citate nel sito sono l'evento del paese, non un servizio della bottega.
 - Le recensioni e i telefoni vecchi online (TripAdvisor 2014, Expedia, 347… / 333…) sono dell'era Conti: non usarli.
 
+## Linguetta "Produttori" (dal 2026-10-14)
+
+Nello stesso foglio Google, una seconda linguetta chiamata **Produttori**: prima riga "Produttore", poi un nome per riga. `src/lib/producers.ts` la legge in build via `gviz/tq?tqx=out:csv&sheet=Produttori` (per nome, non per gid), copia in `/_fonti/produttori.csv`, controllo ogni 5 minuti insieme al foglio eventi. Se la linguetta manca o risponde con HTML → lista di partenza `["Tenuta Ripalta"]`. È la lista "I produttori che trovi in bottega" nella sezione Il territorio: la decide Lara, per questo il testo può dire "trovi in bottega".
+
+## Storia (riscritta il 2026-10-14, con Lara presente)
+
+Lara **non vuole** la storia precedente al 2019 né la famiglia Conti sul sito. La sezione "La storia" è ora in prosa (chiavi `story.p1-p3`, `story.motto`), dal 2019 in poi, più il riquadro "Perché Fiaschetto" senza riferimenti ai Conti. Il motto «La vita è amara. Il vino no.» viene dalla sua pagina Facebook. La ricerca storica (Conti, 1930, 2008) resta solo in questo file e nelle memorie, non nel sito. Tolte anche "a spina" → "alla spina" e la damigiana.
+
 ## Foglio Google degli eventi — formato
 
 Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla posizione (Lara può spostarle):
