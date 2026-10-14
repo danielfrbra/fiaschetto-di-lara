@@ -80,7 +80,7 @@ const credit = (t("footer.credit") as string).replace("{aipim}", AIPIM.home).rep
   .nocookie { display: inline-flex; gap: 0.5rem; align-items: center; border: 1px solid var(--line-dark); border-radius: 999px; padding: 0.4rem 0.85rem; }
   .nocookie span { color: var(--paglia); font-weight: 700; }
   .credit-band { background: var(--crema); color: var(--on-crema); border-top: 1px solid var(--line); }
-  .credit { padding-block: 1.1rem; font-size: var(--step-small); color: var(--on-crema-dim); line-height: 1.7; text-align: center; max-width: 64ch; margin-inline: auto; }
+  .credit { padding-block: 1.1rem; font-size: var(--step-small); color: var(--on-crema-dim); line-height: 1.7; text-align: center; text-wrap: balance; }
   .credit :global(a) { color: var(--paglia-ink); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(125, 90, 28, 0.35); }
   .credit :global(a:hover) { border-bottom-color: var(--paglia-ink); }
   .credit :global(.heart) { display: inline-block; transform-origin: center; animation: beat 2.4s ease-in-out infinite; }
