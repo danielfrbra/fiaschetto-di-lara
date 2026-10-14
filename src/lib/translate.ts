@@ -4,7 +4,7 @@
  * - Lavora solo sugli eventi SENZA titolo inglese (le colonne inglesi del foglio di Lara vincono).
  * - Memoria in node_modules/.cache/fiaschetto/traduzioni.json (Netlify la conserva fra le build):
  *   ogni testo si traduce una volta sola, chiave = hash di titolo+descrizione.
- * - Un'unica chiamata all'API di Claude per tutti i testi nuovi, risposta in JSON.
+ * - Un'unica chiamata all'API di Claude (Haiku 5.5) per tutti i testi nuovi, risposta in JSON.
  * - Serve la variabile ANTHROPIC_API_KEY sul sito Netlify. Se manca, o se l'API non risponde,
  *   il sito si costruisce lo stesso e gli eventi restano in italiano anche sulla versione inglese
  *   (la pagina lo dice: "Details in Italian").
@@ -16,7 +16,8 @@ import { dirname, join } from "node:path";
 import type { Ev } from "./events";
 
 const CACHE = join(process.cwd(), "node_modules", ".cache", "fiaschetto", "traduzioni.json");
-const MODEL = "claude-opus-5-5";
+// Haiku 5.5, scelta di Daniel (2026-10-14): per una traduzione basta e costa quaranta volte meno di Opus.
+const MODEL = "claude-haiku-5-5";
 
 type Entry = { titleEn: string; descriptionEn: string | null };
 const keyOf = (e: Ev) => createHash("sha1").update(`${e.title}\n${e.description ?? ""}`).digest("hex");
@@ -33,7 +34,14 @@ You receive a JSON array of events, each with "id", "title" and "description" in
 Reply with ONLY a JSON array (no prose, no code fences) of objects with the same "id", and "title" and "description" translated into natural British English for a foreign visitor.
 Rules:
 - Translate faithfully; add nothing, drop nothing, no comments.
-- Keep proper names in Italian: places, squares, streets, venues, associations, and the names of traditional festivals (e.g. "Festa del Vino", "Cene d'Estate", "Non lo butto", "Olea"). When a festival name is opaque, add a short English gloss in parentheses the first time it appears in the description, not in the title.
+- ALWAYS translate the title. Only a brand-like festival name inside it stays in Italian (FORME, Olea, Non lo butto, Calici di note, Moments Musicaux, Festa del Vino, Cene d'Estate); every descriptive word is translated. Examples:
+  "FORME 2026 - Festival di Arte Pubblica" -> "FORME 2026 - Public Art Festival"
+  "Mostra fotografica sugli anni del Covid-19" -> "Photography exhibition on the Covid-19 years"
+  "Halloween in piazza" -> "Halloween in the square"
+  "Mercatino all'Anselmo" -> "Market at the Anselmo"
+  "Sant'Andrea e accensione dell'albero" -> "Saint Andrew's Day and the lighting of the tree"
+  A title may come back identical to the Italian only if it contains no translatable word (e.g. "Olea").
+- In descriptions keep proper names in Italian: places, squares, streets, venues, associations, festival names. When a festival name is opaque, add a short English gloss in parentheses the first time it appears in the description.
 - Keep dates, times, prices, phone numbers and addresses exactly as they are.
 - If "description" is null, return null for it.`;
 
@@ -58,15 +66,14 @@ export async function translateEvents(events: Ev[]): Promise<void> {
   const client = new Anthropic();
   const items = missing.map((e, id) => ({ id, title: e.title, description: e.description }));
   try {
-    const res = await client.beta.messages.create({
+    // Haiku 5.5 non ha il ripiego server-side sui rifiuti: se rifiuta, gli eventi restano in italiano.
+    const res = await client.messages.create({
       model: MODEL,
       max_tokens: 16000,
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
       output_config: { effort: "low" },
       system: SYSTEM,
       messages: [{ role: "user", content: JSON.stringify(items) }],
-    } as Parameters<typeof client.beta.messages.create>[0]);
+    });
     if (res.stop_reason === "refusal") {
       console.warn("[traduzioni] richiesta rifiutata dal modello: eventi lasciati in italiano.");
       return;
