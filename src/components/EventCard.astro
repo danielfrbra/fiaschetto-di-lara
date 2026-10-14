@@ -21,6 +21,7 @@ const multi = e.endDate !== e.date;
       {multi ? fmtRange(e.date, e.endDate, lang) : p.weekday}
       {e.time && <> · {e.time}</>}
       {e.location && <> · {e.location}</>}
+      {e.organizer && e.source === "paese" && <> · {e.organizer}</>}
     </p>
   </div>
 </a>

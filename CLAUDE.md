@@ -52,7 +52,8 @@ Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla pos
 |---|---|---|---|---|---|---|---|---|---|---|---|
 
 - `Data` in `gg/mm/aaaa` (vale anche `gg/mm/aa` o `aaaa-mm-gg`). `Ora` in `hh:mm` (vale anche `20.30` o `20`).
-- `Chi organizza`: se contiene "Fiaschetto" → etichetta rossa "Il Fiaschetto"; se contiene "Associazione" o "Commercianti" → etichetta paglia; altrimenti "In paese".
+- `Chi organizza`: se contiene "Fiaschetto" → etichetta rossa "Il Fiaschetto"; se contiene "Commercianti" o "Artigiani" → etichetta paglia "Associazione Commercianti"; altrimenti "In paese" e il nome compare nella scheda accanto alla data e nella pagina ("Organizza"). (Fino al 2026-10-14 bastava "Associazione": "Associazione Amici" finiva etichettata come Commercianti.)
+- `Foto`: link diretto a un'immagine o link di condivisione Google Drive di un file pubblico (convertito in `drive.google.com/thumbnail?id=…&sz=w1600`); altri link ignorati. Se l'immagine non carica, sparisce (`onerror`).
 - Le righe senza titolo o senza data valida vengono ignorate. Gli eventi passati spariscono da soli.
 - Un evento di Lara con lo stesso titolo lo stesso giorno di uno del Comune **sostituisce** quello del Comune.
 

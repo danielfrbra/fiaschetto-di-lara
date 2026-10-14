@@ -17,13 +17,13 @@ Il sito legge un foglio Google. Ogni riga è un evento. Tu scrivi, salvi, e **en
 | Luogo | dove | Via Garibaldi, Montespertoli |
 | Descrizione | due righe, come le scriveresti su Facebook | Tavoli in strada, musica dal vivo, tagliere e pizza. Prenota al 339 352 0372. |
 | Link | un indirizzo web, se c'è (facoltativo) | https://… |
-| Foto | il link a una foto online (facoltativo) | https://… |
+| Foto | il link a una foto: o un link diretto a un'immagine, o il link "condividi" di una foto su Google Drive resa pubblica (facoltativo) | https://drive.google.com/file/d/… |
 | Chi organizza | **Il Fiaschetto**, **Associazione Commercianti** o il nome di chi organizza | Il Fiaschetto |
 | Titolo in inglese / Descrizione in inglese | facoltativo: se li lasci vuoti, il sito traduce da solo | |
 
 Tre cose da sapere:
 
-- Se nella colonna "Chi organizza" c'è **Fiaschetto**, l'evento ha l'etichetta rossa della bottega. Se c'è **Associazione** o **Commercianti**, ha l'etichetta color paglia. Altrimenti "In paese".
+- Se nella colonna "Chi organizza" c'è **Fiaschetto**, l'evento ha l'etichetta rossa della bottega. Se c'è **Commercianti** o **Artigiani**, ha l'etichetta color paglia dell'associazione. Per chiunque altro (Pro Loco, Comune, un'altra associazione…) l'etichetta è "In paese" e il nome che hai scritto compare accanto alla data.
 - Gli eventi passati **spariscono da soli**. Non serve cancellarli.
 - La versione inglese del sito traduce da sola titoli e descrizioni. Se vuoi scriverli tu, usa le due colonne in inglese: le tue parole vincono.
 - Gli eventi del calendario del Comune (visitmontespertoli.it) arrivano da soli. Se scrivi lo stesso evento nel foglio, vince la tua versione.

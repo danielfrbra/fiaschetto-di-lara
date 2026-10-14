@@ -149,11 +149,32 @@ function parseSheetTime(s: string): string | null {
   if (h > 23) return null;
   return `${String(h).padStart(2, "0")}:${m[2] ?? "00"}`;
 }
+/**
+ * Etichetta della scheda. Rossa se organizza la bottega; paglia solo per l'Associazione
+ * Commercianti e Artigiani (riconosciuta da "commercianti" o "artigiani"); per chiunque altro
+ * ("Associazione Amici", "Pro Loco", "Comune"…) l'etichetta è "In paese" e il nome
+ * dell'organizzatore si legge accanto alla data.
+ */
 function sourceOf(organizer: string | null): Source {
   const o = (organizer ?? "").toLowerCase();
   if (o.includes("fiaschetto")) return "fiaschetto";
-  if (o.includes("associazione") || o.includes("commercianti")) return "associazione";
+  if (o.includes("commercianti") || o.includes("artigiani")) return "associazione";
   return "paese";
+}
+
+/**
+ * Il campo "Foto" del foglio: accetta un link diretto a un'immagine oppure un link
+ * di condivisione Google Drive (file pubblico), che viene trasformato nell'indirizzo
+ * dell'immagine. Tutto il resto (Instagram, Facebook, pagine web) viene ignorato:
+ * meglio nessuna foto che un'icona rotta.
+ */
+function imageUrlOf(raw: string | null): string | null {
+  if (!raw) return null;
+  const u = raw.trim();
+  const drive = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?.*id=)([\w-]{20,})/);
+  if (drive) return `https://drive.google.com/thumbnail?id=${drive[1]}&sz=w1600`;
+  if (/^https?:\/\/\S+\.(jpe?g|png|webp|gif|avif)(\?\S*)?$/i.test(u)) return u;
+  return null;
 }
 
 function fromSheet(text: string): Ev[] {
@@ -186,7 +207,7 @@ function fromSheet(text: string): Ev[] {
       description: get(cDesc),
       descriptionEn: get(cDescEn),
       url: get(cLink),
-      image: get(cPhoto),
+      image: imageUrlOf(get(cPhoto)),
       organizer,
       source: sourceOf(organizer),
       origin: "foglio",
