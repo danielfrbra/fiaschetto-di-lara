@@ -100,7 +100,7 @@ Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla pos
 | Codice | `danielfrbra/fiaschetto-di-lara` (privato), branch `main` → ogni push pubblica |
 | Hosting | Netlify, sito `fiaschetto-di-lara` (id `5d329620-27c9-491a-bf80-59596fbaa3cd`), account di Daniel |
 | Indirizzo | https://fiaschetto-di-lara.netlify.app |
-| Modulo | Netlify Forms, modulo `contatti` (dal 2026-10-14; prima `prenota`, che resta nel pannello con l'invio di prova) — campi nome, recapito, motivo (regalo / festa-evento / consiglio / altro), messaggio; notifiche email (hook `submission_created`) a **lara7102@icloud.com** con copia a **danielfrbra@gmail.com** (dal 2026-10-14; prima solo a danielfr@gmail.com); invio di prova del 2026-10-13 andato a buon fine |
+| Modulo | Netlify Forms, modulo `contatti` (dal 2026-10-14; prima `prenota`, che resta nel pannello con l'invio di prova) — campi nome, recapito, motivo (regalo / festa-evento / consiglio / altro), messaggio; notifiche email (hook `submission_created`) a **lara7102@icloud.com** con copia a **daniel@aipim.ai** (dal 2026-10-14; prima solo a danielfr@gmail.com); invio di prova del 2026-10-13 andato a buon fine |
 | Ricostruzione | `rebuild` ogni giorno alle 04:00 UTC + `controlla-foglio` ogni 5 minuti se il foglio è cambiato → build hook (variabile `BUILD_HOOK_URL`) |
 
 Collegato al repository via API con l'installazione GitHub dell'app Netlify già presente sull'account (`installation_id` 119842415). Il primo deploy è passato al primo colpo.
