@@ -158,6 +158,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--paglia); background: rgba(255, 255, 255, 0.08); }
 .field textarea { min-height: 7rem; resize: vertical; }
+.field select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e1b96b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2.6rem; cursor: pointer; }
+.field select option { color: var(--on-crema); background: var(--crema-2); }
 .consent { display: flex; gap: 0.7rem; align-items: flex-start; font-size: var(--step-small); color: var(--on-ink-dim); }
 .consent input { margin-top: 0.3rem; accent-color: var(--paglia); flex: none; }
 .consent a { color: var(--on-ink); }

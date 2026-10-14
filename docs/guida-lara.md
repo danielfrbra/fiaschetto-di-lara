@@ -33,7 +33,7 @@ Tre cose da sapere:
 - **Apertura** con il video della bottega, poi "La bottega", "Il territorio", "Cosa succede in paese", "La storia", "Non solo vino", le foto, i contatti.
 - Ogni evento ha la sua pagina: il link si condivide su WhatsApp e Facebook con l'anteprima giusta, e chi lo apre può metterlo nel calendario del telefono con un tocco.
 - Il pulsante **WhatsApp** è sempre in alto: porta al 339 352 0372.
-- Il modulo "Prenota un tavolo o una cena" manda un'email: per ora arriva a Daniel, poi lo giriamo a te.
+- Il modulo "Parla con noi" (regali, feste, eventi, consigli sul vino) manda un'email: per ora arriva a Daniel, poi lo giriamo a te.
 - **Zero cookie, zero tracciamento**: niente banner da far chiudere ai clienti.
 
 ## Cosa serve da te, quando vuoi

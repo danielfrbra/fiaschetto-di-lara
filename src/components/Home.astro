@@ -224,19 +224,24 @@ const jsonLd = {
             <div><dt><Icons name="instagram" />{t("contact.social_label")}</dt><dd><a class="ext" href={SITE.instagram} target="_blank" rel="noopener">{SITE.instagramHandle}</a><br /><a class="ext" href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></dd></div>
           </dl>
         </div>
-        <form class="contact-form reveal" data-delay="2" name="prenota" method="POST" action={home(lang)} data-netlify="true" netlify-honeypot="bot-field" data-fetch>
-          <input type="hidden" name="form-name" value="prenota" />
+        <form class="contact-form reveal" data-delay="2" name="contatti" method="POST" action={home(lang)} data-netlify="true" netlify-honeypot="bot-field" data-fetch>
+          <input type="hidden" name="form-name" value="contatti" />
           <input type="hidden" name="lingua" value={lang} />
           <p class="hp" aria-hidden="true"><label>Non compilare <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
           <h3 class="form-title">{t("contact.form_title")}</h3>
+          <p class="form-intro">{t("contact.form_intro")}</p>
           <div class="row">
             <label class="field"><span>{t("contact.f_name")}</span><input name="nome" type="text" required autocomplete="name" /></label>
             <label class="field"><span>{t("contact.f_contact")}</span><input name="recapito" type="text" required autocomplete="tel" /></label>
           </div>
-          <div class="row">
-            <label class="field"><span>{t("contact.f_date")}</span><input name="quando" type="text" placeholder="…" /></label>
-            <label class="field"><span>{t("contact.f_people")}</span><input name="persone" type="number" min="1" max="60" inputmode="numeric" /></label>
-          </div>
+          <label class="field"><span>{t("contact.f_reason")}</span>
+            <select name="motivo" required>
+              <option value="regalo">{t("contact.r_gift")}</option>
+              <option value="festa-evento">{t("contact.r_party")}</option>
+              <option value="consiglio">{t("contact.r_advice")}</option>
+              <option value="altro">{t("contact.r_other")}</option>
+            </select>
+          </label>
           <label class="field"><span>{t("contact.f_msg")}</span><textarea name="messaggio" required></textarea></label>
           <label class="consent"><input type="checkbox" name="consenso" value="si" required /><span set:html={consent} /></label>
           <button class="btn btn-solid" type="submit">{t("contact.f_send")}<Icons name="arrow" /></button>
@@ -330,6 +335,7 @@ const jsonLd = {
   .facts dd a:hover { text-decoration: underline; }
   .contact-form { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--radius); border: 1px solid var(--line-dark); background: rgba(255, 255, 255, 0.03); }
   .form-title { font-size: var(--step-h3); }
+  .form-intro { color: var(--on-ink-dim); font-size: 0.95rem; margin-top: -0.3rem; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .hp { position: absolute; left: -9999px; }
   .contact-form .btn { justify-self: start; }

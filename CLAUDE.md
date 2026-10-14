@@ -41,6 +41,7 @@ La tessera `g3` è una **foto vera** dell'interno (scaffali), presa dalla scheda
 - ~~Orari~~: noti dal 2026-10-14 (Daniel): lun 16:30-20, mar-sab 9:30-12:30 e 16:30-20, dom 9:30-12:30. Stanno in `SITE.hours` (righe IT/EN) e `SITE.openingHours` (JSON-LD) in `src/config/site.ts`.
 - **Email**: nessuna. Il canale è WhatsApp sul **339 352 0372** (numero usato per le prenotazioni della bottega e dall'Associazione, pubblicato nei comunicati del Comune).
 - I produttori elencati nella sezione "Il territorio" sono quelli del territorio (dal programma Chianti Lovers Week 2025), **non** una promessa di cosa c'è in bottega: il testo lo dice ("alcuni dei produttori del territorio"). Non trasformarlo in un listino.
+- **La bottega non fa cene né ristorazione** (Daniel, 2026-10-14): si beve un bicchiere, si stuzzica qualcosa, ma niente tavoli da prenotare. Il modulo è "Parla con noi" (regali, feste, eventi, consigli), non una prenotazione. Le "Cene d'Estate" citate nel sito sono l'evento del paese, non un servizio della bottega.
 - Le recensioni e i telefoni vecchi online (TripAdvisor 2014, Expedia, 347… / 333…) sono dell'era Conti: non usarli.
 
 ## Foglio Google degli eventi — formato
@@ -90,7 +91,7 @@ Prima riga = intestazioni. Le colonne si riconoscono dal **nome**, non dalla pos
 | Codice | `danielfrbra/fiaschetto-di-lara` (privato), branch `main` → ogni push pubblica |
 | Hosting | Netlify, sito `fiaschetto-di-lara` (id `5d329620-27c9-491a-bf80-59596fbaa3cd`), account di Daniel |
 | Indirizzo | https://fiaschetto-di-lara.netlify.app |
-| Modulo | Netlify Forms, modulo `prenota` (rilevamento attivo); notifica email a danielfr@gmail.com (hook `submission_created`, da girare a Lara alla consegna); invio di prova del 2026-10-13 andato a buon fine |
+| Modulo | Netlify Forms, modulo `contatti` (dal 2026-10-14; prima `prenota`, che resta nel pannello con l'invio di prova) — campi nome, recapito, motivo (regalo / festa-evento / consiglio / altro), messaggio; notifica email a danielfr@gmail.com (hook `submission_created`, da girare a Lara alla consegna); invio di prova del 2026-10-13 andato a buon fine |
 | Ricostruzione | `rebuild` ogni giorno alle 04:00 UTC + `controlla-foglio` ogni 5 minuti se il foglio è cambiato → build hook (variabile `BUILD_HOOK_URL`) |
 
 Collegato al repository via API con l'installazione GitHub dell'app Netlify già presente sull'account (`installation_id` 119842415). Il primo deploy è passato al primo colpo.
