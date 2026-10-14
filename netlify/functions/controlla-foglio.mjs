@@ -8,6 +8,8 @@
 import { EVENT_SOURCES } from "../../src/config/events.ts";
 
 const SITE = process.env.URL || "https://fiaschetto-di-lara.netlify.app";
+// Finché il DNS del dominio nuovo non è attivo, la copia pubblicata si legge dal sottodominio Netlify.
+const FALLBACK = "https://fiaschetto-di-lara.netlify.app";
 
 export const decide = (sheet, live) => {
   if (sheet == null) return "foglio non leggibile: aspetto";
@@ -23,11 +25,12 @@ const read = async (url) => {
 };
 
 export default async () => {
+  const published = async (name) => (await read(`${SITE}/_fonti/${name}`)) ?? (SITE !== FALLBACK ? await read(`${FALLBACK}/_fonti/${name}`) : null);
   const [sheet, live, prod, prodLive] = await Promise.all([
     read(EVENT_SOURCES.sheetCsv(EVENT_SOURCES.sheetId)),
-    read(`${SITE}/_fonti/foglio.csv`),
+    published("foglio.csv"),
     read(EVENT_SOURCES.producersCsv(EVENT_SOURCES.sheetId)),
-    read(`${SITE}/_fonti/produttori.csv`),
+    published("produttori.csv"),
   ]);
   let esito = decide(sheet, live);
   // la linguetta Produttori: se c'è (e non è una pagina di errore), conta anche lei

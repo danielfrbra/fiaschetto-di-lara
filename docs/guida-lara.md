@@ -2,7 +2,7 @@
 
 > Versione testo del manuale consegnato a Lara. Il PDF impaginato è `docs/Il-Fiaschetto-di-Lara_il-tuo-sito.pdf`, la sorgente è `docs/manuale/manuale.html` (si rigenera con Chrome, vedi CLAUDE.md).
 
-**Indirizzo:** https://fiaschetto-di-lara.netlify.app (in inglese: `/en/`). Quando avrai il tuo dominio, lo faremo puntare qui: l'indirizzo cambia, il sito resta.
+**Indirizzo:** https://ilfiaschettodilara.it (in inglese: `/en/`). Finché il dominio non è attivo, il sito risponde anche a https://fiaschetto-di-lara.netlify.app.
 
 ## Questo è il tuo sito
 
@@ -51,7 +51,6 @@ Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Even
 ## Quando vuoi, in più
 
 1. **Le tue foto**: sei scatti col telefono e sostituiamo le immagini d'atmosfera.
-2. **Il tuo dominio** (per esempio ilfiaschettodilara.it): lo compri tu, lo facciamo puntare noi.
-3. **Il nome esatto dell'attività** per l'informativa privacy.
+2. **Il nome esatto dell'attività** per l'informativa privacy.
 
 Fatto con ❤️ da aipim.ai · info@aipim.ai
