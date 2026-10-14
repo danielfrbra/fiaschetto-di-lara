@@ -43,7 +43,7 @@ Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Even
 
 ## I messaggi, gli orari, le modifiche
 
-- **«Parla con noi»**: il modulo in fondo al sito (regali, feste, eventi, consigli) manda un'email. Per ora arriva a Daniel; quando vuoi, a te.
+- **«Parla con noi»**: il modulo in fondo al sito (regali, feste, eventi, consigli) manda un'email a lara7102@icloud.com, con copia a Daniel.
 - **WhatsApp**: il pulsante apre una chat con il 339 352 0372.
 - **Orari sul sito**: lunedì 16:30-20:00; martedì-sabato 9:30-12:30 e 16:30-20:00; domenica 9:30-12:30. Se cambiano, diccelo.
 - **Per cambiare qualcosa** (testo, foto, orario, prezzo): scrivi a Daniel. Niente pannelli, niente password.
@@ -52,7 +52,6 @@ Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Even
 
 1. **Le tue foto**: sei scatti col telefono e sostituiamo le immagini d'atmosfera.
 2. **Il tuo dominio** (per esempio ilfiaschettodilara.it): lo compri tu, lo facciamo puntare noi.
-3. **Un'email tua** per i messaggi del modulo.
-4. **Il nome esatto dell'attività** per l'informativa privacy.
+3. **Il nome esatto dell'attività** per l'informativa privacy.
 
 Fatto con ❤️ da aipim.ai · info@aipim.ai
