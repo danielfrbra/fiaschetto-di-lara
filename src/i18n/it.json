@@ -169,7 +169,7 @@
     "follow": "Seguici",
     "nocookie": "Questo sito non usa cookie e non traccia nessuno. Niente da accettare.",
     "privacy": "Privacy",
-    "made": "Fatto con cura a Montespertoli"
+    "credit": "Fatto con <span class=\"heart\" aria-label=\"amore\">❤️</span> da <a href=\"{aipim}\" target=\"_blank\" rel=\"noopener\">aipim.ai</a>. Ti piace? Ne facciamo uno anche per la tua attività: <a href=\"{contact}\" target=\"_blank\" rel=\"noopener\">scrivici</a>, oppure <a href=\"{lara}\" target=\"_blank\" rel=\"noopener\">chiedi a Lara</a>."
   },
   "privacy": {
     "title": "Informativa sulla privacy",

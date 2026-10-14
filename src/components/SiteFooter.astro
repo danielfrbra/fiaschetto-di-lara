@@ -11,6 +11,9 @@ const onHome = current === "home";
 const anchor = (id: string) => homeAnchor(lang, id, onHome);
 const altOf = (l: Lang) => alternates?.[l] ?? home(l);
 const year = new Date().getFullYear();
+/** Chi ha fatto il sito: link al sito di Aipim (contatti nella lingua giusta) e al WhatsApp della bottega. Unico legame con aipim.ai: un link. */
+const AIPIM = { home: "https://aipim.ai", contact: { it: "https://aipim.ai/it/#contatti", en: "https://aipim.ai/en/#contatti" } as Record<Lang, string> };
+const credit = (t("footer.credit") as string).replace("{aipim}", AIPIM.home).replace("{contact}", AIPIM.contact[lang]).replace("{lara}", SITE.whatsapp);
 ---
 
 <footer class="footer dark grain">
@@ -50,8 +53,9 @@ const year = new Date().getFullYear();
     </div>
     <div class="bottom">
       <p class="nocookie"><span aria-hidden="true">✓</span> {t("footer.nocookie")}</p>
-      <p class="colophon">© {year} {SITE.name} · {t("footer.made")}</p>
+      <p class="colophon">© {year} {SITE.name}</p>
     </div>
+    <p class="credit" set:html={credit} />
   </div>
 </footer>
 
@@ -72,5 +76,11 @@ const year = new Date().getFullYear();
   .bottom { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line-dark); display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; font-size: var(--step-small); color: var(--on-ink-dim); }
   .nocookie { display: inline-flex; gap: 0.5rem; align-items: center; border: 1px solid var(--line-dark); border-radius: 999px; padding: 0.4rem 0.85rem; }
   .nocookie span { color: var(--paglia); font-weight: 700; }
+  .credit { margin-top: 1.25rem; font-size: var(--step-small); color: var(--on-ink-dim); line-height: 1.7; }
+  .credit :global(a) { color: var(--paglia); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(225, 185, 107, 0.35); }
+  .credit :global(a:hover) { border-bottom-color: var(--paglia); }
+  .credit :global(.heart) { display: inline-block; transform-origin: center; animation: beat 2.4s ease-in-out infinite; }
+  @keyframes beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.18); } 28% { transform: scale(1); } 42% { transform: scale(1.12); } 56% { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .credit :global(.heart) { animation: none; } }
   @media (max-width: 760px) { .cols { grid-template-columns: 1fr 1fr; } .brand-col { grid-column: 1 / -1; } }
 </style>

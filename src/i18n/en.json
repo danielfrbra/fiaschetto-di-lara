@@ -169,7 +169,7 @@
     "follow": "Follow us",
     "nocookie": "This site uses no cookies and tracks no one. Nothing to accept.",
     "privacy": "Privacy",
-    "made": "Made with care in Montespertoli"
+    "credit": "Made with <span class=\"heart\" aria-label=\"love\">❤️</span> by <a href=\"{aipim}\" target=\"_blank\" rel=\"noopener\">aipim.ai</a>. Like it? We'll make one for your business too: <a href=\"{contact}\" target=\"_blank\" rel=\"noopener\">drop us a line</a>, or <a href=\"{lara}\" target=\"_blank\" rel=\"noopener\">ask Lara</a>."
   },
   "privacy": {
     "title": "Privacy notice",

@@ -6,7 +6,7 @@ Sito vetrina de **Il Fiaschetto di Lara**: bottega del vino nel centro storico d
 
 Il sito è un **regalo** di Daniel a Lara, costruito **a sorpresa** (lei non sa nulla, niente richieste di foto o orari). Serve a farle vedere la qualità del servizio "siti web" che poi lei potrà proporre alle altre attività del paese. La qualità percepita è il prodotto.
 
-**Progetto totalmente indipendente** da aipim-website e quolab-website: repository proprio (`danielfrbra/fiaschetto-di-lara`), sito Netlify proprio, nessuna variabile, chiave, link o dominio in comune. Si riusa solo il know-how.
+**Progetto totalmente indipendente** da aipim-website e quolab-website: repository proprio (`danielfrbra/fiaschetto-di-lara`), sito Netlify proprio, nessuna variabile, chiave, link o dominio in comune. Si riusa solo il know-how. Unica eccezione, voluta da Daniel il 2026-10-14: nel piè di pagina di tutte le pagine c'è la riga «Fatto con ❤️ da aipim.ai…» con link a aipim.ai (contatti nella lingua della pagina) e al WhatsApp di Lara: è la chiamata all'azione per gli altri commercianti che vogliono un sito. Testo in `footer.credit` (i18n), link in `SiteFooter.astro`.
 
 ## Comunicazione con Daniel (project owner)
 
