@@ -2,7 +2,7 @@
 
 > Versione testo del manuale consegnato a Lara. Il PDF impaginato è `docs/Il-Fiaschetto-di-Lara_il-tuo-sito.pdf`, la sorgente è `docs/manuale/manuale.html` (si rigenera con Chrome, vedi CLAUDE.md).
 
-**Indirizzo:** https://ilfiaschettodilara.it (in inglese: `/en/`). Finché il dominio non è attivo, il sito risponde anche a https://fiaschetto-di-lara.netlify.app.
+**Indirizzo:** https://ilfiaschettodilara.it (in inglese: `/en/`). Il vecchio indirizzo fiaschetto-di-lara.netlify.app porta qui automaticamente.
 
 ## Questo è il tuo sito
 
@@ -14,7 +14,7 @@ In italiano e in inglese, perfetto sul telefono, zero cookie e niente banner, pu
 
 ## Gli eventi li scrivi tu
 
-Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Eventi Il Fiaschetto». 2) Una riga, un evento: titolo e data bastano. 3) Non serve salvare. 4) Entro cinque minuti è online, in italiano e in inglese.
+Il sito legge il foglio Google «Gestionale ilfiaschettodilara». Ogni riga della linguetta **Eventi** è un evento. 1) Apri il foglio, linguetta Eventi. 2) Una riga, un evento: titolo e data bastano. 3) Non serve salvare. 4) Entro cinque minuti è online, in italiano e in inglese.
 
 | Colonna | Cosa scrivere | Esempio |
 |---|---|---|
@@ -31,6 +31,10 @@ Il sito legge un foglio Google. Ogni riga è un evento. 1) Apri il foglio «Even
 | Titolo in inglese / Descrizione in inglese | solo se vuoi dirla tu: se vuoti, il sito traduce da solo | |
 
 `*` obbligatorie. Le righe senza titolo o senza data valida vengono ignorate.
+
+## E i produttori? Stesso foglio, linguetta «Produttori»
+
+Nel «Gestionale» c'è una seconda linguetta, **Produttori**: la prima riga dice «Produttore», poi un nome per riga. Sono i nomi che compaiono sul sito sotto «I produttori che trovi in bottega», nell'ordine in cui li scrivi. Aggiungi una riga per aggiungerne uno, cancellala per toglierlo: entro cinque minuti il sito si aggiorna.
 
 ## Le regole del gioco
 

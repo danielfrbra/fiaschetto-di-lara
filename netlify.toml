@@ -10,6 +10,13 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Il vecchio indirizzo (sottodominio Netlify) porta al dominio di Lara, per sempre (301).
+[[redirects]]
+  from = "https://fiaschetto-di-lara.netlify.app/*"
+  to = "https://ilfiaschettodilara.it/:splat"
+  status = 301
+  force = true
+
 # ——————————————————————————————————————————————————————————————
 # Cache: i file con l'hash nel nome (_astro) e i font non cambiano mai → un anno.
 # Video, poster e foto possono essere sostituiti con lo stesso nome → una settimana.

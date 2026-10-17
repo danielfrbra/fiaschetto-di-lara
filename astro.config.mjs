@@ -27,8 +27,8 @@ const copiaFoglio = () => ({
 });
 
 export default defineConfig({
-  // Finché Lara non compra il dominio, il sito vive sul sottodominio Netlify.
-  site: "https://fiaschetto-di-lara.netlify.app",
+  // Dominio di Lara (Aruba), attivo dal 2026-10-17. Il sottodominio Netlify reindirizza qui (netlify.toml).
+  site: "https://ilfiaschettodilara.it",
   // Netlify serve le cartelle con la barra finale e reindirizza /eventi → /eventi/.
   // Mettiamo la barra ovunque, così canonical, hreflang e link coincidono con quello che serve davvero: zero redirect.
   trailingSlash: "always",

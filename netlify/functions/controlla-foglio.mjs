@@ -26,8 +26,10 @@ const read = async (url) => {
 
 export default async () => {
   const published = async (name) => (await read(`${SITE}/_fonti/${name}`)) ?? (SITE !== FALLBACK ? await read(`${FALLBACK}/_fonti/${name}`) : null);
+  // la linguetta "Eventi" per nome; se non c'è, il primo foglio (come fa la build)
+  const readSheet = async () => { const t = await read(EVENT_SOURCES.sheetCsv(EVENT_SOURCES.sheetId)); return t && !/<html/i.test(t) ? t : read(EVENT_SOURCES.sheetCsvFallback(EVENT_SOURCES.sheetId)); };
   const [sheet, live, prod, prodLive] = await Promise.all([
-    read(EVENT_SOURCES.sheetCsv(EVENT_SOURCES.sheetId)),
+    readSheet(),
     published("foglio.csv"),
     read(EVENT_SOURCES.producersCsv(EVENT_SOURCES.sheetId)),
     published("produttori.csv"),

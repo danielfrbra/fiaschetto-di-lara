@@ -216,6 +216,14 @@ function fromSheet(text: string): Ev[] {
   return out;
 }
 
+/** La linguetta "Eventi" per nome; se non c'è (rinominata), il primo foglio. Una risposta HTML è una pagina di errore di Google. */
+async function fetchSheet(): Promise<string | null> {
+  const byName = await fetchText(EVENT_SOURCES.sheetCsv(EVENT_SOURCES.sheetId), "foglio Google (linguetta Eventi)", "foglio.csv");
+  if (byName && !/<html/i.test(byName)) return byName;
+  console.warn("[eventi] nessuna linguetta chiamata \"Eventi\": leggo il primo foglio.");
+  return fetchText(EVENT_SOURCES.sheetCsvFallback(EVENT_SOURCES.sheetId), "foglio Google (primo foglio)", "foglio.csv");
+}
+
 /* ——— Unione ——— */
 const STOP = new Set(["di", "del", "della", "dell", "dello", "dei", "degli", "delle", "sul", "sull", "sulla", "e", "ed", "in", "a", "al", "alla", "il", "la", "le", "lo", "i", "gli", "un", "una", "per", "con", "da", "the", "of", "and"]);
 function tokens(title: string): Set<string> {
@@ -242,7 +250,7 @@ export function loadEvents(): Promise<Ev[]> {
 
 async function load(): Promise<Ev[]> {
   const [sheetText, icalText] = await Promise.all([
-    fetchText(EVENT_SOURCES.sheetCsv(EVENT_SOURCES.sheetId), "foglio Google", "foglio.csv"),
+    fetchSheet(),
     fetchText(EVENT_SOURCES.comuneIcal, "calendario del Comune", "comune.ics"),
   ]);
   const own = sheetText ? fromSheet(sheetText) : [];
